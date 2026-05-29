@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Generator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo-section">
+            <h1>ResumeForge</h1>
+            <p>ATS Optimized Resume Builder</p>
+        </div>
+
+        <div class="nav-actions">
+
+            <div class="ai-toggle-wrapper">
+
+                <span>AI Assist</span>
+
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+
+            </div>
+
+            <button class="premium-btn">
+                Premium Templates
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN APP -->
+
+    <main class="app-container">
+
+
+        <!-- LEFT PANEL -->
+
+        <section class="form-panel">
+
+            <div class="panel-header">
+                <h2>Resume Details</h2>
+                <p>Fill your information professionally.</p>
+            </div>
+
+
+            <!-- PERSONAL DETAILS -->
+
+            <div class="form-section">
+
+                <h3>Personal Details</h3>
+
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="John Doe">
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="john@example.com">
+                </div>
+
+                <div class="input-group">
+                    <label>Phone</label>
+                    <input type="text" placeholder="+91 XXXXX XXXXX">
+                </div>
+
+                <div class="input-group">
+                    <label>LinkedIn</label>
+                    <input type="text" placeholder="linkedin.com/in/john">
+                </div>
+
+            </div>
+
+
+            <!-- EDUCATION -->
+
+            <div class="form-section">
+
+                <h3>Education</h3>
+
+                <div class="input-group">
+                    <label>College Name</label>
+                    <input type="text" placeholder="Your College Name">
+                </div>
+
+                <div class="input-group">
+                    <label>Degree</label>
+                    <input type="text" placeholder="B.Tech Information Technology">
+                </div>
+
+                <div class="input-group">
+                    <label>Graduation Year</label>
+                    <input type="text" placeholder="2027">
+                </div>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="form-section">
+
+                <h3>Skills</h3>
+
+                <div class="skills-container">
+
+                    <button class="skill-pill active">HTML</button>
+                    <button class="skill-pill active">CSS</button>
+                    <button class="skill-pill active">JavaScript</button>
+                    <button class="skill-pill">React</button>
+                    <button class="skill-pill">Node.js</button>
+                    <button class="skill-pill">MongoDB</button>
+                    <button class="skill-pill">DSA</button>
+                    <button class="skill-pill">Git</button>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECTS -->
+
+            <div class="form-section">
+
+                <h3>Projects</h3>
+
+                <div class="input-group">
+                    <label>Project Name</label>
+                    <input type="text" placeholder="Expense Tracker">
+                </div>
+
+                <div class="input-group">
+                    <label>Technologies Used</label>
+                    <input type="text" placeholder="HTML, CSS, JavaScript">
+                </div>
+
+                <div class="input-group">
+                    <label>Main Feature</label>
+                    <textarea placeholder="Describe the core functionality"></textarea>
+                </div>
+
+            </div>
+
+
+            <!-- TEMPLATE SECTION -->
+
+            <div class="form-section">
+
+                <h3>Template Style</h3>
+
+                <div class="template-selector">
+
+                    <div class="template-card active-template">
+                        <span>Classic</span>
+                    </div>
+
+                    <div class="template-card">
+                        <span>Modern</span>
+                    </div>
+
+                    <div class="template-card">
+                        <span>Minimal</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="action-buttons">
+                <button class="primary-btn">Download PDF</button>
+                <button class="secondary-btn">Save Draft</button>
+            </div>
+
+        </section>
+
+
+
+        <!-- RIGHT PANEL -->
+
+        <section class="preview-panel">
+
+            <div class="preview-header">
+                <h2>Live Preview</h2>
+                <span>ATS Friendly Layout</span>
+            </div>
+
+
+            <!-- A4 RESUME -->
+
+            <div class="resume-paper">
+
+                <!-- HEADER -->
+
+                <header class="resume-header">
+                    <h1>John Doe</h1>
+                    <p>
+                        john@example.com |
+                        +91 XXXXX XXXXX |
+                        linkedin.com/in/john
+                    </p>
+                </header>
+
+
+                <!-- EDUCATION -->
+
+                <section class="resume-section">
+
+                    <div class="section-title">
+                        Education
+                    </div>
+
+                    <div class="resume-block">
+
+                        <div class="resume-row">
+                            <h3>Jaipur Engineering College</h3>
+                            <span>2027</span>
+                        </div>
+
+                        <p>B.Tech — Information Technology</p>
+
+                    </div>
+
+                </section>
+
+
+                <!-- PROJECTS -->
+
+                <section class="resume-section">
+
+                    <div class="section-title">
+                        Projects
+                    </div>
+
+                    <div class="resume-block">
+
+                        <div class="resume-row">
+                            <h3>Expense Tracker</h3>
+                            <span>HTML • CSS • JS</span>
+                        </div>
+
+                        <ul>
+                            <li>
+                                Built a responsive expense management application with real-time balance tracking.
+                            </li>
+
+                            <li>
+                                Implemented LocalStorage persistence and category-based filtering.
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </section>
+
+
+                <!-- SKILLS -->
+
+                <section class="resume-section">
+
+                    <div class="section-title">
+                        Skills
+                    </div>
+
+                    <div class="resume-skills">
+                        HTML5 • CSS3 • JavaScript • React • Node.js • MongoDB
+                    </div>
+
+                </section>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
