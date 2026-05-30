@@ -1,6 +1,33 @@
+//Selecting Tab panes
+
+const tabContainer = document.querySelector(".section-tabs");
+
+tabContainer.addEventListener("click", (e) => {
+
+    const clickedTab = e.target.closest(".stab");
+
+    if (!clickedTab) return;
+
+    document.querySelectorAll(".stab")
+        .forEach(tab => tab.classList.remove("active"));
+
+    clickedTab.classList.add("active");
+
+    document.querySelectorAll(".tab-pane")
+        .forEach(pane => pane.classList.remove("active"));
+
+    const paneName = clickedTab.dataset.tab;
+
+    document
+        .querySelector(`#pane-${paneName}`)
+        .classList.add("active");
+
+});
+
+
+
 
 //  Personal Details -> Live Preview
-
 
 // ── Input elements (form)
 const fName      = document.getElementById('f-name');
@@ -61,3 +88,9 @@ function updatePreview() {
 
 // ── Run once on load so preview shows defaults correctly
 updatePreview();
+
+
+
+//  EDUCATION
+
+
