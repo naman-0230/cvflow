@@ -732,9 +732,8 @@ body.ai-on .ai-badge { opacity: 1; }
 
 /* ══════════════════════════════════════════════════════════════
    RESUME DOCUMENT STYLES
-   Matches Naman's PDF: center header, bold names, rule dividers,
-   bullet lists for projects/experience, category:skills row
 ══════════════════════════════════════════════════════════════ */
+
 #resumeDoc {
   padding: 44px 52px 48px;
   font-family: 'Georgia', 'Times New Roman', serif;

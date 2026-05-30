@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ResumeForge — ATS Resume Builder</title>
+  <title>Resume CVflow</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,600;1,400&display=swap" rel="stylesheet" />
+  <script src="script.js" defer></script>
 </head>
 <body>
 
@@ -19,7 +20,7 @@
   <div class="nav-brand">
     <span class="brand-mark">◈</span>
     <div class="brand-text">
-      <span class="brand-name">ResumeForge</span>
+      <span class="brand-name">CVflow</span>
       <span class="brand-sub">ATS-Optimised Builder</span>
     </div>
   </div>
@@ -52,12 +53,13 @@
 
 </nav>
 
-<!-- AI Active Notice -->
+<!-- AI Active Notice Toast Notification-->
 <div class="ai-notice" id="aiNotice">
   <span class="ai-notice-dot"></span>
   AI Assist is <strong>on</strong> — descriptions will be enhanced automatically when you click Generate.
   <button class="ai-notice-dismiss" id="dismissNotice">×</button>
 </div>
+
 
 <!-- ╔══════════════════════════════════════════════════════╗
      ║  APP SHELL                                          ║
@@ -487,7 +489,6 @@
 
         <!-- ══════════════════════════════════════
              RESUME — CLASSIC TEMPLATE OUTPUT
-             Matches Naman's PDF style exactly
         ══════════════════════════════════════ -->
 
         <!-- Header -->
