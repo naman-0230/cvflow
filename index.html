@@ -225,6 +225,8 @@
                     </template>
                 </div>
 
+
+
                 <!-- ══ SKILLS ══ -->
                 <div class="tab-pane" id="pane-skills">
                     <div class="pane-head">
@@ -325,7 +327,10 @@
                         <div class="selected-tags" id="tags-soft"></div>
                     </div>
                 </div>
+
+
                 <!-- ══ PROJECTS ══ -->
+                
                 <div class="tab-pane" id="pane-projects">
                     <div class="pane-head">
                         <h2 class="pane-title">Projects</h2>
@@ -333,7 +338,6 @@
                     </div>
 
                     <div id="proj-list" class="entry-list"></div>
-
                     <button class="btn-add" id="addProj">+ Add Project</button>
 
                     <template id="tpl-proj">
@@ -343,6 +347,8 @@
                                 <button class="entry-remove">×</button>
                             </div>
                             <div class="fields">
+
+                                <!-- Row 1: Name + Link -->
                                 <div class="field-row">
                                     <div class="field">
                                         <label class="flabel">Project Name <span class="req">*</span></label>
@@ -355,27 +361,78 @@
                                             placeholder="github.com/you/project" />
                                     </div>
                                 </div>
+
+                                <!-- Tech Stack chip system -->
                                 <div class="field field--full">
                                     <label class="flabel">Tech Stack</label>
-                                    <input class="finput" name="pstack" type="text"
-                                        placeholder="HTML5 · CSS3 · JavaScript · localStorage" />
+                                    <div class="chip-pool proj-stack-pool">
+                                        <span class="chip" data-cat="stack">HTML5</span>
+                                        <span class="chip" data-cat="stack">CSS3</span>
+                                        <span class="chip" data-cat="stack">JavaScript</span>
+                                        <span class="chip" data-cat="stack">TypeScript</span>
+                                        <span class="chip" data-cat="stack">React.js</span>
+                                        <span class="chip" data-cat="stack">Next.js</span>
+                                        <span class="chip" data-cat="stack">Node.js</span>
+                                        <span class="chip" data-cat="stack">Express.js</span>
+                                        <span class="chip" data-cat="stack">MongoDB</span>
+                                        <span class="chip" data-cat="stack">MySQL</span>
+                                        <span class="chip" data-cat="stack">PostgreSQL</span>
+                                        <span class="chip" data-cat="stack">Firebase</span>
+                                        <span class="chip" data-cat="stack">Tailwind CSS</span>
+                                        <span class="chip" data-cat="stack">Python</span>
+                                        <span class="chip" data-cat="stack">Django</span>
+                                        <span class="chip" data-cat="stack">Flask</span>
+                                        <span class="chip" data-cat="stack">Java</span>
+                                        <span class="chip" data-cat="stack">Spring Boot</span>
+                                        <span class="chip" data-cat="stack">Docker</span>
+                                        <span class="chip" data-cat="stack">AWS</span>                                      
+                                        <span class="chip" data-cat="stack">REST API</span>                                    
+                                        <span class="chip" data-cat="stack">localStorage</span>
+                                        <span class="chip" data-cat="stack">SQLite</span>
+                                    </div>
+                                    <input class="finput custom-skill-input proj-stack-input" type="text"
+                                        placeholder="Type a technology + press Enter" />
+                                    <div class="selected-tags proj-stack-tags"></div>
                                 </div>
+
+                                <!-- Improvement X: Bullet Builder -->
                                 <div class="field field--full">
                                     <label class="flabel">
-                                        Bullet Points
-                                        <span class="ai-badge" id="projAiBadge">✦ AI will enhance this</span>
+                                        Project Description
+                                        <span class="ai-badge">✦ AI will enhance this</span>
                                     </label>
-                                    <textarea class="finput ftextarea" name="pdesc" rows="5"
-                                        placeholder="• What you built&#10;• Key technical decisions&#10;• Impact, outcome, or scale"></textarea>
-                                    <span class="fhint">Write plainly — one point per line. ATS reads bullet
-                                        structure.</span>
+
+                                    <!-- Verb chips -->
+                                    <div class="verb-chips">
+                                        <span class="verb-chip">Developed</span>
+                                        <span class="verb-chip">Built</span>
+                                        <span class="verb-chip">Implemented</span>
+                                        <span class="verb-chip">Designed</span>
+                                        <span class="verb-chip">Optimized</span>
+                                        <span class="verb-chip">Integrated</span>
+                                        <span class="verb-chip">Engineered</span>
+                                        <span class="verb-chip">Automated</span>
+                                    </div>
+
+                                    <!-- Bullet inputs list -->
+                                    <div class="bullet-list"></div>
+
+                                    <div class="bullet-footer">
+                                        <button class="btn-add-bullet" type="button">+ Add Bullet</button>
+                                        <span class="bullet-counter">0 bullets</span>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </template>
                 </div>
 
+
+
                 <!-- ══ EXPERIENCE ══ -->
+
+
                 <div class="tab-pane" id="pane-experience">
                     <div class="pane-head">
                         <h2 class="pane-title">Experience</h2>
@@ -386,50 +443,48 @@
 
                     <button class="btn-add" id="addExp">+ Add Experience</button>
 
-                    <template id="tpl-exp">
-                        <div class="entry-card">
-                            <div class="entry-card-bar">
-                                <span class="entry-card-label">EXPERIENCE</span>
-                                <button class="entry-remove">×</button>
+                    <!-- <template id="tpl-exp"> -->
+                    <div class="entry-card">
+                        <div class="entry-card-bar">
+                            <span class="entry-card-label">EXPERIENCE</span>
+                            <button class="entry-remove">×</button>
+                        </div>
+                        <div class="fields">
+                            <div class="field-row">
+                                <div class="field">
+                                    <label class="flabel">Company <span class="req">*</span></label>
+                                    <input class="finput" name="ecomp" type="text" placeholder="Google / Startup XYZ" />
+                                </div>
+                                <div class="field">
+                                    <label class="flabel">Role <span class="req">*</span></label>
+                                    <input class="finput" name="erole" type="text" placeholder="Frontend Intern" />
+                                </div>
                             </div>
-                            <div class="fields">
-                                <div class="field-row">
-                                    <div class="field">
-                                        <label class="flabel">Company <span class="req">*</span></label>
-                                        <input class="finput" name="ecomp" type="text"
-                                            placeholder="Google / Startup XYZ" />
-                                    </div>
-                                    <div class="field">
-                                        <label class="flabel">Role <span class="req">*</span></label>
-                                        <input class="finput" name="erole" type="text" placeholder="Frontend Intern" />
-                                    </div>
+                            <div class="field-row">
+                                <div class="field">
+                                    <label class="flabel">Start</label>
+                                    <input class="finput" name="estart" type="text" placeholder="Jun 2024" />
                                 </div>
-                                <div class="field-row">
-                                    <div class="field">
-                                        <label class="flabel">Start</label>
-                                        <input class="finput" name="estart" type="text" placeholder="Jun 2024" />
-                                    </div>
-                                    <div class="field">
-                                        <label class="flabel">End</label>
-                                        <input class="finput" name="eend" type="text"
-                                            placeholder="Aug 2024 / Present" />
-                                    </div>
-                                    <div class="field">
-                                        <label class="flabel">Location</label>
-                                        <input class="finput" name="eloc2" type="text" placeholder="Remote" />
-                                    </div>
+                                <div class="field">
+                                    <label class="flabel">End</label>
+                                    <input class="finput" name="eend" type="text" placeholder="Aug 2024 / Present" />
                                 </div>
-                                <div class="field field--full">
-                                    <label class="flabel">
-                                        Responsibilities
-                                        <span class="ai-badge">✦ AI will enhance this</span>
-                                    </label>
-                                    <textarea class="finput ftextarea" name="ework" rows="4"
-                                        placeholder="• What you worked on&#10;• Tools used&#10;• Results or impact"></textarea>
+                                <div class="field">
+                                    <label class="flabel">Location</label>
+                                    <input class="finput" name="eloc2" type="text" placeholder="Remote" />
                                 </div>
+                            </div>
+                            <div class="field field--full">
+                                <label class="flabel">
+                                    Responsibilities
+                                    <span class="ai-badge">✦ AI will enhance this</span>
+                                </label>
+                                <textarea class="finput ftextarea" name="ework" rows="4"
+                                    placeholder="• What you worked on&#10;• Tools used&#10;• Results or impact"></textarea>
                             </div>
                         </div>
-                    </template>
+                    </div>
+                    <!-- </template> -->
                 </div>
 
                 <!-- ══ EXTRAS ══ -->

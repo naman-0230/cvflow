@@ -1181,3 +1181,113 @@ body.ai-on .ai-badge { opacity: 1; }
 .tag-remove:hover {
   color: #e44;
 }
+
+
+
+/*additional project section improvements*/
+
+/* ── Verb chips ────────────────────────────────────────────── */
+.verb-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.verb-chip {
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1.5px solid #c7d7f5;
+  background: #f0f5ff;
+  color: #2d60d8;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  user-select: none;
+}
+.verb-chip:hover {
+  background: #dce8ff;
+  border-color: #2d60d8;
+}
+
+/* ── Bullet list ───────────────────────────────────────────── */
+.bullet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.bullet-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bullet-prefix {
+  font-size: 16px;
+  color: #555;
+  flex-shrink: 0;
+  line-height: 1;
+  padding-top: 1px;
+}
+
+.bullet-input {
+  flex: 1;
+}
+
+.bullet-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #aaa;
+  font-size: 16px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+.bullet-remove:hover {
+  color: #e44;
+  background: #feeaea;
+}
+
+/* ── Bullet footer ─────────────────────────────────────────── */
+.bullet-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.btn-add-bullet {
+  background: none;
+  border: 1.5px dashed #bbb;
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.btn-add-bullet:hover {
+  border-color: #4f8ef7;
+  color: #4f8ef7;
+  background: #f0f5ff;
+}
+
+.bullet-counter {
+  font-size: 12px;
+  color: #888;
+}
+
+/* ── Stack tags inside project card ───────────────────────── */
+.proj-stack-pool {
+  margin-bottom: 8px;
+}
+
+.proj-stack-tags {
+  margin-top: 6px;
+}
