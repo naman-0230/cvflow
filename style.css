@@ -995,3 +995,78 @@ body.ai-on .ai-badge { opacity: 1; }
   }
   .tpl-row { grid-template-columns: repeat(3, 1fr); }
 }
+
+
+
+/* INFO section */
+.info-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.info-icon{
+
+    position:relative;
+
+    width:20px;
+    height:20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    font-size:12px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    background:#ececec;
+    color:#444;
+}
+
+.info-box{
+
+    position:absolute;
+
+    top:130%;
+    left:0;
+
+    width:260px;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    background:white;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.15);
+
+    display:none;
+
+    z-index:100;
+}
+
+.info-box h4{
+    margin-bottom:10px;
+}
+
+.info-box p{
+    margin-bottom:6px;
+    font-size:14px;
+}
+
+/* Hover support */
+
+.info-icon:hover .info-box{
+    display:block;
+}
+
+/* Click support */
+
+.info-box.show{
+    display:block;
+}

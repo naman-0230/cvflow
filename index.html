@@ -1,574 +1,611 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resume CVflow</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,600;1,400&display=swap" rel="stylesheet" />
-  <script src="script.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume CVflow</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,600;1,400&display=swap"
+        rel="stylesheet" />
+    <script src="script.js" defer></script>
 </head>
+
 <body>
 
-<!-- ╔══════════════════════════════════════════════════════╗
+    <!-- ╔══════════════════════════════════════════════════════╗
      ║  NAVBAR                                             ║
      ╚══════════════════════════════════════════════════════╝ -->
-<nav class="navbar">
+    <nav class="navbar">
 
-  <div class="nav-brand">
-    <span class="brand-mark">◈</span>
-    <div class="brand-text">
-      <span class="brand-name">CVflow</span>
-      <span class="brand-sub">ATS-Optimised Builder</span>
+        <div class="nav-brand">
+            <span class="brand-mark">◈</span>
+            <div class="brand-text">
+                <span class="brand-name">CVflow</span>
+                <span class="brand-sub">ATS-Optimised Builder</span>
+            </div>
+        </div>
+
+        <!-- ATS Score Pill -->
+        <div class="ats-pill">
+            <span class="ats-pill-label">ATS Score</span>
+            <div class="ats-track">
+                <div class="ats-fill" id="atsBar"></div>
+            </div>
+            <span class="ats-value" id="atsScore">0%</span>
+        </div>
+
+        <div class="nav-right">
+            <!-- AI Toggle -->
+            <div class="ai-row">
+                <span class="ai-row-label">AI Assist</span>
+                <label class="toggle" title="Enable AI-powered descriptions">
+                    <input type="checkbox" id="aiToggle" />
+                    <span class="toggle-track">
+                        <span class="toggle-thumb"></span>
+                        <span class="toggle-star">✦</span>
+                    </span>
+                </label>
+            </div>
+
+            <button class="btn-ghost" id="clearBtn">Clear All</button>
+            <button class="btn-primary" id="downloadBtn">⬇ Download PDF</button>
+        </div>
+
+    </nav>
+
+    <!-- AI Active Notice Toast Notification-->
+    <div class="ai-notice" id="aiNotice">
+        <span class="ai-notice-dot"></span>
+        AI Assist is <strong>on</strong> — descriptions will be enhanced automatically when you click Generate.
+        <button class="ai-notice-dismiss" id="dismissNotice">×</button>
     </div>
-  </div>
-
-  <!-- ATS Score Pill -->
-  <div class="ats-pill">
-    <span class="ats-pill-label">ATS Score</span>
-    <div class="ats-track">
-      <div class="ats-fill" id="atsBar"></div>
-    </div>
-    <span class="ats-value" id="atsScore">0%</span>
-  </div>
-
-  <div class="nav-right">
-    <!-- AI Toggle -->
-    <div class="ai-row">
-      <span class="ai-row-label">AI Assist</span>
-      <label class="toggle" title="Enable AI-powered descriptions">
-        <input type="checkbox" id="aiToggle" />
-        <span class="toggle-track">
-          <span class="toggle-thumb"></span>
-          <span class="toggle-star">✦</span>
-        </span>
-      </label>
-    </div>
-
-    <button class="btn-ghost" id="clearBtn">Clear All</button>
-    <button class="btn-primary" id="downloadBtn">⬇ Download PDF</button>
-  </div>
-
-</nav>
-
-<!-- AI Active Notice Toast Notification-->
-<div class="ai-notice" id="aiNotice">
-  <span class="ai-notice-dot"></span>
-  AI Assist is <strong>on</strong> — descriptions will be enhanced automatically when you click Generate.
-  <button class="ai-notice-dismiss" id="dismissNotice">×</button>
-</div>
 
 
-<!-- ╔══════════════════════════════════════════════════════╗
+    <!-- ╔══════════════════════════════════════════════════════╗
      ║  APP SHELL                                          ║
      ╚══════════════════════════════════════════════════════╝ -->
-<div class="app-shell">
+    <div class="app-shell">
 
-  <!-- ┌─────────────────────────────────────────────────┐
+        <!-- ┌─────────────────────────────────────────────────┐
        │  LEFT — FORM PANEL                              │
        └─────────────────────────────────────────────────┘ -->
-  <aside class="form-panel" id="formPanel">
+        <aside class="form-panel" id="formPanel">
 
-    <!-- Section Tabs -->
-    <div class="section-tabs">
-      <button class="stab active" data-tab="personal">
-        <span class="stab-icon">👤</span> Personal
-      </button>
-      <button class="stab" data-tab="education">
-        <span class="stab-icon">🎓</span> Education
-      </button>
-      <button class="stab" data-tab="skills">
-        <span class="stab-icon">⚡</span> Skills
-      </button>
-      <button class="stab" data-tab="projects">
-        <span class="stab-icon">🛠</span> Projects
-      </button>
-      <button class="stab" data-tab="experience">
-        <span class="stab-icon">💼</span> Experience
-      </button>
-      <button class="stab" data-tab="extras">
-        <span class="stab-icon">🏆</span> Extras
-      </button>
-    </div>
-
-    <!-- Form Content -->
-    <div class="form-scroll">
-
-      <!-- ══ PERSONAL ══ -->
-      <div class="tab-pane active" id="pane-personal">
-        <div class="pane-head">
-          <h2 class="pane-title">Personal Details</h2>
-          <p class="pane-desc">Shown at the very top of your resume — keep it accurate.</p>
-        </div>
-
-        <div class="fields">
-
-          <div class="field field--full">
-            <label class="flabel">Full Name <span class="req">*</span></label>
-            <input class="finput" id="f-name" type="text" placeholder="Naman Sharma" />
-          </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label class="flabel">Email <span class="req">*</span></label>
-              <input class="finput" id="f-email" type="email" placeholder="name@gmail.com" />
+            <!-- Section Tabs -->
+            <div class="section-tabs">
+                <button class="stab active" data-tab="personal">
+                    <span class="stab-icon">👤</span> Personal
+                </button>
+                <button class="stab" data-tab="education">
+                    <span class="stab-icon">🎓</span> Education
+                </button>
+                <button class="stab" data-tab="skills">
+                    <span class="stab-icon">⚡</span> Skills
+                </button>
+                <button class="stab" data-tab="projects">
+                    <span class="stab-icon">🛠</span> Projects
+                </button>
+                <button class="stab" data-tab="experience">
+                    <span class="stab-icon">💼</span> Experience
+                </button>
+                <button class="stab" data-tab="extras">
+                    <span class="stab-icon">🏆</span> Extras
+                </button>
             </div>
-            <div class="field">
-              <label class="flabel">Phone</label>
-              <input class="finput" id="f-phone" type="tel" placeholder="+91 98765 43210" />
+
+            <!-- Form Content -->
+            <div class="form-scroll">
+
+                <!-- ══ PERSONAL ══ -->
+                <div class="tab-pane active" id="pane-personal">
+                    <div class="pane-head">
+                        <h2 class="pane-title">Personal Details</h2>
+                        <p class="pane-desc">Shown at the very top of your resume — keep it accurate.</p>
+                    </div>
+
+                    <div class="fields">
+
+                        <div class="field field--full">
+                            <label class="flabel">Full Name <span class="req">*</span></label>
+                            <input class="finput" id="f-name" type="text" placeholder="Naman Sharma" />
+                        </div>
+
+                        <div class="field-row">
+                            <div class="field">
+                                <label class="flabel">Email <span class="req">*</span></label>
+                                <input class="finput" id="f-email" type="email" placeholder="name@gmail.com" />
+                            </div>
+                            <div class="field">
+                                <label class="flabel">Phone</label>
+                                <input class="finput" id="f-phone" type="tel" placeholder="+91 98765 43210" />
+                            </div>
+                        </div>
+
+                        <div class="field-row">
+                            <div class="field">
+                                <label class="flabel">LinkedIn</label>
+                                <input class="finput" id="f-linkedin" type="text"
+                                    placeholder="linkedin.com/in/username" />
+                            </div>
+                            <div class="field">
+                                <label class="flabel">GitHub</label>
+                                <input class="finput" id="f-github" type="text" placeholder="github.com/username" />
+                            </div>
+                        </div>
+
+                        <div class="field-row">
+                            <div class="field">
+                                <label class="flabel">Portfolio</label>
+                                <input class="finput" id="f-portfolio" type="text" placeholder="yoursite.dev" />
+                            </div>
+                            <div class="field">
+                                <label class="flabel">Location</label>
+                                <input class="finput" id="f-location" type="text" placeholder="Jaipur, India" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ══ EDUCATION ══ -->
+                <div class="tab-pane" id="pane-education">
+                    <div class="pane-head">
+                        <h2 class="pane-title">Education</h2>
+                        <p class="pane-desc">Most recent first. Include all degrees, 10th and 12th.</p>
+                    </div>
+
+                    <div id="edu-list" class="entry-list"></div>
+
+                    <button class="btn-add" id="addEdu">+ Add Education</button>
+
+                    <template id="tpl-edu">
+                        <div class="entry-card">
+                            <div class="entry-card-bar">
+                                <span class="entry-card-label">EDUCATION ENTRY</span>
+                                <button class="entry-remove">×</button>
+                            </div>
+                            <div class="fields">
+                                <div class="field field--full">
+                                    <label class="flabel">Institution Name <span class="req">*</span></label>
+                                    <input class="finput" name="inst" type="text"
+                                        placeholder="Jaipur Engineering College and Research Center" />
+                                </div>
+                                <div class="field field--full">
+                                    <div class="info-row">
+                                        <label class="flabel">Degree / Course <span class="req">*</span></label>
+                                        <span class="info-icon">
+                                        i
+
+                                            <div class="info-box">
+
+                                                <h4>Education Entry Guide</h4>
+
+                                                <p><strong>College:</strong></p>
+                                                <p>B.Tech – Information Technology</p>
+
+                                                <p><strong>Class 12:</strong></p>
+                                                <p>CBSE – Class XII (Science)</p>
+
+                                                <p><strong>Class 10:</strong></p>
+                                                <p>CBSE – Class X</p>
+
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <input class="finput" name="degree" type="text"
+                                        placeholder="B.Tech – Information Technology" />
+                                </div>
+                                <div class="field-row">
+                                    <div class="field">
+                                        <label class="flabel">Location</label>
+                                        <input class="finput" name="eloc" type="text" placeholder="Jaipur, India" />
+                                    </div>
+                                    <div class="field">
+                                        <label class="flabel">Year / Status</label>
+                                        <input class="finput" name="eyear" type="text" placeholder="Graduating 2027" />
+                                    </div>
+                                </div>
+                                <div class="field-row">
+                                    <div class="field">
+                                        <label class="flabel">Score (CGPA / %)</label>
+                                        <input class="finput" name="escore" type="text" placeholder="8.5 CGPA" />
+                                    </div>
+                                    <div class="field">
+                                        <label class="flabel">Relevant Courses</label>
+                                        <input class="finput" name="ecourses" type="text"
+                                            placeholder="DSA, OOP, DBMS, OS" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- ══ SKILLS ══ -->
+                <div class="tab-pane" id="pane-skills">
+                    <div class="pane-head">
+                        <h2 class="pane-title">Skills</h2>
+                        <p class="pane-desc">Tap to select. Type to add your own.</p>
+                    </div>
+
+                    <!-- Technical -->
+                    <div class="skill-block">
+                        <div class="skill-block-head">Technical Skills</div>
+                        <div class="chip-pool" id="pool-tech">
+                            <span class="chip" data-cat="tech">HTML5</span>
+                            <span class="chip" data-cat="tech">CSS3</span>
+                            <span class="chip" data-cat="tech">JavaScript</span>
+                            <span class="chip" data-cat="tech">TypeScript</span>
+                            <span class="chip" data-cat="tech">React.js</span>
+                            <span class="chip" data-cat="tech">Next.js</span>
+                            <span class="chip" data-cat="tech">Node.js</span>
+                            <span class="chip" data-cat="tech">Express.js</span>
+                            <span class="chip" data-cat="tech">MongoDB</span>
+                            <span class="chip" data-cat="tech">MySQL</span>
+                            <span class="chip" data-cat="tech">PostgreSQL</span>
+                            <span class="chip" data-cat="tech">Python</span>
+                            <span class="chip" data-cat="tech">Java</span>
+                            <span class="chip" data-cat="tech">C++</span>
+                            <span class="chip" data-cat="tech">C</span>
+                            <span class="chip" data-cat="tech">Git</span>
+                            <span class="chip" data-cat="tech">GitHub</span>
+                            <span class="chip" data-cat="tech">REST API</span>
+                            <span class="chip" data-cat="tech">Docker</span>
+                            <span class="chip" data-cat="tech">AWS</span>
+                            <span class="chip" data-cat="tech">Firebase</span>
+                            <span class="chip" data-cat="tech">Tailwind CSS</span>
+                            <span class="chip" data-cat="tech">Redux</span>
+                            <span class="chip" data-cat="tech">DSA</span>
+                            <span class="chip" data-cat="tech">OOP</span>
+                            <span class="chip" data-cat="tech">Linux</span>
+                            <span class="chip" data-cat="tech">Figma</span>
+                        </div>
+                        <input class="finput custom-skill-input" id="custom-tech" type="text"
+                            placeholder="Type a skill + press Enter" />
+                        <div class="selected-tags" id="tags-tech"></div>
+                    </div>
+
+                    <!-- Soft Skills -->
+                    <div class="skill-block">
+                        <div class="skill-block-head">Soft Skills</div>
+                        <div class="chip-pool" id="pool-soft">
+                            <span class="chip" data-cat="soft">Problem Solving</span>
+                            <span class="chip" data-cat="soft">Leadership</span>
+                            <span class="chip" data-cat="soft">Team Collaboration</span>
+                            <span class="chip" data-cat="soft">Communication</span>
+                            <span class="chip" data-cat="soft">Time Management</span>
+                            <span class="chip" data-cat="soft">Critical Thinking</span>
+                            <span class="chip" data-cat="soft">Adaptability</span>
+                            <span class="chip" data-cat="soft">Self-Learning</span>
+                            <span class="chip" data-cat="soft">Attention to Detail</span>
+                            <span class="chip" data-cat="soft">Creativity</span>
+                        </div>
+                        <div class="selected-tags" id="tags-soft"></div>
+                    </div>
+
+                    <!-- Languages -->
+                    <div class="skill-block" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
+                        <div class="skill-block-head">Languages Known</div>
+                        <div class="chip-pool" id="pool-lang">
+                            <span class="chip" data-cat="lang">English</span>
+                            <span class="chip" data-cat="lang">Hindi</span>
+                            <span class="chip" data-cat="lang">Gujarati</span>
+                            <span class="chip" data-cat="lang">Marathi</span>
+                            <span class="chip" data-cat="lang">Tamil</span>
+                            <span class="chip" data-cat="lang">Telugu</span>
+                            <span class="chip" data-cat="lang">Bengali</span>
+                        </div>
+                        <div class="selected-tags" id="tags-lang"></div>
+                    </div>
+                </div>
+
+                <!-- ══ PROJECTS ══ -->
+                <div class="tab-pane" id="pane-projects">
+                    <div class="pane-head">
+                        <h2 class="pane-title">Projects</h2>
+                        <p class="pane-desc">2–4 projects ideal. Your strongest ones first.</p>
+                    </div>
+
+                    <div id="proj-list" class="entry-list"></div>
+
+                    <button class="btn-add" id="addProj">+ Add Project</button>
+
+                    <template id="tpl-proj">
+                        <div class="entry-card">
+                            <div class="entry-card-bar">
+                                <span class="entry-card-label">PROJECT</span>
+                                <button class="entry-remove">×</button>
+                            </div>
+                            <div class="fields">
+                                <div class="field-row">
+                                    <div class="field">
+                                        <label class="flabel">Project Name <span class="req">*</span></label>
+                                        <input class="finput" name="pname" type="text"
+                                            placeholder="DSA Progress Tracker" />
+                                    </div>
+                                    <div class="field">
+                                        <label class="flabel">GitHub / Live Link</label>
+                                        <input class="finput" name="plink" type="text"
+                                            placeholder="github.com/you/project" />
+                                    </div>
+                                </div>
+                                <div class="field field--full">
+                                    <label class="flabel">Tech Stack</label>
+                                    <input class="finput" name="pstack" type="text"
+                                        placeholder="HTML5 · CSS3 · JavaScript · localStorage" />
+                                </div>
+                                <div class="field field--full">
+                                    <label class="flabel">
+                                        Bullet Points
+                                        <span class="ai-badge" id="projAiBadge">✦ AI will enhance this</span>
+                                    </label>
+                                    <textarea class="finput ftextarea" name="pdesc" rows="5"
+                                        placeholder="• What you built&#10;• Key technical decisions&#10;• Impact, outcome, or scale"></textarea>
+                                    <span class="fhint">Write plainly — one point per line. ATS reads bullet
+                                        structure.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- ══ EXPERIENCE ══ -->
+                <div class="tab-pane" id="pane-experience">
+                    <div class="pane-head">
+                        <h2 class="pane-title">Experience</h2>
+                        <p class="pane-desc">Internships, freelance, part-time — all count.</p>
+                    </div>
+
+                    <div id="exp-list" class="entry-list"></div>
+
+                    <button class="btn-add" id="addExp">+ Add Experience</button>
+
+                    <template id="tpl-exp">
+                        <div class="entry-card">
+                            <div class="entry-card-bar">
+                                <span class="entry-card-label">EXPERIENCE</span>
+                                <button class="entry-remove">×</button>
+                            </div>
+                            <div class="fields">
+                                <div class="field-row">
+                                    <div class="field">
+                                        <label class="flabel">Company <span class="req">*</span></label>
+                                        <input class="finput" name="ecomp" type="text"
+                                            placeholder="Google / Startup XYZ" />
+                                    </div>
+                                    <div class="field">
+                                        <label class="flabel">Role <span class="req">*</span></label>
+                                        <input class="finput" name="erole" type="text" placeholder="Frontend Intern" />
+                                    </div>
+                                </div>
+                                <div class="field-row">
+                                    <div class="field">
+                                        <label class="flabel">Start</label>
+                                        <input class="finput" name="estart" type="text" placeholder="Jun 2024" />
+                                    </div>
+                                    <div class="field">
+                                        <label class="flabel">End</label>
+                                        <input class="finput" name="eend" type="text"
+                                            placeholder="Aug 2024 / Present" />
+                                    </div>
+                                    <div class="field">
+                                        <label class="flabel">Location</label>
+                                        <input class="finput" name="eloc2" type="text" placeholder="Remote" />
+                                    </div>
+                                </div>
+                                <div class="field field--full">
+                                    <label class="flabel">
+                                        Responsibilities
+                                        <span class="ai-badge">✦ AI will enhance this</span>
+                                    </label>
+                                    <textarea class="finput ftextarea" name="ework" rows="4"
+                                        placeholder="• What you worked on&#10;• Tools used&#10;• Results or impact"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- ══ EXTRAS ══ -->
+                <div class="tab-pane" id="pane-extras">
+                    <div class="pane-head">
+                        <h2 class="pane-title">Extras</h2>
+                        <p class="pane-desc">Certifications, achievements, competitive coding, activities.</p>
+                    </div>
+
+                    <div class="fields">
+                        <div class="field field--full">
+                            <label class="flabel">Certifications</label>
+                            <textarea class="finput ftextarea" id="f-certs" rows="3"
+                                placeholder="JavaScript (Basic) – HackerRank, 2025&#10;CSS (Basic) – HackerRank, 2025"></textarea>
+                            <span class="fhint">One per line</span>
+                        </div>
+
+                        <div class="field field--full">
+                            <label class="flabel">Achievements / Awards</label>
+                            <textarea class="finput ftextarea" id="f-awards" rows="3"
+                                placeholder="Smart India Hackathon – 5th Rank, College Level (2025) | Competed among 200+ teams"></textarea>
+                        </div>
+
+                        <div class="field field--full">
+                            <label class="flabel">Competitive Coding</label>
+                            <input class="finput" id="f-coding" type="text"
+                                placeholder="Solved 200+ problems on LeetCode (Arrays, Strings, DP, Trees)" />
+                        </div>
+
+                        <div class="field field--full">
+                            <label class="flabel">Extracurricular / Hobbies</label>
+                            <textarea class="finput ftextarea" id="f-extra" rows="2"
+                                placeholder="Football enthusiast, secured winning title at local tournament level."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Template Chooser — lives at bottom of extras -->
+                    <div class="template-chooser">
+                        <div class="skill-block-head" style="margin-bottom:1rem;">Resume Template</div>
+                        <div class="tpl-row">
+
+                            <button class="tpl-opt active" data-tpl="classic">
+                                <div class="tpl-preview">
+                                    <div class="tp-hbar"></div>
+                                    <div class="tp-rule"></div>
+                                    <div class="tp-lines">
+                                        <div class="tp-l tp-l--80"></div>
+                                        <div class="tp-l tp-l--55"></div>
+                                        <div class="tp-l tp-l--70"></div>
+                                    </div>
+                                </div>
+                                <span class="tpl-label">Classic</span>
+                                <span class="tpl-tag">ATS Best</span>
+                            </button>
+
+                            <button class="tpl-opt" data-tpl="minimal">
+                                <div class="tpl-preview tpl-preview--minimal">
+                                    <div class="tp-accent-bar"></div>
+                                    <div class="tp-lines tp-lines--padded">
+                                        <div class="tp-l tp-l--80"></div>
+                                        <div class="tp-l tp-l--50"></div>
+                                        <div class="tp-l tp-l--65"></div>
+                                    </div>
+                                </div>
+                                <span class="tpl-label">Minimal</span>
+                                <span class="tpl-tag tpl-tag--blue">Clean</span>
+                            </button>
+
+                            <button class="tpl-opt" data-tpl="sidebar">
+                                <div class="tpl-preview tpl-preview--sidebar">
+                                    <div class="tp-sidebar-col"></div>
+                                    <div class="tp-lines">
+                                        <div class="tp-l tp-l--80"></div>
+                                        <div class="tp-l tp-l--50"></div>
+                                        <div class="tp-l tp-l--70"></div>
+                                    </div>
+                                </div>
+                                <span class="tpl-label">Sidebar</span>
+                                <span class="tpl-tag tpl-tag--purple">Modern</span>
+                            </button>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div><!-- /form-scroll -->
+
+            <!-- Download bar fixed at bottom of form panel -->
+            <div class="form-footer">
+                <button class="btn-ghost btn-sm" id="saveDraft">💾 Save Draft</button>
+                <button class="btn-primary btn-full" id="dlBtn">⬇ Download PDF</button>
             </div>
-          </div>
 
-          <div class="field-row">
-            <div class="field">
-              <label class="flabel">LinkedIn</label>
-              <input class="finput" id="f-linkedin" type="text" placeholder="linkedin.com/in/username" />
-            </div>
-            <div class="field">
-              <label class="flabel">GitHub</label>
-              <input class="finput" id="f-github" type="text" placeholder="github.com/username" />
-            </div>
-          </div>
+        </aside>
 
-          <div class="field-row">
-            <div class="field">
-              <label class="flabel">Portfolio</label>
-              <input class="finput" id="f-portfolio" type="text" placeholder="yoursite.dev" />
-            </div>
-            <div class="field">
-              <label class="flabel">Location</label>
-              <input class="finput" id="f-location" type="text" placeholder="Jaipur, India" />
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ══ EDUCATION ══ -->
-      <div class="tab-pane" id="pane-education">
-        <div class="pane-head">
-          <h2 class="pane-title">Education</h2>
-          <p class="pane-desc">Most recent first. Include all degrees, 10th and 12th.</p>
-        </div>
-
-        <div id="edu-list" class="entry-list"></div>
-
-        <button class="btn-add" id="addEdu">+ Add Education</button>
-
-        <template id="tpl-edu">
-          <div class="entry-card">
-            <div class="entry-card-bar">
-              <span class="entry-card-label">EDUCATION ENTRY</span>
-              <button class="entry-remove">×</button>
-            </div>
-            <div class="fields">
-              <div class="field field--full">
-                <label class="flabel">Institution Name <span class="req">*</span></label>
-                <input class="finput" name="inst" type="text" placeholder="Jaipur Engineering College and Research Center" />
-              </div>
-              <div class="field field--full">
-                <label class="flabel">Degree / Course <span class="req">*</span></label>
-                <input class="finput" name="degree" type="text" placeholder="B.Tech – Information Technology" />
-              </div>
-              <div class="field-row">
-                <div class="field">
-                  <label class="flabel">Location</label>
-                  <input class="finput" name="eloc" type="text" placeholder="Jaipur, India" />
-                </div>
-                <div class="field">
-                  <label class="flabel">Year / Status</label>
-                  <input class="finput" name="eyear" type="text" placeholder="Graduating 2027" />
-                </div>
-              </div>
-              <div class="field-row">
-                <div class="field">
-                  <label class="flabel">Score (CGPA / %)</label>
-                  <input class="finput" name="escore" type="text" placeholder="8.5 CGPA" />
-                </div>
-                <div class="field">
-                  <label class="flabel">Relevant Courses</label>
-                  <input class="finput" name="ecourses" type="text" placeholder="DSA, OOP, DBMS, OS" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </template>
-      </div>
-
-      <!-- ══ SKILLS ══ -->
-      <div class="tab-pane" id="pane-skills">
-        <div class="pane-head">
-          <h2 class="pane-title">Skills</h2>
-          <p class="pane-desc">Tap to select. Type to add your own.</p>
-        </div>
-
-        <!-- Technical -->
-        <div class="skill-block">
-          <div class="skill-block-head">Technical Skills</div>
-          <div class="chip-pool" id="pool-tech">
-            <span class="chip" data-cat="tech">HTML5</span>
-            <span class="chip" data-cat="tech">CSS3</span>
-            <span class="chip" data-cat="tech">JavaScript</span>
-            <span class="chip" data-cat="tech">TypeScript</span>
-            <span class="chip" data-cat="tech">React.js</span>
-            <span class="chip" data-cat="tech">Next.js</span>
-            <span class="chip" data-cat="tech">Node.js</span>
-            <span class="chip" data-cat="tech">Express.js</span>
-            <span class="chip" data-cat="tech">MongoDB</span>
-            <span class="chip" data-cat="tech">MySQL</span>
-            <span class="chip" data-cat="tech">PostgreSQL</span>
-            <span class="chip" data-cat="tech">Python</span>
-            <span class="chip" data-cat="tech">Java</span>
-            <span class="chip" data-cat="tech">C++</span>
-            <span class="chip" data-cat="tech">C</span>
-            <span class="chip" data-cat="tech">Git</span>
-            <span class="chip" data-cat="tech">GitHub</span>
-            <span class="chip" data-cat="tech">REST API</span>
-            <span class="chip" data-cat="tech">Docker</span>
-            <span class="chip" data-cat="tech">AWS</span>
-            <span class="chip" data-cat="tech">Firebase</span>
-            <span class="chip" data-cat="tech">Tailwind CSS</span>
-            <span class="chip" data-cat="tech">Redux</span>
-            <span class="chip" data-cat="tech">DSA</span>
-            <span class="chip" data-cat="tech">OOP</span>
-            <span class="chip" data-cat="tech">Linux</span>
-            <span class="chip" data-cat="tech">Figma</span>
-          </div>
-          <input class="finput custom-skill-input" id="custom-tech" type="text" placeholder="Type a skill + press Enter" />
-          <div class="selected-tags" id="tags-tech"></div>
-        </div>
-
-        <!-- Soft Skills -->
-        <div class="skill-block">
-          <div class="skill-block-head">Soft Skills</div>
-          <div class="chip-pool" id="pool-soft">
-            <span class="chip" data-cat="soft">Problem Solving</span>
-            <span class="chip" data-cat="soft">Leadership</span>
-            <span class="chip" data-cat="soft">Team Collaboration</span>
-            <span class="chip" data-cat="soft">Communication</span>
-            <span class="chip" data-cat="soft">Time Management</span>
-            <span class="chip" data-cat="soft">Critical Thinking</span>
-            <span class="chip" data-cat="soft">Adaptability</span>
-            <span class="chip" data-cat="soft">Self-Learning</span>
-            <span class="chip" data-cat="soft">Attention to Detail</span>
-            <span class="chip" data-cat="soft">Creativity</span>
-          </div>
-          <div class="selected-tags" id="tags-soft"></div>
-        </div>
-
-        <!-- Languages -->
-        <div class="skill-block" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
-          <div class="skill-block-head">Languages Known</div>
-          <div class="chip-pool" id="pool-lang">
-            <span class="chip" data-cat="lang">English</span>
-            <span class="chip" data-cat="lang">Hindi</span>
-            <span class="chip" data-cat="lang">Gujarati</span>
-            <span class="chip" data-cat="lang">Marathi</span>
-            <span class="chip" data-cat="lang">Tamil</span>
-            <span class="chip" data-cat="lang">Telugu</span>
-            <span class="chip" data-cat="lang">Bengali</span>
-          </div>
-          <div class="selected-tags" id="tags-lang"></div>
-        </div>
-      </div>
-
-      <!-- ══ PROJECTS ══ -->
-      <div class="tab-pane" id="pane-projects">
-        <div class="pane-head">
-          <h2 class="pane-title">Projects</h2>
-          <p class="pane-desc">2–4 projects ideal. Your strongest ones first.</p>
-        </div>
-
-        <div id="proj-list" class="entry-list"></div>
-
-        <button class="btn-add" id="addProj">+ Add Project</button>
-
-        <template id="tpl-proj">
-          <div class="entry-card">
-            <div class="entry-card-bar">
-              <span class="entry-card-label">PROJECT</span>
-              <button class="entry-remove">×</button>
-            </div>
-            <div class="fields">
-              <div class="field-row">
-                <div class="field">
-                  <label class="flabel">Project Name <span class="req">*</span></label>
-                  <input class="finput" name="pname" type="text" placeholder="DSA Progress Tracker" />
-                </div>
-                <div class="field">
-                  <label class="flabel">GitHub / Live Link</label>
-                  <input class="finput" name="plink" type="text" placeholder="github.com/you/project" />
-                </div>
-              </div>
-              <div class="field field--full">
-                <label class="flabel">Tech Stack</label>
-                <input class="finput" name="pstack" type="text" placeholder="HTML5 · CSS3 · JavaScript · localStorage" />
-              </div>
-              <div class="field field--full">
-                <label class="flabel">
-                  Bullet Points
-                  <span class="ai-badge" id="projAiBadge">✦ AI will enhance this</span>
-                </label>
-                <textarea class="finput ftextarea" name="pdesc" rows="5"
-                  placeholder="• What you built&#10;• Key technical decisions&#10;• Impact, outcome, or scale"></textarea>
-                <span class="fhint">Write plainly — one point per line. ATS reads bullet structure.</span>
-              </div>
-            </div>
-          </div>
-        </template>
-      </div>
-
-      <!-- ══ EXPERIENCE ══ -->
-      <div class="tab-pane" id="pane-experience">
-        <div class="pane-head">
-          <h2 class="pane-title">Experience</h2>
-          <p class="pane-desc">Internships, freelance, part-time — all count.</p>
-        </div>
-
-        <div id="exp-list" class="entry-list"></div>
-
-        <button class="btn-add" id="addExp">+ Add Experience</button>
-
-        <template id="tpl-exp">
-          <div class="entry-card">
-            <div class="entry-card-bar">
-              <span class="entry-card-label">EXPERIENCE</span>
-              <button class="entry-remove">×</button>
-            </div>
-            <div class="fields">
-              <div class="field-row">
-                <div class="field">
-                  <label class="flabel">Company <span class="req">*</span></label>
-                  <input class="finput" name="ecomp" type="text" placeholder="Google / Startup XYZ" />
-                </div>
-                <div class="field">
-                  <label class="flabel">Role <span class="req">*</span></label>
-                  <input class="finput" name="erole" type="text" placeholder="Frontend Intern" />
-                </div>
-              </div>
-              <div class="field-row">
-                <div class="field">
-                  <label class="flabel">Start</label>
-                  <input class="finput" name="estart" type="text" placeholder="Jun 2024" />
-                </div>
-                <div class="field">
-                  <label class="flabel">End</label>
-                  <input class="finput" name="eend" type="text" placeholder="Aug 2024 / Present" />
-                </div>
-                <div class="field">
-                  <label class="flabel">Location</label>
-                  <input class="finput" name="eloc2" type="text" placeholder="Remote" />
-                </div>
-              </div>
-              <div class="field field--full">
-                <label class="flabel">
-                  Responsibilities
-                  <span class="ai-badge">✦ AI will enhance this</span>
-                </label>
-                <textarea class="finput ftextarea" name="ework" rows="4"
-                  placeholder="• What you worked on&#10;• Tools used&#10;• Results or impact"></textarea>
-              </div>
-            </div>
-          </div>
-        </template>
-      </div>
-
-      <!-- ══ EXTRAS ══ -->
-      <div class="tab-pane" id="pane-extras">
-        <div class="pane-head">
-          <h2 class="pane-title">Extras</h2>
-          <p class="pane-desc">Certifications, achievements, competitive coding, activities.</p>
-        </div>
-
-        <div class="fields">
-          <div class="field field--full">
-            <label class="flabel">Certifications</label>
-            <textarea class="finput ftextarea" id="f-certs" rows="3"
-              placeholder="JavaScript (Basic) – HackerRank, 2025&#10;CSS (Basic) – HackerRank, 2025"></textarea>
-            <span class="fhint">One per line</span>
-          </div>
-
-          <div class="field field--full">
-            <label class="flabel">Achievements / Awards</label>
-            <textarea class="finput ftextarea" id="f-awards" rows="3"
-              placeholder="Smart India Hackathon – 5th Rank, College Level (2025) | Competed among 200+ teams"></textarea>
-          </div>
-
-          <div class="field field--full">
-            <label class="flabel">Competitive Coding</label>
-            <input class="finput" id="f-coding" type="text" placeholder="Solved 200+ problems on LeetCode (Arrays, Strings, DP, Trees)" />
-          </div>
-
-          <div class="field field--full">
-            <label class="flabel">Extracurricular / Hobbies</label>
-            <textarea class="finput ftextarea" id="f-extra" rows="2"
-              placeholder="Football enthusiast, secured winning title at local tournament level."></textarea>
-          </div>
-        </div>
-
-        <!-- Template Chooser — lives at bottom of extras -->
-        <div class="template-chooser">
-          <div class="skill-block-head" style="margin-bottom:1rem;">Resume Template</div>
-          <div class="tpl-row">
-
-            <button class="tpl-opt active" data-tpl="classic">
-              <div class="tpl-preview">
-                <div class="tp-hbar"></div>
-                <div class="tp-rule"></div>
-                <div class="tp-lines">
-                  <div class="tp-l tp-l--80"></div>
-                  <div class="tp-l tp-l--55"></div>
-                  <div class="tp-l tp-l--70"></div>
-                </div>
-              </div>
-              <span class="tpl-label">Classic</span>
-              <span class="tpl-tag">ATS Best</span>
-            </button>
-
-            <button class="tpl-opt" data-tpl="minimal">
-              <div class="tpl-preview tpl-preview--minimal">
-                <div class="tp-accent-bar"></div>
-                <div class="tp-lines tp-lines--padded">
-                  <div class="tp-l tp-l--80"></div>
-                  <div class="tp-l tp-l--50"></div>
-                  <div class="tp-l tp-l--65"></div>
-                </div>
-              </div>
-              <span class="tpl-label">Minimal</span>
-              <span class="tpl-tag tpl-tag--blue">Clean</span>
-            </button>
-
-            <button class="tpl-opt" data-tpl="sidebar">
-              <div class="tpl-preview tpl-preview--sidebar">
-                <div class="tp-sidebar-col"></div>
-                <div class="tp-lines">
-                  <div class="tp-l tp-l--80"></div>
-                  <div class="tp-l tp-l--50"></div>
-                  <div class="tp-l tp-l--70"></div>
-                </div>
-              </div>
-              <span class="tpl-label">Sidebar</span>
-              <span class="tpl-tag tpl-tag--purple">Modern</span>
-            </button>
-
-          </div>
-        </div>
-
-      </div>
-
-    </div><!-- /form-scroll -->
-
-    <!-- Download bar fixed at bottom of form panel -->
-    <div class="form-footer">
-      <button class="btn-ghost btn-sm" id="saveDraft">💾 Save Draft</button>
-      <button class="btn-primary btn-full" id="dlBtn">⬇ Download PDF</button>
-    </div>
-
-  </aside>
-
-  <!-- ┌─────────────────────────────────────────────────┐
+        <!-- ┌─────────────────────────────────────────────────┐
        │  RIGHT — LIVE PREVIEW                           │
        └─────────────────────────────────────────────────┘ -->
-  <section class="preview-panel" id="previewPanel">
+        <section class="preview-panel" id="previewPanel">
 
-    <div class="preview-bar">
-      <span class="preview-bar-label">Live Preview</span>
-      <div class="zoom-controls">
-        <button class="zoom-btn" id="zoomOut" title="Zoom out">−</button>
-        <span class="zoom-val" id="zoomVal">90%</span>
-        <button class="zoom-btn" id="zoomIn" title="Zoom in">+</button>
-        <button class="zoom-btn zoom-fit" id="zoomFit" title="Fit">⊡</button>
-      </div>
-      <button class="btn-primary btn-sm" id="dlBtnPreview">⬇ PDF</button>
-    </div>
+            <div class="preview-bar">
+                <span class="preview-bar-label">Live Preview</span>
+                <div class="zoom-controls">
+                    <button class="zoom-btn" id="zoomOut" title="Zoom out">−</button>
+                    <span class="zoom-val" id="zoomVal">90%</span>
+                    <button class="zoom-btn" id="zoomIn" title="Zoom in">+</button>
+                    <button class="zoom-btn zoom-fit" id="zoomFit" title="Fit">⊡</button>
+                </div>
+                <button class="btn-primary btn-sm" id="dlBtnPreview">⬇ PDF</button>
+            </div>
 
-    <div class="preview-canvas" id="previewCanvas">
-      <div class="a4" id="resumeDoc">
+            <div class="preview-canvas" id="previewCanvas">
+                <div class="a4" id="resumeDoc">
 
-        <!-- ══════════════════════════════════════
+                    <!-- ══════════════════════════════════════
              RESUME — CLASSIC TEMPLATE OUTPUT
         ══════════════════════════════════════ -->
 
-        <!-- Header -->
-        <header class="rv-header">
-          <h1 class="rv-name" id="rv-name">Your Full Name</h1>
-          <div class="rv-contacts" id="rv-contacts">
-            <span id="rv-email">email@example.com</span>
-            <span class="rv-sep">|</span>
-            <span id="rv-phone">+91 00000 00000</span>
-            <span class="rv-sep">|</span>
-            <span id="rv-location">City, India</span>
-          </div>
-          <div class="rv-links" id="rv-links">
-            <span id="rv-linkedin" class="rv-link-item"></span>
-            <span id="rv-github" class="rv-link-item"></span>
-            <span id="rv-portfolio" class="rv-link-item"></span>
-          </div>
-        </header>
+                    <!-- Header -->
+                    <header class="rv-header">
+                        <h1 class="rv-name" id="rv-name">Your Full Name</h1>
+                        <div class="rv-contacts" id="rv-contacts">
+                            <span id="rv-email">email@example.com</span>
+                            <span class="rv-sep">|</span>
+                            <span id="rv-phone">+91 00000 00000</span>
+                            <span class="rv-sep">|</span>
+                            <span id="rv-location">City, India</span>
+                        </div>
+                        <div class="rv-links" id="rv-links">
+                            <span id="rv-linkedin" class="rv-link-item"></span>
+                            <span id="rv-github" class="rv-link-item"></span>
+                            <span id="rv-portfolio" class="rv-link-item"></span>
+                        </div>
+                    </header>
 
-        <!-- Education -->
-        <section class="rv-section">
-          <div class="rv-sec-title">Education</div>
-          <div class="rv-rule"></div>
-          <div id="rv-edu">
-            <p class="rv-empty">Fill in the Education tab →</p>
-          </div>
+                    <!-- Education -->
+                    <section class="rv-section">
+                        <div class="rv-sec-title">Education</div>
+                        <div class="rv-rule"></div>
+                        <div id="rv-edu">
+                            <p class="rv-empty">Fill in the Education tab →</p>
+                        </div>
+                    </section>
+
+                    <!-- Projects -->
+                    <section class="rv-section">
+                        <div class="rv-sec-title">Projects</div>
+                        <div class="rv-rule"></div>
+                        <div id="rv-proj">
+                            <p class="rv-empty">Fill in the Projects tab →</p>
+                        </div>
+                    </section>
+
+                    <!-- Technical Skills -->
+                    <section class="rv-section">
+                        <div class="rv-sec-title">Technical Skills</div>
+                        <div class="rv-rule"></div>
+                        <div id="rv-skills">
+                            <p class="rv-empty">Select skills in the Skills tab →</p>
+                        </div>
+                    </section>
+
+                    <!-- Experience (hidden until filled) -->
+                    <section class="rv-section rv-section--hidden" id="rv-exp-section">
+                        <div class="rv-sec-title">Experience</div>
+                        <div class="rv-rule"></div>
+                        <div id="rv-exp"></div>
+                    </section>
+
+                    <!-- Certifications & Achievements -->
+                    <section class="rv-section rv-section--hidden" id="rv-extras-section">
+                        <div class="rv-sec-title">Certifications &amp; Achievements</div>
+                        <div class="rv-rule"></div>
+                        <div id="rv-extras"></div>
+                    </section>
+
+                    <!-- Extracurricular -->
+                    <section class="rv-section rv-section--hidden" id="rv-extra2-section">
+                        <div class="rv-sec-title">Extracurricular Activities</div>
+                        <div class="rv-rule"></div>
+                        <div id="rv-extra2"></div>
+                    </section>
+
+                </div><!-- /resumeDoc -->
+            </div><!-- /previewCanvas -->
+
         </section>
 
-        <!-- Projects -->
-        <section class="rv-section">
-          <div class="rv-sec-title">Projects</div>
-          <div class="rv-rule"></div>
-          <div id="rv-proj">
-            <p class="rv-empty">Fill in the Projects tab →</p>
-          </div>
-        </section>
+    </div><!-- /app-shell -->
 
-        <!-- Technical Skills -->
-        <section class="rv-section">
-          <div class="rv-sec-title">Technical Skills</div>
-          <div class="rv-rule"></div>
-          <div id="rv-skills">
-            <p class="rv-empty">Select skills in the Skills tab →</p>
-          </div>
-        </section>
-
-        <!-- Experience (hidden until filled) -->
-        <section class="rv-section rv-section--hidden" id="rv-exp-section">
-          <div class="rv-sec-title">Experience</div>
-          <div class="rv-rule"></div>
-          <div id="rv-exp"></div>
-        </section>
-
-        <!-- Certifications & Achievements -->
-        <section class="rv-section rv-section--hidden" id="rv-extras-section">
-          <div class="rv-sec-title">Certifications &amp; Achievements</div>
-          <div class="rv-rule"></div>
-          <div id="rv-extras"></div>
-        </section>
-
-        <!-- Extracurricular -->
-        <section class="rv-section rv-section--hidden" id="rv-extra2-section">
-          <div class="rv-sec-title">Extracurricular Activities</div>
-          <div class="rv-rule"></div>
-          <div id="rv-extra2"></div>
-        </section>
-
-      </div><!-- /resumeDoc -->
-    </div><!-- /previewCanvas -->
-
-  </section>
-
-</div><!-- /app-shell -->
-
-<!-- Mobile Bottom Nav -->
-<div class="mob-bar">
-  <button class="mob-tab active" data-panel="form">✎ Form</button>
-  <button class="mob-tab" data-panel="preview">◧ Preview</button>
-  <button class="mob-dl">⬇ PDF</button>
-</div>
+    <!-- Mobile Bottom Nav -->
+    <div class="mob-bar">
+        <button class="mob-tab active" data-panel="form">✎ Form</button>
+        <button class="mob-tab" data-panel="preview">◧ Preview</button>
+        <button class="mob-dl">⬇ PDF</button>
+    </div>
 
 </body>
+
 </html>

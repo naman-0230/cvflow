@@ -180,3 +180,22 @@ addEduBtn.addEventListener('click', addEduEntry);
  
 // Add one entry by default so the form isn't empty on load
 addEduEntry();
+
+
+//Adding info functionality
+const infoIcons = document.querySelectorAll(".info-icon");
+
+infoIcons.forEach(icon => {
+    icon.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const box = icon.querySelector(".info-box");
+        box.classList.toggle("show");
+    });
+});
+
+document.addEventListener("click", () => {
+    document.querySelectorAll(".info-box").forEach(box => {
+            box.classList.remove("show");
+        });
+
+});
