@@ -1070,3 +1070,114 @@ body.ai-on .ai-badge { opacity: 1; }
 .info-box.show{
     display:block;
 }
+
+
+
+
+/*additonal skills*/
+/* ── Custom Skill Groups  */
+.skill-block-hint {
+  font-size: 13px;
+  color: #888;
+  margin: -4px 0 12px;
+}
+
+.custom-group {
+  border: 1px dashed #d0d0d0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  background: #fafafa;
+}
+
+.custom-group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.custom-group-heading {
+  flex: 1;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.remove-group-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #aaa;
+  font-size: 16px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: color 0.2s, background 0.2s;
+}
+.remove-group-btn:hover {
+  color: #e44;
+  background: #feeaea;
+}
+
+.custom-group-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+  min-height: 0;
+}
+
+.add-group-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 8px 18px;
+  background: #fff;
+  border: 1.5px dashed #bbb;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.add-group-btn:hover {
+  border-color: #4f8ef7;
+  color: #4f8ef7;
+  background: #f0f5ff;
+}
+
+/* ── Clutter warning ─────────────────────────────────────── */
+.clutter-warning {
+  font-size: 13px;
+  color: #b45309;
+  background: #fef9ec;
+  border: 1px solid #fcd34d;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+}
+
+/* ── Tags inside custom groups ───────────────────────────── */
+/* (if your existing .tag / .tag-label / .tag-remove styles
+   don't already apply globally, add these) */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #e8f0fe;
+  color: #1a56db;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.tag-remove {
+  cursor: pointer;
+  font-size: 11px;
+  color: #6b7280;
+  line-height: 1;
+}
+.tag-remove:hover {
+  color: #e44;
+}

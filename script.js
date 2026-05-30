@@ -182,7 +182,7 @@ addEduBtn.addEventListener('click', addEduEntry);
 addEduEntry();
 
 
-//Adding info functionality
+//Adding INFO 'i' functionality
 const infoIcons = document.querySelectorAll(".info-icon");
 
 infoIcons.forEach(icon => {
@@ -199,3 +199,250 @@ document.addEventListener("click", () => {
         });
 
 });
+
+
+
+
+// ── SKILLS SECTION ───────────────────────────────────────────
+
+const rvSkills = document.getElementById('rv-skills');
+
+// Categories now: lang-tech, tools, soft
+const selected = { 'lang-tech': [], tools: [], soft: [] };
+
+// Custom groups: [{ id, heading, skills[] }, ...]
+let customGroups = [];
+
+// ── Preview renderer ─────────────────────────────────────────
+function renderSkillsPreview() {
+  const hasLangTech = selected['lang-tech'].length > 0;
+  const hasTools    = selected.tools.length > 0;
+  const hasSoft     = selected.soft.length > 0;
+  const hasCustom   = customGroups.some(g => g.skills.length > 0);
+
+  if (!hasLangTech && !hasTools && !hasSoft && !hasCustom) {
+    rvSkills.innerHTML = '<p class="rv-empty">Select skills in the Skills tab →</p>';
+    return;
+  }
+
+  let html = '';
+
+  // Custom groups first (user-defined headings)
+  customGroups.forEach(g => {
+    if (g.skills.length === 0) return;
+    const heading = g.heading.trim() || 'Other';
+    html += `
+      <div class="rv-skill-row">
+        <span class="rv-skill-cat">${heading}:</span>
+        <span class="rv-skill-vals">${g.skills.join(', ')}</span>
+      </div>`;
+  });
+
+  if (hasLangTech) {
+    html += `
+      <div class="rv-skill-row">
+        <span class="rv-skill-cat">Languages:</span>
+        <span class="rv-skill-vals">${selected['lang-tech'].join(', ')}</span>
+      </div>`;
+  }
+
+  if (hasTools) {
+    html += `
+      <div class="rv-skill-row">
+        <span class="rv-skill-cat">Tools &amp; Platforms:</span>
+        <span class="rv-skill-vals">${selected.tools.join(', ')}</span>
+      </div>`;
+  }
+
+  if (hasSoft) {
+    html += `
+      <div class="rv-skill-row">
+        <span class="rv-skill-cat">Soft Skills:</span>
+        <span class="rv-skill-vals">${selected.soft.join(', ')}</span>
+      </div>`;
+  }
+
+  rvSkills.innerHTML = html;
+}
+
+// ── Chip-based tag renderer ──────────────────────────────────
+function renderTagsUI(cat) {
+  const tagsContainer = document.getElementById(`tags-${cat}`);
+  if (!tagsContainer) return;
+
+  tagsContainer.innerHTML = selected[cat].map(skill => `
+    <span class="stag">
+      ${skill}
+      <button data-skill="${skill}" data-cat="${cat}">×</button>
+    </span>
+  `).join('');
+
+  tagsContainer.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const s = this.dataset.skill;
+      const c = this.dataset.cat;
+      selected[c] = selected[c].filter(x => x !== s);
+
+      // Unmark chip in pool if it exists
+      document.querySelectorAll(`.chip[data-cat="${c}"]`).forEach(ch => {
+        if (ch.textContent.trim() === s) ch.classList.remove('on');
+      });
+
+      renderTagsUI(c);
+      renderSkillsPreview();
+    });
+  });
+}
+
+function addSkill(skill, cat) {
+  if (!selected[cat].includes(skill)) {
+    selected[cat].push(skill);
+    renderTagsUI(cat);
+    renderSkillsPreview();
+  }
+}
+
+// ── Chip clicks ──────────────────────────────────────────────
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', function () {
+    const skill = this.textContent.trim();
+    const cat   = this.dataset.cat;
+
+    if (this.classList.contains('on')) {
+      this.classList.remove('on');
+      selected[cat] = selected[cat].filter(s => s !== skill);
+      renderTagsUI(cat);
+      renderSkillsPreview();
+    } else {
+      this.classList.add('on');
+      addSkill(skill, cat);
+    }
+  });
+});
+
+// ── Custom input fields (Enter to add) ───────────────────────
+[
+  { inputId: 'custom-lang-tech', cat: 'lang-tech' },
+  { inputId: 'custom-tools',     cat: 'tools'     },
+  { inputId: 'custom-soft',      cat: 'soft'      },
+].forEach(({ inputId, cat }) => {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  input.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    const val = this.value.trim();
+    if (val) {
+      addSkill(val, cat);
+      this.value = '';
+    }
+  });
+});
+
+// ── Custom Skill Groups ──────────────────────────────────────
+const MAX_GROUPS_BEFORE_WARN = 3;
+let groupCount = 0;
+
+document.getElementById('add-group-btn').addEventListener('click', addGroup);
+
+function addGroup() {
+  groupCount++;
+
+  const list = document.getElementById('custom-groups-list');
+
+  if (groupCount > MAX_GROUPS_BEFORE_WARN) {
+    if (!document.getElementById('clutter-warning')) {
+      const warn = document.createElement('p');
+      warn.id        = 'clutter-warning';
+      warn.className = 'clutter-warning';
+      warn.textContent = '⚠️ Adding more than 3 skill groups may make your resume look cluttered.';
+      list.parentNode.insertBefore(warn, list);
+    }
+  }
+
+  const id    = `group-${Date.now()}`;
+  const group = document.createElement('div');
+  group.className  = 'custom-group';
+  group.dataset.id = id;
+  group.innerHTML  = `
+    <div class="custom-group-header">
+      <input
+        class="finput custom-group-heading"
+        type="text"
+        placeholder="Group heading (e.g. Frameworks)"
+        maxlength="40"
+      />
+      <button class="remove-group-btn" type="button" title="Remove group">✕</button>
+    </div>
+    <div class="custom-group-tags" id="gtags-${id}"></div>
+    <input
+      class="finput custom-group-skill-input"
+      type="text"
+      placeholder="Type a skill + press Enter"
+      data-group="${id}"
+    />
+  `;
+  list.appendChild(group);
+
+  // Register in customGroups state
+  const groupData = { id, heading: '', skills: [] };
+  customGroups.push(groupData);
+
+  // Sync heading input → state → preview
+  group.querySelector('.custom-group-heading').addEventListener('input', function () {
+    groupData.heading = this.value;
+    renderSkillsPreview();
+  });
+
+  // Remove entire group
+  group.querySelector('.remove-group-btn').addEventListener('click', () => {
+    group.remove();
+    groupCount--;
+    customGroups = customGroups.filter(g => g.id !== id);
+
+    if (groupCount <= MAX_GROUPS_BEFORE_WARN) {
+      document.getElementById('clutter-warning')?.remove();
+    }
+    renderSkillsPreview();
+  });
+
+  // Enter to add skill tag inside the group
+  group.querySelector('.custom-group-skill-input').addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    const val = this.value.trim();
+    if (!val) return;
+
+    if (groupData.skills.includes(val)) {
+      this.value = '';
+      return;
+    }
+
+    groupData.skills.push(val);
+    renderGroupTags(id, groupData);
+    renderSkillsPreview();
+    this.value = '';
+  });
+}
+
+// ── Render tags inside a custom group ───────────────────────
+function renderGroupTags(id, groupData) {
+  const container = document.getElementById(`gtags-${id}`);
+  if (!container) return;
+
+  container.innerHTML = groupData.skills.map(skill => `
+    <span class="stag">
+      ${skill}
+      <button data-skill="${skill}">×</button>
+    </span>
+  `).join('');
+
+  container.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const s = this.dataset.skill;
+      groupData.skills = groupData.skills.filter(x => x !== s);
+      renderGroupTags(id, groupData);
+      renderSkillsPreview();
+    });
+  });
+}

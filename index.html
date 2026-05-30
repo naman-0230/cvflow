@@ -178,7 +178,7 @@
                                     <div class="info-row">
                                         <label class="flabel">Degree / Course <span class="req">*</span></label>
                                         <span class="info-icon">
-                                        i
+                                            i
 
                                             <div class="info-box">
 
@@ -229,48 +229,84 @@
                 <div class="tab-pane" id="pane-skills">
                     <div class="pane-head">
                         <h2 class="pane-title">Skills</h2>
-                        <p class="pane-desc">Tap to select. Type to add your own.</p>
+                        <p class="pane-desc">Build out your skill sections below.</p>
                     </div>
 
-                    <!-- Technical -->
+                    <!-- 1. CUSTOM SKILL GROUPS (input-based, no chips) -->
+                    <div class="skill-block" id="custom-groups-section">
+                        <div class="skill-block-head">Custom Skill Groups</div>
+                        <p class="skill-block-hint">Add your own skill categories (e.g. "Frameworks", "Databases"). You
+                            can add multiple groups.</p>
+
+                        <div id="custom-groups-list"></div>
+
+                        <button class="add-group-btn" id="add-group-btn" type="button">
+                            <span>+ Add Skill Group</span>
+                        </button>
+                    </div>
+
+                    <!-- 2. PROGRAMMING LANGUAGES (chip-based) -->
                     <div class="skill-block">
-                        <div class="skill-block-head">Technical Skills</div>
-                        <div class="chip-pool" id="pool-tech">
-                            <span class="chip" data-cat="tech">HTML5</span>
-                            <span class="chip" data-cat="tech">CSS3</span>
-                            <span class="chip" data-cat="tech">JavaScript</span>
-                            <span class="chip" data-cat="tech">TypeScript</span>
-                            <span class="chip" data-cat="tech">React.js</span>
-                            <span class="chip" data-cat="tech">Next.js</span>
-                            <span class="chip" data-cat="tech">Node.js</span>
-                            <span class="chip" data-cat="tech">Express.js</span>
-                            <span class="chip" data-cat="tech">MongoDB</span>
-                            <span class="chip" data-cat="tech">MySQL</span>
-                            <span class="chip" data-cat="tech">PostgreSQL</span>
-                            <span class="chip" data-cat="tech">Python</span>
-                            <span class="chip" data-cat="tech">Java</span>
-                            <span class="chip" data-cat="tech">C++</span>
-                            <span class="chip" data-cat="tech">C</span>
-                            <span class="chip" data-cat="tech">Git</span>
-                            <span class="chip" data-cat="tech">GitHub</span>
-                            <span class="chip" data-cat="tech">REST API</span>
-                            <span class="chip" data-cat="tech">Docker</span>
-                            <span class="chip" data-cat="tech">AWS</span>
-                            <span class="chip" data-cat="tech">Firebase</span>
-                            <span class="chip" data-cat="tech">Tailwind CSS</span>
-                            <span class="chip" data-cat="tech">Redux</span>
-                            <span class="chip" data-cat="tech">DSA</span>
-                            <span class="chip" data-cat="tech">OOP</span>
-                            <span class="chip" data-cat="tech">Linux</span>
-                            <span class="chip" data-cat="tech">Figma</span>
+                        <div class="skill-block-head">Programming Languages</div>
+                        <div class="chip-pool" id="pool-lang-tech">
+                            <span class="chip" data-cat="lang-tech">JavaScript</span>
+                            <span class="chip" data-cat="lang-tech">TypeScript</span>
+                            <span class="chip" data-cat="lang-tech">Python</span>
+                            <span class="chip" data-cat="lang-tech">Java</span>
+                            <span class="chip" data-cat="lang-tech">C</span>
+                            <span class="chip" data-cat="lang-tech">C++</span>
+                            <span class="chip" data-cat="lang-tech">C#</span>
+                            <span class="chip" data-cat="lang-tech">Go</span>
+                            <span class="chip" data-cat="lang-tech">Rust</span>
+                            <span class="chip" data-cat="lang-tech">PHP</span>
+                            <span class="chip" data-cat="lang-tech">Swift</span>
+                            <span class="chip" data-cat="lang-tech">Kotlin</span>
+                            <span class="chip" data-cat="lang-tech">Ruby</span>
+                            <span class="chip" data-cat="lang-tech">Dart</span>
+                            <span class="chip" data-cat="lang-tech">R</span>
+                            <span class="chip" data-cat="lang-tech">MATLAB</span>
+                            <span class="chip" data-cat="lang-tech">SQL</span>
+                            <span class="chip" data-cat="lang-tech">HTML5</span>
+                            <span class="chip" data-cat="lang-tech">CSS3</span>
+                            <span class="chip" data-cat="lang-tech">Bash</span>
                         </div>
-                        <input class="finput custom-skill-input" id="custom-tech" type="text"
-                            placeholder="Type a skill + press Enter" />
-                        <div class="selected-tags" id="tags-tech"></div>
+                        <input class="finput custom-skill-input" id="custom-lang-tech" type="text"
+                            placeholder="Type a language + press Enter" />
+                        <div class="selected-tags" id="tags-lang-tech"></div>
                     </div>
 
-                    <!-- Soft Skills -->
+                    <!-- 3. TOOLS & PLATFORMS (chip-based) -->
                     <div class="skill-block">
+                        <div class="skill-block-head">Tools &amp; Platforms</div>
+                        <div class="chip-pool" id="pool-tools">
+                            <span class="chip" data-cat="tools">Git</span>
+                            <span class="chip" data-cat="tools">GitHub</span>
+                            <span class="chip" data-cat="tools">GitLab</span>
+                            <span class="chip" data-cat="tools">Docker</span>
+                            <span class="chip" data-cat="tools">Kubernetes</span>
+                            <span class="chip" data-cat="tools">AWS</span>
+                            <span class="chip" data-cat="tools">Azure</span>
+                            <span class="chip" data-cat="tools">Firebase</span>
+                            <span class="chip" data-cat="tools">Figma</span>
+                            <span class="chip" data-cat="tools">Android Studio</span>
+                            <span class="chip" data-cat="tools">VS Code</span>
+                            <span class="chip" data-cat="tools">Xcode</span>
+                            <span class="chip" data-cat="tools">Postman</span>
+                            <span class="chip" data-cat="tools">SQLite</span>
+                            <span class="chip" data-cat="tools">MongoDB Atlas</span>
+                            <span class="chip" data-cat="tools">Linux</span>
+                            <span class="chip" data-cat="tools">Vercel</span>
+                            <span class="chip" data-cat="tools">Netlify</span>
+                            <span class="chip" data-cat="tools">Jira</span>
+                            <span class="chip" data-cat="tools">Notion</span>
+                        </div>
+                        <input class="finput custom-skill-input" id="custom-tools" type="text"
+                            placeholder="Type a tool + press Enter" />
+                        <div class="selected-tags" id="tags-tools"></div>
+                    </div>
+
+                    <!-- 4. SOFT SKILLS (chip-based) -->
+                    <div class="skill-block" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
                         <div class="skill-block-head">Soft Skills</div>
                         <div class="chip-pool" id="pool-soft">
                             <span class="chip" data-cat="soft">Problem Solving</span>
@@ -284,25 +320,11 @@
                             <span class="chip" data-cat="soft">Attention to Detail</span>
                             <span class="chip" data-cat="soft">Creativity</span>
                         </div>
+                        <input class="finput custom-skill-input" id="custom-soft" type="text"
+                            placeholder="Type a skill + press Enter" />
                         <div class="selected-tags" id="tags-soft"></div>
                     </div>
-
-                    <!-- Languages -->
-                    <div class="skill-block" style="border-bottom:none;margin-bottom:0;padding-bottom:0;">
-                        <div class="skill-block-head">Languages Known</div>
-                        <div class="chip-pool" id="pool-lang">
-                            <span class="chip" data-cat="lang">English</span>
-                            <span class="chip" data-cat="lang">Hindi</span>
-                            <span class="chip" data-cat="lang">Gujarati</span>
-                            <span class="chip" data-cat="lang">Marathi</span>
-                            <span class="chip" data-cat="lang">Tamil</span>
-                            <span class="chip" data-cat="lang">Telugu</span>
-                            <span class="chip" data-cat="lang">Bengali</span>
-                        </div>
-                        <div class="selected-tags" id="tags-lang"></div>
-                    </div>
                 </div>
-
                 <!-- ══ PROJECTS ══ -->
                 <div class="tab-pane" id="pane-projects">
                     <div class="pane-head">
