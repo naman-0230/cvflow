@@ -59,7 +59,7 @@ function updatePreview() {
     // Rebuild contacts row: only show filled fields with | between them
     const contactItems = [];
     if (fEmail.value.trim()) {
-        contactItems.push( `<a href="mailto:${fEmail.value.trim()}">${fEmail.value.trim()}</a>`);
+        contactItems.push(`<a href="mailto:${fEmail.value.trim()}">${fEmail.value.trim()}</a>`);
     }
     if (fPhone.value.trim()) {
         contactItems.push(`<span>${fPhone.value.trim()}</span>`);
@@ -70,9 +70,9 @@ function updatePreview() {
 
     rvContacts.innerHTML =
         contactItems.map((item, i) => {
-                const sep = i < contactItems.length - 1 ? '<span class="rv-sep"> | </span>' : '';
-                return item + sep;
-            })
+            const sep = i < contactItems.length - 1 ? '<span class="rv-sep"> | </span>' : '';
+            return item + sep;
+        })
             .join('') || '<span style="color:#ccc;font-style:italic;">email · phone · location</span>';
 
     // Links row — only show filled ones
@@ -664,7 +664,7 @@ function renderProjectsPreview() {
         // Name + link on same row
         html += `<div class="rv-proj-row">
       <span class="rv-proj-name">${name || 'Untitled Project'}</span>
-      ${link ? `<span class="rv-proj-link">${link}</span>` : ''}
+      ${link ? `<a class="rv-proj-link" href="${link.startsWith('http') ? link : `https://${link}`}" target="_blank">${link}</a>` : ''}
     </div>`;
 
         // Stack always on its own line (PDF style), not squeezed next to name
@@ -1051,12 +1051,12 @@ function renderExtrasPreview() {
         let html = '';
         if (certs) {
             certs.split('\n').filter(Boolean).forEach(line => {
-                html += `<div class="rv-extras-item">• ${line.trim()}</div>`;
+                html += `<div class="rv-extras-item"><span class="bullet-dot">•</span><span class="bullet-text">${line.trim()}</span></div>`;
             });
         }
         if (awards) {
             awards.split('\n').filter(Boolean).forEach(line => {
-                html += `<div class="rv-extras-item">• ${line.trim()}</div>`;
+               html += `<div class="rv-extras-item"><span class="bullet-dot">•</span><span class="bullet-text">${line.trim()}</span></div>`;
             });
         }
         rvExtras.innerHTML = html;
@@ -1075,11 +1075,11 @@ function renderExtrasPreview() {
     else {
         let html = '';
         if (coding) {
-            html += `<div class="rv-extras-item">• ${coding}</div>`;
+            html += `<div class="rv-extras-item"><span class="bullet-dot">•</span><span class="bullet-text">${coding}</span></div>`;
         }
         if (extra) {
             extra.split('\n').filter(Boolean).forEach(line => {
-                html += `<div class="rv-extras-item">• ${line.trim()}</div>`;
+                html += `<div class="rv-extras-item"><span class="bullet-dot">•</span><span class="bullet-text">${line.trim()}</span></div>`;
             });
         }
         rvActivities.innerHTML = html;

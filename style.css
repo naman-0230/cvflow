@@ -1447,12 +1447,26 @@ body.ai-on .ai-badge { opacity: 1; }
   color: #222;
   margin-bottom: 3px;
   line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding-left: 12px;
+  text-indent: -12px;
 }
 
 .rv-extras-block {
   margin-bottom: 6px;
 }
+/*fixing of overflow of bullet of extras*/
+.bullet-dot {
+  flex-shrink: 0;
+}
 
+.bullet-text {
+  flex: 1;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  min-width: 0;
+}
 
 
 /*Downlaod Popup*/
