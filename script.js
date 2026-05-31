@@ -80,6 +80,8 @@ function updatePreview() {
     // Hide links row entirely if all three are empty
     const anyLink = fLinkedin.value.trim() || fGithub.value.trim() || fPortfolio.value.trim();
     rvLinks.style.display = anyLink ? 'flex' : 'none';
+
+    checkResumeOverflow();
 }
 
 // ── Attach listeners — fires on every keystroke
@@ -88,6 +90,7 @@ function updatePreview() {
     input.addEventListener('input', () => {
         updatePreview();
         saveToLocalStorage();
+        
     });
 });
 
@@ -132,6 +135,7 @@ function renderEduPreview() {
       </div>
     `;
     }).join('');
+    checkResumeOverflow();
 }
 
 function addEduEntry() {
@@ -183,6 +187,7 @@ function addEduEntry() {
         eduEntries = eduEntries.filter(Boolean);
         renderEduPreview();
         saveToLocalStorage();
+        checkResumeOverflow();
     });
 
     eduList.appendChild(card);
@@ -258,10 +263,11 @@ function renderSkillsPreview() {
       </div>`;
     }
 
+   // &amp; Platforms 
     if (hasTools) {
         html += `
       <div class="rv-skill-row">
-        <span class="rv-skill-cat">Tools &amp; Platforms:</span>
+        <span class="rv-skill-cat">Tool: </span>
         <span class="rv-skill-vals">${selected.tools.join(', ')}</span>
       </div>`;
     }
@@ -275,6 +281,8 @@ function renderSkillsPreview() {
     }
 
     rvSkills.innerHTML = html;
+    saveToLocalStorage();
+    checkResumeOverflow();
 }
 
 // ── Chip-based tag renderer ──────────────────────────────────
@@ -670,6 +678,7 @@ function renderProjectsPreview() {
 
     rvProj.innerHTML = html || '<p class="rv-empty">Fill in project details →</p>';
     saveToLocalStorage();
+    checkResumeOverflow();
 }
 
 
@@ -1009,7 +1018,7 @@ function renderExpPreview() {
         rvSection.classList.add('rv-section--hidden');
         rvExp.innerHTML = '';
     }
-
+    checkResumeOverflow();
     saveToLocalStorage();
 }
 
@@ -1056,7 +1065,8 @@ function renderExtrasPreview() {
   if (!hasActivities) {
     rvActSection.classList.add('rv-section--hidden');
     rvActivities.innerHTML = '';
-  } else {
+  } 
+  else {
     let html = '';
     if (coding) {
       html += `<div class="rv-extras-item">• ${coding}</div>`;
@@ -1069,6 +1079,8 @@ function renderExtrasPreview() {
     rvActivities.innerHTML = html;
     rvActSection.classList.remove('rv-section--hidden');
   }
+
+  checkResumeOverflow();
 }
 
 ['f-certs', 'f-awards', 'f-coding', 'f-extra'].forEach(id => {
@@ -1269,6 +1281,56 @@ function downloadPDF() {
 document.getElementById('dlBtnPreview')?.addEventListener('click', downloadPDF);
 document.getElementById('dlBtn')?.addEventListener('click', downloadPDF);
 
+
+
+//Checking Overflow of page 
+
+function checkResumeOverflow() {
+
+    const preview = document.getElementById("resumeDoc");
+    const warning = document.getElementById("overflow-warning");
+
+    const contentHeight = preview.scrollHeight;
+    const pageHeight = preview.clientHeight;
+
+    const overflowPercent =
+        Math.round(
+            ((contentHeight - pageHeight) / pageHeight) * 100
+        );
+
+    if (overflowPercent > 0) {
+
+        warning.textContent =
+            `⚠ Resume exceeds one page by ${overflowPercent}%. Consider trimming content.`;
+
+        warning.style.display = "block";
+
+    } else {
+
+        warning.textContent =
+            "✓ Fits within one page";
+
+        warning.style.display = "block";
+    }
+}
+
+
+
+///Clear ALL feature
+
+document.getElementById("clearBtn").addEventListener("click", resetResume);
+
+function resetResume() {
+
+    const confirmed = confirm(
+        "This will clear all resume data. Continue?"
+    );
+
+    if (!confirmed) return;
+
+    localStorage.removeItem("resumeData");
+    location.reload();
+}
 
 
 

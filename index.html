@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Resume CVflow</title>
+    <title>CVflow</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,13 +30,13 @@
         </div>
 
         <!-- ATS Score Pill -->
-        <div class="ats-pill">
+        <!-- <div class="ats-pill">
             <span class="ats-pill-label">ATS Score</span>
             <div class="ats-track">
                 <div class="ats-fill" id="atsBar"></div>
             </div>
             <span class="ats-value" id="atsScore">0%</span>
-        </div>
+        </div> -->
 
         <div class="nav-right">
             <!-- AI Toggle -->
@@ -639,7 +639,7 @@
 
             <!-- Download bar fixed at bottom of form panel -->
             <div class="form-footer">
-                <button class="btn-ghost btn-sm" id="saveDraft">💾 Save Draft</button>
+                <!-- <button class="btn-ghost btn-sm" id="saveDraft">💾 Save Draft</button> -->
                 <button class="btn-primary btn-full" id="dlBtn">⬇ Download PDF</button>
             </div>
 
@@ -652,6 +652,7 @@
 
             <div class="preview-bar">
                 <span class="preview-bar-label">Live Preview</span>
+                <div id="overflow-warning" class="overflow-warning"></div>
                 <div class="zoom-controls">
                     <button class="zoom-btn" id="zoomOut" title="Zoom out">−</button>
                     <span class="zoom-val" id="zoomVal">90%</span>
@@ -661,7 +662,10 @@
                 <!-- <button class="btn-primary btn-sm" id="dlBtnPreview">⬇ PDF</button> -->
             </div>
 
+        
+
             <div class="preview-canvas" id="previewCanvas">
+
                 <div class="a4" id="resumeDoc">
 
                     <!-- ══════════════════════════════════════
@@ -749,7 +753,7 @@
     </div>
 
     <div id="resume-print" aria-hidden="true"></div>
-    
+
 </body>
 
 </html>

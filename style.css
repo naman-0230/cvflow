@@ -740,6 +740,9 @@ body.ai-on .ai-badge { opacity: 1; }
   color: #111;
   font-size: 10.5pt;
   line-height: 1.45;
+   width:210mm;
+    height:297mm;
+    overflow:hidden;
 }
 
 /* Header */
@@ -819,7 +822,7 @@ body.ai-on .ai-badge { opacity: 1; }
   font-style: italic;
 }
 .rv-edu-year { font-size: 9pt; color: #555; }
-.rv-edu-courses { font-size: 8.5pt; color: #666; margin-top: 1px; }
+.rv-edu-courses { font-size: 8.8pt; color: #555; margin-top: 1px; }
 
 /* Project entries */
 .rv-proj-entry { margin-bottom: 11px; }
@@ -853,7 +856,7 @@ body.ai-on .ai-badge { opacity: 1; }
 /* Skills */
 .rv-skill-row {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   gap: 6px;
   margin-bottom: 4px;
 }
@@ -861,10 +864,11 @@ body.ai-on .ai-badge { opacity: 1; }
   font-size: 9.5pt;
   font-weight: 550;
   color: #111;
-  min-width: 110px;
+  min-width: 0;
+  margin-right: 4px;
   flex-shrink: 0;
 }
-.rv-skill-vals { font-size: 9.5pt; color: #333;font-weight: 400 }
+.rv-skill-vals { font-size: 9.5pt; color: #333;font-weight: 400;}
 
 /* Experience entries */
 .rv-exp-entry { margin-bottom: 11px; }
@@ -887,10 +891,10 @@ body.ai-on .ai-badge { opacity: 1; }
   text-align: right;
 }
 .rv-exp-block {margin-bottom: 10px;}
-.rv-exp-company { font-size: 10pt; font-weight: 650; color: #111; margin-top: -5px; margin-bottom: 3px ; }
+.rv-exp-company { font-size: 10pt; font-weight: 650; color: #111; margin-top: -1px; margin-bottom: 3px ; }
 .rv-exp-date { font-size: 9pt; color: #555; }
 .rv-exp-role { font-size: 10.5pt; color: #333; font-style: italic;}
-.rv-exp-loc {margin-top: -5px;}
+.rv-exp-loc {margin-top: -1px;}
 .rv-exp-bullets { list-style: none; padding: 0;  }
 
 .rv-exp-bullets li {
@@ -1463,4 +1467,20 @@ body.ai-on .ai-badge { opacity: 1; }
   display: none;
 }
 
-/* ── Print mode ────────────────────────────────────────────── */
+
+/*overflow warning*/
+
+.overflow-warning{
+    display: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.overflow-warning.show{
+    display: block;
+    background: #fff4e5;
+    color: #b45309;
+    border: 1px solid #fbbf24;
+}
