@@ -1385,3 +1385,70 @@ body.ai-on .ai-badge { opacity: 1; }
   font-size: 13px;
   margin-top: 1px;
 }
+
+
+/*additional extras section improvements*/
+
+/* ── Formula hint box (base) ───────────────────────────────── */
+.formula-box {
+  margin-top: 8px;
+  padding: 10px 14px;
+  background: #f5f8ff;
+  border-left: 3px solid #4f8ef7;
+  border-radius: 0 8px 8px 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+/* Amber variant for achievements */
+.formula-box--amber {
+  background: #fffbf0;
+  border-left-color: #f59e0b;
+}
+
+.formula-box-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #2d60d8;
+  margin-bottom: 2px;
+}
+
+.formula-box--amber .formula-box-title {
+  color: #b45309;
+}
+
+.formula-box-rule {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.formula-box-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.formula-eg {
+  color: #666;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.formula-eg::before {
+  content: '→ ';
+  color: #aaa;
+  font-style: normal;
+}
+.rv-extras-item {
+  font-size: 9.5pt;
+  color: #222;
+  margin-bottom: 3px;
+  line-height: 1.5;
+}
+
+.rv-extras-block {
+  margin-bottom: 6px;
+}

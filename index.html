@@ -526,7 +526,10 @@
                     </template>
                 </div>
 
+
+
                 <!-- ══ EXTRAS ══ -->
+
                 <div class="tab-pane" id="pane-extras">
                     <div class="pane-head">
                         <h2 class="pane-title">Extras</h2>
@@ -534,37 +537,59 @@
                     </div>
 
                     <div class="fields">
+
+                        <!-- Certifications -->
                         <div class="field field--full">
                             <label class="flabel">Certifications</label>
                             <textarea class="finput ftextarea" id="f-certs" rows="3"
-                                placeholder="JavaScript (Basic) – HackerRank, 2025&#10;CSS (Basic) – HackerRank, 2025"></textarea>
+                                placeholder="JavaScript (Basic) — HackerRank, 2025&#10;AWS Cloud Practitioner — Amazon, 2025"></textarea>
                             <span class="fhint">One per line</span>
+                            <div class="formula-box">
+                                <div class="formula-box-title">Format</div>
+                                <div class="formula-box-rule">Certification Name — Issuer, Year</div>
+                                <div class="formula-box-examples">
+                                    <span class="formula-eg">JavaScript (Basic) — HackerRank, 2025</span>
+                                    <span class="formula-eg">AWS Cloud Practitioner — Amazon, 2025</span>
+                                </div>
+                            </div>
                         </div>
 
+                        <!-- Achievements -->
                         <div class="field field--full">
                             <label class="flabel">Achievements / Awards</label>
                             <textarea class="finput ftextarea" id="f-awards" rows="3"
-                                placeholder="Smart India Hackathon – 5th Rank, College Level (2025) | Competed among 200+ teams"></textarea>
+                                placeholder="Smart India Hackathon — Top 5 among 200+ teams&#10;Best Project Award — Annual Tech Fest, VIT (2024)"></textarea>
+                            <div class="formula-box formula-box--amber">
+                                <div class="formula-box-title">Achievement Formula</div>
+                                <div class="formula-box-rule">Achievement + Rank/Result + Context</div>
+                                <div class="formula-box-examples">
+                                    <span class="formula-eg">Smart India Hackathon — Top 5 among 200+ teams</span>
+                                    <span class="formula-eg">Won Best Project Award at Annual Tech Fest among 80+
+                                        entries</span>
+                                </div>
+                            </div>
                         </div>
 
+                        <!-- Competitive Coding -->
                         <div class="field field--full">
                             <label class="flabel">Competitive Coding</label>
                             <input class="finput" id="f-coding" type="text"
                                 placeholder="Solved 200+ problems on LeetCode (Arrays, Strings, DP, Trees)" />
                         </div>
 
+                        <!-- Extracurricular -->
                         <div class="field field--full">
-                            <label class="flabel">Extracurricular / Hobbies</label>
+                            <label class="flabel">Extracurricular Activities</label>
                             <textarea class="finput ftextarea" id="f-extra" rows="2"
-                                placeholder="Football enthusiast, secured winning title at local tournament level."></textarea>
+                                placeholder="Swimming — 1st Place, District-Level Tournament (2024)&#10;Basketball — Member of championship-winning team, Inter-College Tournament (2024)"></textarea>
                         </div>
+
                     </div>
 
-                    <!-- Template Chooser — lives at bottom of extras -->
+                    <!-- Template Chooser -->
                     <div class="template-chooser">
                         <div class="skill-block-head" style="margin-bottom:1rem;">Resume Template</div>
                         <div class="tpl-row">
-
                             <button class="tpl-opt active" data-tpl="classic">
                                 <div class="tpl-preview">
                                     <div class="tp-hbar"></div>
@@ -604,13 +629,13 @@
                                 <span class="tpl-label">Sidebar</span>
                                 <span class="tpl-tag tpl-tag--purple">Modern</span>
                             </button>
-
                         </div>
                     </div>
 
                 </div>
-
             </div><!-- /form-scroll -->
+
+
 
             <!-- Download bar fixed at bottom of form panel -->
             <div class="form-footer">
@@ -702,11 +727,11 @@
                         <div id="rv-extras"></div>
                     </section>
 
-                    <!-- Extracurricular -->
-                    <section class="rv-section rv-section--hidden" id="rv-extra2-section">
+                    <!-- Extracurricular Activities -->
+                    <section class="rv-section rv-section--hidden" id="rv-activities-section">
                         <div class="rv-sec-title">Extracurricular Activities</div>
                         <div class="rv-rule"></div>
-                        <div id="rv-extra2"></div>
+                        <div id="rv-activities"></div>
                     </section>
 
                 </div><!-- /resumeDoc -->

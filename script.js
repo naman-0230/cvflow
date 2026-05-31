@@ -997,3 +997,65 @@ function renderExpPreview() {
         rvExp.innerHTML = '';
     }
 }
+
+
+//EXTRAS SECTION
+
+function renderExtrasPreview() {
+//   if (!rvExtras) return;
+
+  const certs  = document.getElementById('f-certs')?.value.trim();
+  const awards = document.getElementById('f-awards')?.value.trim();
+  const coding = document.getElementById('f-coding')?.value.trim();
+  const extra  = document.getElementById('f-extra')?.value.trim();
+
+  // ── Certifications & Achievements ──────────────────────────
+  const rvExtras     = document.getElementById('rv-extras');
+  const rvExtSection = document.getElementById('rv-extras-section');
+  const hasCertAward = certs || awards;
+
+  if (!hasCertAward) {
+    rvExtSection.classList.add('rv-section--hidden');
+    rvExtras.innerHTML = '';
+  } else {
+    let html = '';
+    if (certs) {
+      certs.split('\n').filter(Boolean).forEach(line => {
+        html += `<div class="rv-extras-item">• ${line.trim()}</div>`;
+      });
+    }
+    if (awards) {
+      awards.split('\n').filter(Boolean).forEach(line => {
+        html += `<div class="rv-extras-item">• ${line.trim()}</div>`;
+      });
+    }
+    rvExtras.innerHTML = html;
+    rvExtSection.classList.remove('rv-section--hidden');
+  }
+
+  // ── Extracurricular Activities ─────────────────────────────
+  const rvActivities    = document.getElementById('rv-activities');
+  const rvActSection    = document.getElementById('rv-activities-section');
+  const hasActivities   = coding || extra;
+
+  if (!hasActivities) {
+    rvActSection.classList.add('rv-section--hidden');
+    rvActivities.innerHTML = '';
+  } else {
+    let html = '';
+    if (coding) {
+      html += `<div class="rv-extras-item">• ${coding}</div>`;
+    }
+    if (extra) {
+      extra.split('\n').filter(Boolean).forEach(line => {
+        html += `<div class="rv-extras-item">• ${line.trim()}</div>`;
+      });
+    }
+    rvActivities.innerHTML = html;
+    rvActSection.classList.remove('rv-section--hidden');
+  }
+}
+
+['f-certs', 'f-awards', 'f-coding', 'f-extra'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', renderExtrasPreview);
+});
