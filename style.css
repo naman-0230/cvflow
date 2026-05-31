@@ -837,7 +837,7 @@ body.ai-on .ai-badge { opacity: 1; }
   color: #2a2a2a;
   padding-left: 14px;
   position: relative;
-  line-height: 1.6;
+  line-height: 1.5;
   margin-bottom: 2px;
 }
 .rv-proj-bullets li::before {
@@ -1493,4 +1493,8 @@ body.ai-on .ai-badge { opacity: 1; }
     background: #fff4e5;
     color: #b45309;
     border: 1px solid #fbbf24;
+}
+
+#resumeDoc {
+  line-height: 1.3;
 }
