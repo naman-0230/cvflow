@@ -57,25 +57,31 @@ function updatePreview() {
     rvName.textContent = fName.value.trim() || 'Your Full Name';
 
     // Rebuild contacts row: only show filled fields with | between them
-    const contactItems = [
-        fEmail.value.trim(),
-        fPhone.value.trim(),
-        fLocation.value.trim(),
-    ].filter(Boolean); // removes empty strings
+    const contactItems = [];
+    if (fEmail.value.trim()) {
+        contactItems.push( `<a href="mailto:${fEmail.value.trim()}">${fEmail.value.trim()}</a>`);
+    }
+    if (fPhone.value.trim()) {
+        contactItems.push(`<span>${fPhone.value.trim()}</span>`);
+    }
+    if (fLocation.value.trim()) {
+        contactItems.push(`<span>${fLocation.value.trim()}</span>`);
+    }
 
-    rvContacts.innerHTML = contactItems
-        .map((item, i) => {
-            const sep = i < contactItems.length - 1
-                ? '<span class="rv-sep"> | </span>'
-                : '';
-            return `<span>${item}</span>${sep}`;
-        })
-        .join('') || '<span style="color:#ccc;font-style:italic;">email · phone · location</span>';
+    rvContacts.innerHTML =
+        contactItems.map((item, i) => {
+                const sep = i < contactItems.length - 1 ? '<span class="rv-sep"> | </span>' : '';
+                return item + sep;
+            })
+            .join('') || '<span style="color:#ccc;font-style:italic;">email · phone · location</span>';
 
     // Links row — only show filled ones
     rvLinkedin.textContent = fLinkedin.value.trim();
+    rvLinkedin.href = fLinkedin.value.trim();
     rvGithub.textContent = fGithub.value.trim();
+    rvGithub.href = fGithub.value.trim();
     rvPortfolio.textContent = fPortfolio.value.trim();
+    rvPortfolio.href = fPortfolio.value.trim();
 
     // Hide links row entirely if all three are empty
     const anyLink = fLinkedin.value.trim() || fGithub.value.trim() || fPortfolio.value.trim();
@@ -86,13 +92,13 @@ function updatePreview() {
 
 // ── Attach listeners — fires on every keystroke
 [fName, fEmail, fPhone, fLinkedin, fGithub, fPortfolio, fLocation]
-.forEach(input => {
-    input.addEventListener('input', () => {
-        updatePreview();
-        saveToLocalStorage();
-        
+    .forEach(input => {
+        input.addEventListener('input', () => {
+            updatePreview();
+            saveToLocalStorage();
+
+        });
     });
-});
 
 // ── Run once on load so preview shows defaults correctly
 updatePreview();
@@ -263,7 +269,7 @@ function renderSkillsPreview() {
       </div>`;
     }
 
-   // &amp; Platforms 
+    // &amp; Platforms 
     if (hasTools) {
         html += `
       <div class="rv-skill-row">
@@ -1008,7 +1014,7 @@ function renderExpPreview() {
             html += `<div class="rv-exp-bullet">• ${b}</div>`;
         });
         html += `</div>`;
-    
+
     });
 
     if (html) {
@@ -1026,68 +1032,68 @@ function renderExpPreview() {
 //EXTRAS SECTION
 
 function renderExtrasPreview() {
-//   if (!rvExtras) return;
+    //   if (!rvExtras) return;
 
-  const certs  = document.getElementById('f-certs')?.value.trim();
-  const awards = document.getElementById('f-awards')?.value.trim();
-  const coding = document.getElementById('f-coding')?.value.trim();
-  const extra  = document.getElementById('f-extra')?.value.trim();
+    const certs = document.getElementById('f-certs')?.value.trim();
+    const awards = document.getElementById('f-awards')?.value.trim();
+    const coding = document.getElementById('f-coding')?.value.trim();
+    const extra = document.getElementById('f-extra')?.value.trim();
 
-  // ── Certifications & Achievements ──────────────────────────
-  const rvExtras     = document.getElementById('rv-extras');
-  const rvExtSection = document.getElementById('rv-extras-section');
-  const hasCertAward = certs || awards;
+    // ── Certifications & Achievements ──────────────────────────
+    const rvExtras = document.getElementById('rv-extras');
+    const rvExtSection = document.getElementById('rv-extras-section');
+    const hasCertAward = certs || awards;
 
-  if (!hasCertAward) {
-    rvExtSection.classList.add('rv-section--hidden');
-    rvExtras.innerHTML = '';
-  } else {
-    let html = '';
-    if (certs) {
-      certs.split('\n').filter(Boolean).forEach(line => {
-        html += `<div class="rv-extras-item">• ${line.trim()}</div>`;
-      });
+    if (!hasCertAward) {
+        rvExtSection.classList.add('rv-section--hidden');
+        rvExtras.innerHTML = '';
+    } else {
+        let html = '';
+        if (certs) {
+            certs.split('\n').filter(Boolean).forEach(line => {
+                html += `<div class="rv-extras-item">• ${line.trim()}</div>`;
+            });
+        }
+        if (awards) {
+            awards.split('\n').filter(Boolean).forEach(line => {
+                html += `<div class="rv-extras-item">• ${line.trim()}</div>`;
+            });
+        }
+        rvExtras.innerHTML = html;
+        rvExtSection.classList.remove('rv-section--hidden');
     }
-    if (awards) {
-      awards.split('\n').filter(Boolean).forEach(line => {
-        html += `<div class="rv-extras-item">• ${line.trim()}</div>`;
-      });
-    }
-    rvExtras.innerHTML = html;
-    rvExtSection.classList.remove('rv-section--hidden');
-  }
 
-  // ── Extracurricular Activities ─────────────────────────────
-  const rvActivities    = document.getElementById('rv-activities');
-  const rvActSection    = document.getElementById('rv-activities-section');
-  const hasActivities   = coding || extra;
+    // ── Extracurricular Activities ─────────────────────────────
+    const rvActivities = document.getElementById('rv-activities');
+    const rvActSection = document.getElementById('rv-activities-section');
+    const hasActivities = coding || extra;
 
-  if (!hasActivities) {
-    rvActSection.classList.add('rv-section--hidden');
-    rvActivities.innerHTML = '';
-  } 
-  else {
-    let html = '';
-    if (coding) {
-      html += `<div class="rv-extras-item">• ${coding}</div>`;
+    if (!hasActivities) {
+        rvActSection.classList.add('rv-section--hidden');
+        rvActivities.innerHTML = '';
     }
-    if (extra) {
-      extra.split('\n').filter(Boolean).forEach(line => {
-        html += `<div class="rv-extras-item">• ${line.trim()}</div>`;
-      });
+    else {
+        let html = '';
+        if (coding) {
+            html += `<div class="rv-extras-item">• ${coding}</div>`;
+        }
+        if (extra) {
+            extra.split('\n').filter(Boolean).forEach(line => {
+                html += `<div class="rv-extras-item">• ${line.trim()}</div>`;
+            });
+        }
+        rvActivities.innerHTML = html;
+        rvActSection.classList.remove('rv-section--hidden');
     }
-    rvActivities.innerHTML = html;
-    rvActSection.classList.remove('rv-section--hidden');
-  }
 
-  checkResumeOverflow();
+    checkResumeOverflow();
 }
 
 ['f-certs', 'f-awards', 'f-coding', 'f-extra'].forEach(id => {
-  document.getElementById(id)?.addEventListener('input', () => {
-    renderExtrasPreview();
-    saveToLocalStorage();
-  });
+    document.getElementById(id)?.addEventListener('input', () => {
+        renderExtrasPreview();
+        saveToLocalStorage();
+    });
 });
 
 
@@ -1098,161 +1104,161 @@ function renderExtrasPreview() {
 //SAVING to Local Storage
 
 function collectProjects() {
-  return [...projList.querySelectorAll('.entry-card')].map(card => ({
-    name:    card.querySelector('[name="pname"]')?.value || '',
-    link:    card.querySelector('[name="plink"]')?.value || '',
-    stack:   [...card.querySelectorAll('.proj-stack-tags .stag')]
-               .map(t => t.childNodes[0].textContent.trim()),
-    bullets: [...card.querySelectorAll('.bullet-input')]
-               .map(i => i.value)
-  }));
+    return [...projList.querySelectorAll('.entry-card')].map(card => ({
+        name: card.querySelector('[name="pname"]')?.value || '',
+        link: card.querySelector('[name="plink"]')?.value || '',
+        stack: [...card.querySelectorAll('.proj-stack-tags .stag')]
+            .map(t => t.childNodes[0].textContent.trim()),
+        bullets: [...card.querySelectorAll('.bullet-input')]
+            .map(i => i.value)
+    }));
 }
 
 function collectExperience() {
-  return [...expList.querySelectorAll('.entry-card')].map(card => ({
-    company: card.querySelector('[name="ecomp"]')?.value || '',
-    role:    card.querySelector('[name="erole"]')?.value || '',
-    start:   card.querySelector('[name="estart"]')?.value || '',
-    end:     card.querySelector('[name="eend"]')?.value || '',
-    loc:     card.querySelector('[name="eloc2"]')?.value || '',
-    bullets: [...card.querySelectorAll('.bullet-input')]
-               .map(i => i.value)
-  }));
+    return [...expList.querySelectorAll('.entry-card')].map(card => ({
+        company: card.querySelector('[name="ecomp"]')?.value || '',
+        role: card.querySelector('[name="erole"]')?.value || '',
+        start: card.querySelector('[name="estart"]')?.value || '',
+        end: card.querySelector('[name="eend"]')?.value || '',
+        loc: card.querySelector('[name="eloc2"]')?.value || '',
+        bullets: [...card.querySelectorAll('.bullet-input')]
+            .map(i => i.value)
+    }));
 }
 
 
 function saveToLocalStorage() {
-  const data = {
-    // Personal info
-    name:      document.getElementById('f-name')?.value,
-    email:     document.getElementById('f-email')?.value,
-    phone:     document.getElementById('f-phone')?.value,
-    location:  document.getElementById('f-location')?.value,
-    linkedin:  document.getElementById('f-linkedin')?.value,
-    github:    document.getElementById('f-github')?.value,
-    portfolio: document.getElementById('f-portfolio')?.value,
-    // Extras
-    certs:   document.getElementById('f-certs')?.value,
-    awards:  document.getElementById('f-awards')?.value,
-    coding:  document.getElementById('f-coding')?.value,
-    extra:   document.getElementById('f-extra')?.value,
+    const data = {
+        // Personal info
+        name: document.getElementById('f-name')?.value,
+        email: document.getElementById('f-email')?.value,
+        phone: document.getElementById('f-phone')?.value,
+        location: document.getElementById('f-location')?.value,
+        linkedin: document.getElementById('f-linkedin')?.value,
+        github: document.getElementById('f-github')?.value,
+        portfolio: document.getElementById('f-portfolio')?.value,
+        // Extras
+        certs: document.getElementById('f-certs')?.value,
+        awards: document.getElementById('f-awards')?.value,
+        coding: document.getElementById('f-coding')?.value,
+        extra: document.getElementById('f-extra')?.value,
 
-    selectedSkills: selected,
-    customGroups:   customGroups,
-    education:      eduEntries,
-    projects:       collectProjects(),
-    experience:     collectExperience(),
-  };
+        selectedSkills: selected,
+        customGroups: customGroups,
+        education: eduEntries,
+        projects: collectProjects(),
+        experience: collectExperience(),
+    };
 
-  localStorage.setItem('resumeData', JSON.stringify(data));
+    localStorage.setItem('resumeData', JSON.stringify(data));
 }
 
 
 //LOAD from Local Storage
 
 function loadFromLocalStorage() {
-  const raw = localStorage.getItem('resumeData');
-  if (!raw) return;
-  const data = JSON.parse(raw);
+    const raw = localStorage.getItem('resumeData');
+    if (!raw) return;
+    const data = JSON.parse(raw);
 
-  // Simple fields
-  ['name','email','phone','location','linkedin','github',
-   'portfolio','certs','awards','coding','extra'].forEach(key => {
-    const el = document.getElementById(`f-${key}`);
-    if (el && data[key] !== undefined) el.value = data[key];
-  });
-
-  // Education — remove default empty card first
-  eduList.innerHTML = '';
-  eduEntries = [];
-  if (data.education?.length) {
-    data.education.forEach(e => {
-      addEduEntry(); // creates card + pushes to eduEntries
-      const index = eduEntries.length - 1;
-      const card  = eduList.querySelectorAll('.entry-card')[index];
-      eduEntries[index] = { ...e };
-      card.querySelector('[name="inst"]').value    = e.inst    || '';
-      card.querySelector('[name="degree"]').value  = e.degree  || '';
-      card.querySelector('[name="eloc"]').value    = e.loc     || '';
-      card.querySelector('[name="eyear"]').value   = e.year    || '';
-      card.querySelector('[name="escore"]').value  = e.score   || '';
-      card.querySelector('[name="ecourses"]').value = e.courses || '';
-    });
-    renderEduPreview();
-  }
-
-  // Projects
-  if (data.projects?.length) {
-    data.projects.forEach(p => {
-      addProject(); // creates card
-      const card = [...projList.querySelectorAll('.entry-card')].at(-1);
-      card.querySelector('[name="pname"]').value = p.name || '';
-      card.querySelector('[name="plink"]').value = p.link || '';
-
-      // Restore stack tags
-      p.stack?.forEach(skill => {
-        const stackSelected = [];
-        // find the addStackSkill scoped to this card via input
-        const stackInput = card.querySelector('.proj-stack-input');
-        stackInput.value = skill;
-        stackInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
-      });
-
-      // Restore bullets — first bullet already exists, fill it then add more
-      const bulletInputs = card.querySelectorAll('.bullet-input');
-      p.bullets?.forEach((text, i) => {
-        if (i === 0 && bulletInputs[0]) {
-          bulletInputs[0].value = text;
-        } else {
-          const addBtn = card.querySelector('.btn-add-bullet');
-          addBtn.click();
-          card.querySelectorAll('.bullet-input')[i].value = text;
-        }
-      });
-    });
-    renderProjectsPreview();
-  }
-
-  // Experience
-  if (data.experience?.length) {
-    data.experience.forEach(exp => {
-      addExperience(); // creates card
-      const card = [...expList.querySelectorAll('.entry-card')].at(-1);
-      card.querySelector('[name="ecomp"]').value  = exp.company || '';
-      card.querySelector('[name="erole"]').value  = exp.role    || '';
-      card.querySelector('[name="estart"]').value = exp.start   || '';
-      card.querySelector('[name="eend"]').value   = exp.end     || '';
-      card.querySelector('[name="eloc2"]').value  = exp.loc     || '';
-
-      // Restore bullets
-      exp.bullets?.forEach((text, i) => {
-        if (i === 0) {
-          card.querySelectorAll('.bullet-input')[0].value = text;
-        } else {
-          card.querySelector('.btn-add-bullet').click();
-          card.querySelectorAll('.bullet-input')[i].value = text;
-        }
-      });
-    });
-    renderExpPreview();
-  }
-
-  // Skills
-  if (data.selectedSkills) {
-    Object.keys(data.selectedSkills).forEach(cat => {
-      if (!selected[cat]) selected[cat] = [];
-      data.selectedSkills[cat].forEach(skill => {
-        addSkill(skill, cat);
-        document.querySelectorAll(`.chip[data-cat="${cat}"]`).forEach(chip => {
-          if (chip.textContent.trim() === skill) chip.classList.add('on');
+    // Simple fields
+    ['name', 'email', 'phone', 'location', 'linkedin', 'github',
+        'portfolio', 'certs', 'awards', 'coding', 'extra'].forEach(key => {
+            const el = document.getElementById(`f-${key}`);
+            if (el && data[key] !== undefined) el.value = data[key];
         });
-      });
-    });
-  }
 
-  // Extras + personal preview
-  renderExtrasPreview();
-  renderSkillsPreview();
+    // Education — remove default empty card first
+    eduList.innerHTML = '';
+    eduEntries = [];
+    if (data.education?.length) {
+        data.education.forEach(e => {
+            addEduEntry(); // creates card + pushes to eduEntries
+            const index = eduEntries.length - 1;
+            const card = eduList.querySelectorAll('.entry-card')[index];
+            eduEntries[index] = { ...e };
+            card.querySelector('[name="inst"]').value = e.inst || '';
+            card.querySelector('[name="degree"]').value = e.degree || '';
+            card.querySelector('[name="eloc"]').value = e.loc || '';
+            card.querySelector('[name="eyear"]').value = e.year || '';
+            card.querySelector('[name="escore"]').value = e.score || '';
+            card.querySelector('[name="ecourses"]').value = e.courses || '';
+        });
+        renderEduPreview();
+    }
+
+    // Projects
+    if (data.projects?.length) {
+        data.projects.forEach(p => {
+            addProject(); // creates card
+            const card = [...projList.querySelectorAll('.entry-card')].at(-1);
+            card.querySelector('[name="pname"]').value = p.name || '';
+            card.querySelector('[name="plink"]').value = p.link || '';
+
+            // Restore stack tags
+            p.stack?.forEach(skill => {
+                const stackSelected = [];
+                // find the addStackSkill scoped to this card via input
+                const stackInput = card.querySelector('.proj-stack-input');
+                stackInput.value = skill;
+                stackInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+            });
+
+            // Restore bullets — first bullet already exists, fill it then add more
+            const bulletInputs = card.querySelectorAll('.bullet-input');
+            p.bullets?.forEach((text, i) => {
+                if (i === 0 && bulletInputs[0]) {
+                    bulletInputs[0].value = text;
+                } else {
+                    const addBtn = card.querySelector('.btn-add-bullet');
+                    addBtn.click();
+                    card.querySelectorAll('.bullet-input')[i].value = text;
+                }
+            });
+        });
+        renderProjectsPreview();
+    }
+
+    // Experience
+    if (data.experience?.length) {
+        data.experience.forEach(exp => {
+            addExperience(); // creates card
+            const card = [...expList.querySelectorAll('.entry-card')].at(-1);
+            card.querySelector('[name="ecomp"]').value = exp.company || '';
+            card.querySelector('[name="erole"]').value = exp.role || '';
+            card.querySelector('[name="estart"]').value = exp.start || '';
+            card.querySelector('[name="eend"]').value = exp.end || '';
+            card.querySelector('[name="eloc2"]').value = exp.loc || '';
+
+            // Restore bullets
+            exp.bullets?.forEach((text, i) => {
+                if (i === 0) {
+                    card.querySelectorAll('.bullet-input')[0].value = text;
+                } else {
+                    card.querySelector('.btn-add-bullet').click();
+                    card.querySelectorAll('.bullet-input')[i].value = text;
+                }
+            });
+        });
+        renderExpPreview();
+    }
+
+    // Skills
+    if (data.selectedSkills) {
+        Object.keys(data.selectedSkills).forEach(cat => {
+            if (!selected[cat]) selected[cat] = [];
+            data.selectedSkills[cat].forEach(skill => {
+                addSkill(skill, cat);
+                document.querySelectorAll(`.chip[data-cat="${cat}"]`).forEach(chip => {
+                    if (chip.textContent.trim() === skill) chip.classList.add('on');
+                });
+            });
+        });
+    }
+
+    // Extras + personal preview
+    renderExtrasPreview();
+    renderSkillsPreview();
 }
 
 
@@ -1263,19 +1269,19 @@ function loadFromLocalStorage() {
 // ── PDF / Print ──────────────────────────────────────────────
 
 function downloadPDF() {
-  const content = document.getElementById('resumeDoc').innerHTML;
+    const content = document.getElementById('resumeDoc').innerHTML;
 
-  const printWindow = window.open('print.html', '_blank');
+    const printWindow = window.open('print.html', '_blank');
 
-  printWindow.onload = function () {
-    printWindow.document.getElementById('print-body').innerHTML = content;
+    printWindow.onload = function () {
+        printWindow.document.getElementById('print-body').innerHTML = content;
 
-    // Small delay to ensure fonts load
-    setTimeout(() => {
-      printWindow.print();
-      printWindow.close();
-    }, 500);
-  };
+        // Small delay to ensure fonts load
+        setTimeout(() => {
+            printWindow.print();
+            printWindow.close();
+        }, 500);
+    };
 }
 
 document.getElementById('dlBtnPreview')?.addEventListener('click', downloadPDF);
@@ -1336,7 +1342,7 @@ function resetResume() {
 
 ///Zoom in / zoom out feature
 
-let zoom =  Number(localStorage.getItem('previewZoom')) || 100;
+let zoom = Number(localStorage.getItem('previewZoom')) || 100;
 
 const preview = document.querySelector('.a4'); // adjust selector
 const zoomValue = document.getElementById('zoomVal');
@@ -1349,24 +1355,24 @@ function updateZoom() {
 
     zoomValue.textContent = `${zoom}%`;
 
-    localStorage.setItem('previewZoom',zoom);    
+    localStorage.setItem('previewZoom', zoom);
 }
 
 document.getElementById('zoomIn').addEventListener('click', () => {
 
-        if (zoom >= 150) return;
+    if (zoom >= 150) return;
 
-        zoom += 10;
-        updateZoom();
-    });
+    zoom += 10;
+    updateZoom();
+});
 
 document.getElementById('zoomOut').addEventListener('click', () => {
 
-        if (zoom <= 50) return;
+    if (zoom <= 50) return;
 
-        zoom -= 10;
-        updateZoom();
-    });
+    zoom -= 10;
+    updateZoom();
+});
 
 updateZoom();
 
