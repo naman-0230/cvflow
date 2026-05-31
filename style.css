@@ -874,10 +874,24 @@ body.ai-on .ai-badge { opacity: 1; }
   align-items: baseline;
   margin-bottom: 1px;
 }
-.rv-exp-company { font-size: 10pt; font-weight: 700; color: #111; }
+
+.rv-exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* line-height: 15px */
+}
+
+.rv-exp-right {
+  text-align: right;
+}
+.rv-exp-block {margin-bottom: 10px;}
+.rv-exp-company { font-size: 10pt; font-weight: 650; color: #111; margin-top: -5px; margin-bottom: 3px ; }
 .rv-exp-date { font-size: 9pt; color: #555; }
-.rv-exp-role { font-size: 9.5pt; color: #333; font-style: italic; margin-bottom: 3px; }
-.rv-exp-bullets { list-style: none; padding: 0; }
+.rv-exp-role { font-size: 10.5pt; color: #333; font-style: italic;}
+.rv-exp-loc {margin-top: -5px;}
+.rv-exp-bullets { list-style: none; padding: 0;  }
+
 .rv-exp-bullets li {
   font-size: 9.4pt;
   color: #2a2a2a;
@@ -1290,4 +1304,84 @@ body.ai-on .ai-badge { opacity: 1; }
 
 .proj-stack-tags {
   margin-top: 6px;
+}
+
+
+
+
+/*Additional Experience section improvements*/
+
+/* ── Bullet formula hint box ───────────────────────────────── */
+.bullet-formula-box {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: #f5f8ff;
+  border-left: 3px solid #4f8ef7;
+  border-radius: 0 8px 8px 0;
+  font-size: 12.5px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.bullet-formula-title {
+  font-weight: 600;
+  font-size: 12px;
+  color: #2d60d8;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bullet-formula-rule {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.bullet-formula-example {
+  color: #666;
+  font-style: italic;
+}
+
+.formula-label {
+  font-style: normal;
+  font-weight: 600;
+  color: #4f8ef7;
+  margin-right: 4px;
+}
+
+/* ── ATS feedback ──────────────────────────────────────────── */
+.ats-feedback {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ats-issue {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.ats-issue.warn {
+  background: #fff8ec;
+  border: 1px solid #fcd34d;
+  color: #92580a;
+}
+
+.ats-issue.tip {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+
+.ats-issue-icon {
+  flex-shrink: 0;
+  font-size: 13px;
+  margin-top: 1px;
 }

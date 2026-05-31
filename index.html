@@ -291,7 +291,6 @@
                             <span class="chip" data-cat="tools">Firebase</span>
                             <span class="chip" data-cat="tools">Figma</span>
                             <span class="chip" data-cat="tools">Android Studio</span>
-                            <span class="chip" data-cat="tools">VS Code</span>
                             <span class="chip" data-cat="tools">Xcode</span>
                             <span class="chip" data-cat="tools">Postman</span>
                             <span class="chip" data-cat="tools">SQLite</span>
@@ -330,7 +329,7 @@
 
 
                 <!-- ══ PROJECTS ══ -->
-                
+
                 <div class="tab-pane" id="pane-projects">
                     <div class="pane-head">
                         <h2 class="pane-title">Projects</h2>
@@ -385,8 +384,8 @@
                                         <span class="chip" data-cat="stack">Java</span>
                                         <span class="chip" data-cat="stack">Spring Boot</span>
                                         <span class="chip" data-cat="stack">Docker</span>
-                                        <span class="chip" data-cat="stack">AWS</span>                                      
-                                        <span class="chip" data-cat="stack">REST API</span>                                    
+                                        <span class="chip" data-cat="stack">AWS</span>
+                                        <span class="chip" data-cat="stack">REST API</span>
                                         <span class="chip" data-cat="stack">localStorage</span>
                                         <span class="chip" data-cat="stack">SQLite</span>
                                     </div>
@@ -433,6 +432,7 @@
                 <!-- ══ EXPERIENCE ══ -->
 
 
+                <!-- ══ EXPERIENCE ══ -->
                 <div class="tab-pane" id="pane-experience">
                     <div class="pane-head">
                         <h2 class="pane-title">Experience</h2>
@@ -440,51 +440,90 @@
                     </div>
 
                     <div id="exp-list" class="entry-list"></div>
-
                     <button class="btn-add" id="addExp">+ Add Experience</button>
 
-                    <!-- <template id="tpl-exp"> -->
-                    <div class="entry-card">
-                        <div class="entry-card-bar">
-                            <span class="entry-card-label">EXPERIENCE</span>
-                            <button class="entry-remove">×</button>
+                    <template id="tpl-exp">
+                        <div class="entry-card">
+                            <div class="entry-card-bar">
+                                <span class="entry-card-label">EXPERIENCE</span>
+                                <button class="entry-remove">×</button>
+                            </div>
+                            <div class="fields">
+
+                                <!-- Row 1: Company + Role -->
+                                <div class="field-row">
+                                    <div class="field">
+                                        <label class="flabel">Company <span class="req">*</span></label>
+                                        <input class="finput" name="ecomp" type="text"
+                                            placeholder="Google / Startup XYZ" />
+                                    </div>
+                                    <div class="field">
+                                        <label class="flabel">Role <span class="req">*</span></label>
+                                        <input class="finput" name="erole" type="text" placeholder="Frontend Intern" />
+                                    </div>
+                                </div>
+
+                                <!-- Row 2: Dates + Location -->
+                                <div class="field-row">
+                                    <div class="field">
+                                        <label class="flabel">Start</label>
+                                        <input class="finput" name="estart" type="text" placeholder="Jun 2024" />
+                                    </div>
+                                    <div class="field">
+                                        <label class="flabel">End</label>
+                                        <input class="finput" name="eend" type="text"
+                                            placeholder="Aug 2024 / Present" />
+                                    </div>
+                                    <div class="field">
+                                        <label class="flabel">Location</label>
+                                        <input class="finput" name="eloc2" type="text" placeholder="Remote" />
+                                    </div>
+                                </div>
+
+                                <!-- Responsibilities: Improvement X bullet builder -->
+                                <div class="field field--full">
+                                    <label class="flabel">
+                                        Responsibilities
+                                        <span class="ai-badge">✦ AI will enhance this</span>
+                                    </label>
+
+                                    <!-- Improvement 1: Verb chips -->
+                                    <div class="verb-chips">
+                                        <span class="verb-chip">Developed</span>
+                                        <span class="verb-chip">Implemented</span>
+                                        <span class="verb-chip">Optimized</span>
+                                        <span class="verb-chip">Collaborated</span>
+                                        <span class="verb-chip">Built</span>
+                                        <span class="verb-chip">Designed</span>
+                                        <span class="verb-chip">Automated</span>
+                                        <span class="verb-chip">Engineered</span>
+                                    </div>
+
+                                    <!-- Bullet inputs -->
+                                    <div class="bullet-list"></div>
+                                    <div class="bullet-footer">
+                                        <button class="btn-add-bullet" type="button">+ Add Bullet</button>
+                                        <span class="bullet-counter">0 bullets</span>
+                                    </div>
+
+                                    <!-- Improvement 3: Strong bullet formula hint -->
+                                    <div class="bullet-formula-box">
+                                        <div class="bullet-formula-title">Strong bullet formula</div>
+                                        <div class="bullet-formula-rule">Action + Task + Technology + Outcome</div>
+                                        <div class="bullet-formula-example">
+                                            <span class="formula-label">e.g.</span>
+                                            Developed a user analytics dashboard using React and Chart.js,
+                                            enabling real-time visualization of customer engagement metrics.
+                                        </div>
+                                    </div>
+
+                                    <!-- Improvement 4: ATS health feedback -->
+                                    <div class="ats-feedback" style="display:none;"></div>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="fields">
-                            <div class="field-row">
-                                <div class="field">
-                                    <label class="flabel">Company <span class="req">*</span></label>
-                                    <input class="finput" name="ecomp" type="text" placeholder="Google / Startup XYZ" />
-                                </div>
-                                <div class="field">
-                                    <label class="flabel">Role <span class="req">*</span></label>
-                                    <input class="finput" name="erole" type="text" placeholder="Frontend Intern" />
-                                </div>
-                            </div>
-                            <div class="field-row">
-                                <div class="field">
-                                    <label class="flabel">Start</label>
-                                    <input class="finput" name="estart" type="text" placeholder="Jun 2024" />
-                                </div>
-                                <div class="field">
-                                    <label class="flabel">End</label>
-                                    <input class="finput" name="eend" type="text" placeholder="Aug 2024 / Present" />
-                                </div>
-                                <div class="field">
-                                    <label class="flabel">Location</label>
-                                    <input class="finput" name="eloc2" type="text" placeholder="Remote" />
-                                </div>
-                            </div>
-                            <div class="field field--full">
-                                <label class="flabel">
-                                    Responsibilities
-                                    <span class="ai-badge">✦ AI will enhance this</span>
-                                </label>
-                                <textarea class="finput ftextarea" name="ework" rows="4"
-                                    placeholder="• What you worked on&#10;• Tools used&#10;• Results or impact"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- </template> -->
+                    </template>
                 </div>
 
                 <!-- ══ EXTRAS ══ -->
@@ -630,6 +669,13 @@
                         </div>
                     </section>
 
+                    <!-- Experience (hidden until filled) -->
+                    <section class="rv-section rv-section--hidden" id="rv-exp-section">
+                        <div class="rv-sec-title">Experience</div>
+                        <div class="rv-rule"></div>
+                        <div id="rv-exp"></div>
+                    </section>
+
                     <!-- Projects -->
                     <section class="rv-section">
                         <div class="rv-sec-title">Projects</div>
@@ -648,12 +694,6 @@
                         </div>
                     </section>
 
-                    <!-- Experience (hidden until filled) -->
-                    <section class="rv-section rv-section--hidden" id="rv-exp-section">
-                        <div class="rv-sec-title">Experience</div>
-                        <div class="rv-rule"></div>
-                        <div id="rv-exp"></div>
-                    </section>
 
                     <!-- Certifications & Achievements -->
                     <section class="rv-section rv-section--hidden" id="rv-extras-section">
