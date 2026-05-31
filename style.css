@@ -34,7 +34,7 @@ input, textarea, select { font-family: inherit; }
 
   /* Layout */
   --navbar-h:    50px;
-  --form-w:      500px;
+  --form-w:      520px;
   --panel-pad:   1.7rem;
 
   /* Shape */
