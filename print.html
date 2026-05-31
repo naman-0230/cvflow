@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 9.5pt;
+      line-height: 1.4;
+      color: #000;
+      background: #fff;
+      width: 210mm;
+      padding: 12mm 14mm;
+    }
+
+    /* ── Header ── */
+    .rv-name {
+      font-size: 20pt;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3px;
+    }
+    .rv-contacts {
+      text-align: center;
+      font-size: 9pt;
+      margin-bottom: 2px;
+    }
+    .rv-links {
+      text-align: center;
+      font-size: 9pt;
+      margin-bottom: 6px;
+    }
+    .rv-sep { margin: 0 5px; }
+    .rv-link-item:empty { display: none; }
+
+    /* ── Sections ── */
+    .rv-section { margin-bottom: 7px; }
+    .rv-sec-title {
+      font-size: 9pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1px;
+    }
+    .rv-rule {
+      border: none;
+      border-top: 1px solid #000;
+      margin-bottom: 4px;
+    }
+
+    /* ── Education ── */
+    .rv-edu-entry { margin-bottom: 5px; }
+    .rv-edu-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    .rv-edu-inst { font-weight: 700; font-size: 9.5pt; }
+    .rv-edu-degree { font-style: italic; font-size: 9pt; }
+    .rv-edu-place, .rv-edu-year { font-size: 9pt; }
+    .rv-edu-courses { font-size: 8.5pt; color: #333; margin-top: 1px; }
+
+    /* ── Experience ── */
+    .rv-exp-block { margin-bottom: 5px; }
+    .rv-exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .rv-exp-role { font-style: italic; font-size: 9pt; }
+    .rv-exp-company { font-weight: 700; font-size: 9.5pt; }
+    .rv-exp-dates, .rv-exp-loc { font-size: 9pt; text-align: right; }
+    .rv-exp-bullet { font-size: 9pt; padding-left: 10px; margin-bottom: 1px; }
+
+    /* ── Projects ── */
+    .rv-proj-block { margin-bottom: 6px; }
+    .rv-proj-header {
+      display: flex;
+      justify-content: space-between;
+    }
+    .rv-proj-name { font-weight: 700; font-size: 9.5pt; }
+    .rv-proj-link { font-size: 9pt; }
+    .rv-proj-stack { font-style: italic; font-size: 9pt; margin-bottom: 2px; }
+    .rv-proj-bullet { font-size: 9pt; padding-left: 10px; margin-bottom: 1px; }
+
+    /* ── Skills ── */
+    .rv-skill-row {
+      display: flex;
+      gap: 8px;
+      font-size: 9pt;
+      margin-bottom: 2px;
+    }
+    .rv-skill-cat { font-weight: 700; white-space: nowrap; }
+
+    /* ── Extras ── */
+    .rv-extras-item { font-size: 9pt; margin-bottom: 2px; }
+
+    /* ── Page ── */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+  </style>
+</head>
+<body id="print-body">
+  <!-- Content injected by JS -->
+</body>
+</html>

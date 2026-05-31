@@ -84,7 +84,12 @@ function updatePreview() {
 
 // ── Attach listeners — fires on every keystroke
 [fName, fEmail, fPhone, fLinkedin, fGithub, fPortfolio, fLocation]
-    .forEach(input => input.addEventListener('input', updatePreview));
+.forEach(input => {
+    input.addEventListener('input', () => {
+        updatePreview();
+        saveToLocalStorage();
+    });
+});
 
 // ── Run once on load so preview shows defaults correctly
 updatePreview();
@@ -142,26 +147,32 @@ function addEduEntry() {
     card.querySelector('[name="inst"]').addEventListener('input', function () {
         eduEntries[index].inst = this.value.trim();
         renderEduPreview();
+        saveToLocalStorage();
     });
     card.querySelector('[name="degree"]').addEventListener('input', function () {
         eduEntries[index].degree = this.value.trim();
         renderEduPreview();
+        saveToLocalStorage();
     });
     card.querySelector('[name="eloc"]').addEventListener('input', function () {
         eduEntries[index].loc = this.value.trim();
         renderEduPreview();
+        saveToLocalStorage();
     });
     card.querySelector('[name="eyear"]').addEventListener('input', function () {
         eduEntries[index].year = this.value.trim();
         renderEduPreview();
+        saveToLocalStorage();
     });
     card.querySelector('[name="escore"]').addEventListener('input', function () {
         eduEntries[index].score = this.value.trim();
         renderEduPreview();
+        saveToLocalStorage();
     });
     card.querySelector('[name="ecourses"]').addEventListener('input', function () {
         eduEntries[index].courses = this.value.trim();
         renderEduPreview();
+        saveToLocalStorage();
     });
 
     // Remove button — nulls out that entry and re-renders
@@ -171,6 +182,7 @@ function addEduEntry() {
         // Filter out nulls then re-render
         eduEntries = eduEntries.filter(Boolean);
         renderEduPreview();
+        saveToLocalStorage();
     });
 
     eduList.appendChild(card);
@@ -657,6 +669,7 @@ function renderProjectsPreview() {
     });
 
     rvProj.innerHTML = html || '<p class="rv-empty">Fill in project details →</p>';
+    saveToLocalStorage();
 }
 
 
@@ -996,6 +1009,8 @@ function renderExpPreview() {
         rvSection.classList.add('rv-section--hidden');
         rvExp.innerHTML = '';
     }
+
+    saveToLocalStorage();
 }
 
 
@@ -1057,5 +1072,212 @@ function renderExtrasPreview() {
 }
 
 ['f-certs', 'f-awards', 'f-coding', 'f-extra'].forEach(id => {
-  document.getElementById(id)?.addEventListener('input', renderExtrasPreview);
+  document.getElementById(id)?.addEventListener('input', () => {
+    renderExtrasPreview();
+    saveToLocalStorage();
+  });
 });
+
+
+
+
+
+
+//SAVING to Local Storage
+
+function collectProjects() {
+  return [...projList.querySelectorAll('.entry-card')].map(card => ({
+    name:    card.querySelector('[name="pname"]')?.value || '',
+    link:    card.querySelector('[name="plink"]')?.value || '',
+    stack:   [...card.querySelectorAll('.proj-stack-tags .stag')]
+               .map(t => t.childNodes[0].textContent.trim()),
+    bullets: [...card.querySelectorAll('.bullet-input')]
+               .map(i => i.value)
+  }));
+}
+
+function collectExperience() {
+  return [...expList.querySelectorAll('.entry-card')].map(card => ({
+    company: card.querySelector('[name="ecomp"]')?.value || '',
+    role:    card.querySelector('[name="erole"]')?.value || '',
+    start:   card.querySelector('[name="estart"]')?.value || '',
+    end:     card.querySelector('[name="eend"]')?.value || '',
+    loc:     card.querySelector('[name="eloc2"]')?.value || '',
+    bullets: [...card.querySelectorAll('.bullet-input')]
+               .map(i => i.value)
+  }));
+}
+
+
+function saveToLocalStorage() {
+  const data = {
+    // Personal info
+    name:      document.getElementById('f-name')?.value,
+    email:     document.getElementById('f-email')?.value,
+    phone:     document.getElementById('f-phone')?.value,
+    location:  document.getElementById('f-location')?.value,
+    linkedin:  document.getElementById('f-linkedin')?.value,
+    github:    document.getElementById('f-github')?.value,
+    portfolio: document.getElementById('f-portfolio')?.value,
+    // Extras
+    certs:   document.getElementById('f-certs')?.value,
+    awards:  document.getElementById('f-awards')?.value,
+    coding:  document.getElementById('f-coding')?.value,
+    extra:   document.getElementById('f-extra')?.value,
+
+    selectedSkills: selected,
+    customGroups:   customGroups,
+    education:      eduEntries,
+    projects:       collectProjects(),
+    experience:     collectExperience(),
+  };
+
+  localStorage.setItem('resumeData', JSON.stringify(data));
+}
+
+
+//LOAD from Local Storage
+
+function loadFromLocalStorage() {
+  const raw = localStorage.getItem('resumeData');
+  if (!raw) return;
+  const data = JSON.parse(raw);
+
+  // Simple fields
+  ['name','email','phone','location','linkedin','github',
+   'portfolio','certs','awards','coding','extra'].forEach(key => {
+    const el = document.getElementById(`f-${key}`);
+    if (el && data[key] !== undefined) el.value = data[key];
+  });
+
+  // Education — remove default empty card first
+  eduList.innerHTML = '';
+  eduEntries = [];
+  if (data.education?.length) {
+    data.education.forEach(e => {
+      addEduEntry(); // creates card + pushes to eduEntries
+      const index = eduEntries.length - 1;
+      const card  = eduList.querySelectorAll('.entry-card')[index];
+      eduEntries[index] = { ...e };
+      card.querySelector('[name="inst"]').value    = e.inst    || '';
+      card.querySelector('[name="degree"]').value  = e.degree  || '';
+      card.querySelector('[name="eloc"]').value    = e.loc     || '';
+      card.querySelector('[name="eyear"]').value   = e.year    || '';
+      card.querySelector('[name="escore"]').value  = e.score   || '';
+      card.querySelector('[name="ecourses"]').value = e.courses || '';
+    });
+    renderEduPreview();
+  }
+
+  // Projects
+  if (data.projects?.length) {
+    data.projects.forEach(p => {
+      addProject(); // creates card
+      const card = [...projList.querySelectorAll('.entry-card')].at(-1);
+      card.querySelector('[name="pname"]').value = p.name || '';
+      card.querySelector('[name="plink"]').value = p.link || '';
+
+      // Restore stack tags
+      p.stack?.forEach(skill => {
+        const stackSelected = [];
+        // find the addStackSkill scoped to this card via input
+        const stackInput = card.querySelector('.proj-stack-input');
+        stackInput.value = skill;
+        stackInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+      });
+
+      // Restore bullets — first bullet already exists, fill it then add more
+      const bulletInputs = card.querySelectorAll('.bullet-input');
+      p.bullets?.forEach((text, i) => {
+        if (i === 0 && bulletInputs[0]) {
+          bulletInputs[0].value = text;
+        } else {
+          const addBtn = card.querySelector('.btn-add-bullet');
+          addBtn.click();
+          card.querySelectorAll('.bullet-input')[i].value = text;
+        }
+      });
+    });
+    renderProjectsPreview();
+  }
+
+  // Experience
+  if (data.experience?.length) {
+    data.experience.forEach(exp => {
+      addExperience(); // creates card
+      const card = [...expList.querySelectorAll('.entry-card')].at(-1);
+      card.querySelector('[name="ecomp"]').value  = exp.company || '';
+      card.querySelector('[name="erole"]').value  = exp.role    || '';
+      card.querySelector('[name="estart"]').value = exp.start   || '';
+      card.querySelector('[name="eend"]').value   = exp.end     || '';
+      card.querySelector('[name="eloc2"]').value  = exp.loc     || '';
+
+      // Restore bullets
+      exp.bullets?.forEach((text, i) => {
+        if (i === 0) {
+          card.querySelectorAll('.bullet-input')[0].value = text;
+        } else {
+          card.querySelector('.btn-add-bullet').click();
+          card.querySelectorAll('.bullet-input')[i].value = text;
+        }
+      });
+    });
+    renderExpPreview();
+  }
+
+  // Skills
+  if (data.selectedSkills) {
+    Object.keys(data.selectedSkills).forEach(cat => {
+      if (!selected[cat]) selected[cat] = [];
+      data.selectedSkills[cat].forEach(skill => {
+        addSkill(skill, cat);
+        document.querySelectorAll(`.chip[data-cat="${cat}"]`).forEach(chip => {
+          if (chip.textContent.trim() === skill) chip.classList.add('on');
+        });
+      });
+    });
+  }
+
+  // Extras + personal preview
+  renderExtrasPreview();
+  renderSkillsPreview();
+}
+
+
+
+
+//Download Button//
+
+// ── PDF / Print ──────────────────────────────────────────────
+
+function downloadPDF() {
+  const content = document.getElementById('resumeDoc').innerHTML;
+
+  const printWindow = window.open('print.html', '_blank');
+
+  printWindow.onload = function () {
+    printWindow.document.getElementById('print-body').innerHTML = content;
+
+    // Small delay to ensure fonts load
+    setTimeout(() => {
+      printWindow.print();
+      printWindow.close();
+    }, 500);
+  };
+}
+
+document.getElementById('dlBtnPreview')?.addEventListener('click', downloadPDF);
+document.getElementById('dlBtn')?.addEventListener('click', downloadPDF);
+
+
+
+
+////
+
+loadFromLocalStorage();
+updatePreview();
+renderExtrasPreview();
+renderSkillsPreview();
+renderEduPreview();
+renderProjectsPreview();
+renderExpPreview();

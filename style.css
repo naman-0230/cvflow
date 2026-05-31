@@ -738,7 +738,7 @@ body.ai-on .ai-badge { opacity: 1; }
   padding: 44px 52px 48px;
   font-family: 'Georgia', 'Times New Roman', serif;
   color: #111;
-  font-size: 10.2pt;
+  font-size: 10.5pt;
   line-height: 1.45;
 }
 
@@ -749,12 +749,13 @@ body.ai-on .ai-badge { opacity: 1; }
   padding-bottom: 12px;
   border-bottom: 1.5px solid #14142b;
 }
+
 .rv-name {
   font-family: 'Georgia', serif;
-  font-size: 22pt;
-  font-weight: 700;
-  color: #14142b;
-  letter-spacing: -0.015em;
+  font-size: 24pt;
+  font-weight: 540;
+  color: #000000;
+  letter-spacing: -0.010em;
   margin-bottom: 7px;
   line-height: 1.1;
 }
@@ -780,12 +781,12 @@ body.ai-on .ai-badge { opacity: 1; }
 .rv-link-item:empty { display: none; }
 
 /* Sections */
-.rv-section { margin-bottom: 13px; }
+.rv-section { margin-bottom: 16px; }
 .rv-section--hidden { display: none; }
 .rv-sec-title {
   font-family: 'Georgia', serif;
   font-size: 10.2pt;
-  font-weight: 700;
+  font-weight: 520;
   color: #14142b;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -829,7 +830,7 @@ body.ai-on .ai-badge { opacity: 1; }
   align-items: baseline;
   margin-bottom: 1px;
 }
-.rv-proj-name { font-size: 10pt; font-weight: 700; color: #111; }
+.rv-proj-name { font-size: 10pt; font-weight: 550; color: #111; }
 .rv-proj-stack { font-size: 9pt; color: #555; font-style: italic; }
 .rv-proj-link { font-size: 8.5pt; color: #14142b; }
 .rv-proj-bullets { list-style: none; padding: 0; margin-top: 3px; }
@@ -838,7 +839,7 @@ body.ai-on .ai-badge { opacity: 1; }
   color: #2a2a2a;
   padding-left: 14px;
   position: relative;
-  line-height: 1.47;
+  line-height: 1.6;
   margin-bottom: 2px;
 }
 .rv-proj-bullets li::before {
@@ -858,12 +859,12 @@ body.ai-on .ai-badge { opacity: 1; }
 }
 .rv-skill-cat {
   font-size: 9.5pt;
-  font-weight: 700;
+  font-weight: 550;
   color: #111;
   min-width: 110px;
   flex-shrink: 0;
 }
-.rv-skill-vals { font-size: 9.5pt; color: #333; }
+.rv-skill-vals { font-size: 9.5pt; color: #333;font-weight: 400 }
 
 /* Experience entries */
 .rv-exp-entry { margin-bottom: 11px; }
@@ -1113,7 +1114,7 @@ body.ai-on .ai-badge { opacity: 1; }
 
 .custom-group-heading {
   flex: 1;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
 }
 
@@ -1452,3 +1453,14 @@ body.ai-on .ai-badge { opacity: 1; }
 .rv-extras-block {
   margin-bottom: 6px;
 }
+
+
+
+/*Downlaod Popup*/
+
+/* ── Screen: hide print div ────────────────────────────────── */
+#resume-print {
+  display: none;
+}
+
+/* ── Print mode ────────────────────────────────────────────── */
