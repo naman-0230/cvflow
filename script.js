@@ -1334,7 +1334,41 @@ function resetResume() {
 
 
 
-///
+///Zoom in / zoom out feature
+
+let zoom =  Number(localStorage.getItem('previewZoom')) || 100;
+
+const preview = document.querySelector('.a4'); // adjust selector
+const zoomValue = document.getElementById('zoomVal');
+
+function updateZoom() {
+
+    preview.style.transform = `scale(${zoom / 100})`;
+
+    preview.style.transformOrigin = 'top center';
+
+    zoomValue.textContent = `${zoom}%`;
+
+    localStorage.setItem('previewZoom',zoom);    
+}
+
+document.getElementById('zoomIn').addEventListener('click', () => {
+
+        if (zoom >= 150) return;
+
+        zoom += 10;
+        updateZoom();
+    });
+
+document.getElementById('zoomOut').addEventListener('click', () => {
+
+        if (zoom <= 50) return;
+
+        zoom -= 10;
+        updateZoom();
+    });
+
+updateZoom();
 
 ////
 
