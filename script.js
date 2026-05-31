@@ -446,3 +446,215 @@ function renderGroupTags(id, groupData) {
     });
   });
 }
+
+
+
+// ── PROJECTS ─────────────────────────────────────────────────
+
+const projList = document.getElementById('proj-list');
+const tplProj  = document.getElementById('tpl-proj');
+ 
+document.getElementById('addProj').addEventListener('click', () => addProject());
+ 
+function addProject() {
+  const clone = tplProj.content.cloneNode(true);
+  const card  = clone.querySelector('.entry-card');
+ 
+  // ── Remove card
+  card.querySelector('.entry-remove').addEventListener('click', () => {
+    card.remove();
+    renderProjectsPreview();
+  });
+ 
+  // ── Per-project tech stack chip system
+  const stackSelected = [];
+  const stackPool     = card.querySelector('.proj-stack-pool');
+  const stackInput    = card.querySelector('.proj-stack-input');
+  const stackTags     = card.querySelector('.proj-stack-tags');
+ 
+  function renderStackTags() {
+    stackTags.innerHTML = stackSelected.map(s => `
+      <span class="stag">
+        ${s}
+        <button data-skill="${s}">×</button>
+      </span>
+    `).join('');
+ 
+    stackTags.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const s = this.dataset.skill;
+        const i = stackSelected.indexOf(s);
+        if (i > -1) stackSelected.splice(i, 1);
+        stackPool.querySelectorAll('.chip').forEach(ch => {
+          if (ch.textContent.trim() === s) ch.classList.remove('on');
+        });
+        renderStackTags();
+        renderProjectsPreview();
+      });
+    });
+  }
+ 
+  function addStackSkill(skill) {
+    if (!stackSelected.includes(skill)) {
+      stackSelected.push(skill);
+      renderStackTags();
+      renderProjectsPreview();
+    }
+  }
+ 
+  stackPool.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+      const skill = this.textContent.trim();
+      if (this.classList.contains('on')) {
+        this.classList.remove('on');
+        const i = stackSelected.indexOf(skill);
+        if (i > -1) stackSelected.splice(i, 1);
+        renderStackTags();
+        renderProjectsPreview();
+      } else {
+        this.classList.add('on');
+        addStackSkill(skill);
+      }
+    });
+  });
+ 
+  stackInput.addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    const val = this.value.trim();
+    if (val) { addStackSkill(val); this.value = ''; }
+  });
+ 
+  // ── Bullet Builder
+  const bulletList    = card.querySelector('.bullet-list');
+  const bulletCounter = card.querySelector('.bullet-counter');
+  const verbChips     = card.querySelectorAll('.verb-chip');
+  const addBulletBtn  = card.querySelector('.btn-add-bullet');
+ 
+  function updateCounter() {
+    const count = bulletList.querySelectorAll('.bullet-input').length;
+    const hint  = count >= 5 ? ' · consider trimming ⚠️'
+                : count >= 2 ? ' · good ✓' : '';
+    bulletCounter.textContent = `${count} bullet${count !== 1 ? 's' : ''}${hint}`;
+  }
+ 
+  function addBullet(prefillVerb = '') {
+    const row = document.createElement('div');
+    row.className = 'bullet-row';
+    row.innerHTML = `
+      <span class="bullet-prefix">•</span>
+      <input class="finput bullet-input" type="text"
+        placeholder="Describe what you built or achieved..."
+        value="${prefillVerb ? prefillVerb + ' ' : ''}" />
+      <button class="bullet-remove" type="button">✕</button>
+    `;
+ 
+    const input     = row.querySelector('.bullet-input');
+    const removeBtn = row.querySelector('.bullet-remove');
+ 
+    input.addEventListener('keydown', function(e) {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      addBullet();
+      const all = bulletList.querySelectorAll('.bullet-input');
+      all[all.length - 1].focus();
+    });
+ 
+    removeBtn.addEventListener('click', () => {
+      row.remove();
+      updateCounter();
+      renderProjectsPreview();
+    });
+ 
+    input.addEventListener('input', renderProjectsPreview);
+ 
+    bulletList.appendChild(row);
+    updateCounter();
+ 
+    if (prefillVerb) {
+      setTimeout(() => {
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+      }, 0);
+    }
+  }
+ 
+  verbChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const verb    = chip.textContent.trim();
+      const focused = bulletList.querySelector('.bullet-input:focus');
+      if (focused && focused.value.trim() === '') {
+        focused.value = verb + ' ';
+        renderProjectsPreview();
+        return;
+      }
+      addBullet(verb);
+      updateCounter();
+    });
+  });
+ 
+  addBulletBtn.addEventListener('click', () => {
+    addBullet();
+    const all = bulletList.querySelectorAll('.bullet-input');
+    all[all.length - 1].focus();
+  });
+ 
+  addBullet(); // start with one empty bullet
+  projList.appendChild(card);
+  renderProjectsPreview();
+}
+ 
+// ── Projects Preview Renderer — matches PDF layout
+function renderProjectsPreview() {
+  const rvProj = document.getElementById('rv-proj');
+  if (!rvProj) return;
+ 
+  const cards = projList.querySelectorAll('.entry-card');
+ 
+  if (cards.length === 0) {
+    rvProj.innerHTML = '<p class="rv-empty">Add projects in the Projects tab →</p>';
+    return;
+  }
+ 
+  let html = '';
+ 
+  cards.forEach(card => {
+    const name  = card.querySelector('[name="pname"]')?.value.trim();
+    const link  = card.querySelector('[name="plink"]')?.value.trim();
+ 
+    // Stack from selected tags
+    const stack = [...card.querySelectorAll('.proj-stack-tags .stag')]
+      .map(t => t.childNodes[0].textContent.trim())
+      .join(' · ');
+ 
+    const bullets = [...card.querySelectorAll('.bullet-input')]
+      .map(i => i.value.trim())
+      .filter(Boolean);
+ 
+    if (!name && bullets.length === 0) return;
+ 
+    html += `<div class="rv-proj-entry">`;
+ 
+    // Name + link on same row
+    html += `<div class="rv-proj-row">
+      <span class="rv-proj-name">${name || 'Untitled Project'}</span>
+      ${link ? `<span class="rv-proj-link">${link}</span>` : ''}
+    </div>`;
+ 
+    // Stack always on its own line (PDF style), not squeezed next to name
+    if (stack) {
+      html += `<div class="rv-proj-stack">${stack}</div>`;
+    }
+ 
+    // Bullets
+    if (bullets.length) {
+      html += `<ul class="rv-proj-bullets">
+        ${bullets.map(b => `<li>${b}</li>`).join('')}
+      </ul>`;
+    }
+ 
+    html += `</div>`;
+  });
+ 
+  rvProj.innerHTML = html || '<p class="rv-empty">Fill in project details →</p>';
+}
