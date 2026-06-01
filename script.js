@@ -675,8 +675,12 @@ function renderProjectsPreview() {
         // Bullets
         if (bullets.length) {
             html += `<ul class="rv-proj-bullets">
-        ${bullets.map(b => `<li>${b}</li>`).join('')}
-      </ul>`;
+    ${bullets.map(b => `
+      <li>
+        <span class="bullet-dot">•</span>
+        <span class="bullet-text">${b}</span>
+      </li>`).join('')}
+  </ul>`;
         }
 
         html += `</div>`;
@@ -1011,7 +1015,7 @@ function renderExpPreview() {
         html += `</div>`;
         html += `</div>`;
         bullets.forEach(b => {
-            html += `<div class="rv-exp-bullet">• ${b}</div>`;
+            html += `<div class="rv-exp-bullet"><span class="bullet-dot">•</span><span class="bullet-text">${b}</span></div>`;
         });
         html += `</div>`;
 
@@ -1056,7 +1060,7 @@ function renderExtrasPreview() {
         }
         if (awards) {
             awards.split('\n').filter(Boolean).forEach(line => {
-               html += `<div class="rv-extras-item"><span class="bullet-dot">•</span><span class="bullet-text">${line.trim()}</span></div>`;
+                html += `<div class="rv-extras-item"><span class="bullet-dot">•</span><span class="bullet-text">${line.trim()}</span></div>`;
             });
         }
         rvExtras.innerHTML = html;
