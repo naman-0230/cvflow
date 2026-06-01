@@ -589,10 +589,14 @@ function addProject() {
         removeBtn.addEventListener('click', () => {
             row.remove();
             updateCounter();
+            renderProjectATSFeedback(card);
             renderProjectsPreview();
         });
 
-        input.addEventListener('input', renderProjectsPreview);
+        input.addEventListener('input', () => {
+            renderProjectsPreview();
+            renderProjectATSFeedback(card); // ← add this
+        });
 
         bulletList.appendChild(row);
         updateCounter();
@@ -689,6 +693,104 @@ function renderProjectsPreview() {
     rvProj.innerHTML = html || '<p class="rv-empty">Fill in project details →</p>';
     saveToLocalStorage();
     checkResumeOverflow();
+}
+
+
+// ── Project ATS Config ───
+
+const SCALE_WORDS = [
+  // Users & traffic
+  'users', 'active users', 'daily users', 'monthly users',
+  'visitors', 'traffic', 'requests', 'concurrent', 'sessions',
+  'million', 'thousand', 'hundred', '100+', '1000+', '10k', '50k', '100k',
+
+  // Performance
+  'performance', 'latency', 'throughput', 'uptime', 'availability',
+  'faster', 'speed', 'load time', 'response time', 'efficiency',
+  'reduced', 'improved', 'optimized', 'cut', 'decreased', 'increased',
+  'x faster', '2x', '3x', '10x', '%', 'percent',
+
+  // Deployment & production
+  'deployed', 'production', 'live', 'launched', 'released',
+  'hosted', 'cloud', 'server', 'infrastructure', 'pipeline',
+
+  // Scale indicators
+  'scalable', 'scaled', 'enterprise', 'real-time', 'high traffic',
+  'large scale', 'distributed', 'microservices', 'load balanced',
+
+  // Business impact
+  'revenue', 'cost', 'savings', 'roi', 'growth', 'retention',
+  'engagement', 'conversion', 'onboarded', 'automated', 'eliminated',
+  'streamlined', 'integrated', 'migrated', 'refactored',
+
+  // Team & scope
+  'team', 'cross-functional', 'collaborated', 'led', 'managed',
+  'mentored', 'reviewed', 'sprint', 'agile', 'stakeholders',
+
+  // Data scale
+  'dataset', 'records', 'entries', 'transactions', 'queries',
+  'database', 'tb', 'gb', 'mb', 'rows', 'columns'
+];
+
+function runProjectATSCheck(bulletInputs) {
+    const issues = [];
+
+    bulletInputs.forEach((input, i) => {
+        const raw = input.value.trim();
+        if (!raw) return;
+
+        const text = raw.toLowerCase();
+        const words = raw.split(/\s+/);
+        const label = `Bullet ${i + 1}`;
+
+        // Rule 1: Too short
+        if (words.length < 4) {
+            issues.push({ type: 'warn', msg: `<b>${label}:</b> Looks too short — add more detail.` });
+        }
+
+        // Rule 2: Weak verb
+        const firstWord = words[0].toLowerCase().replace(/[^a-z]/g, '');
+        if (WEAK_VERBS.includes(firstWord)) {
+            issues.push({
+                type: 'warn',
+                msg: `<b>${label}:</b> "${words[0]}" is a weak start. Try: Developed, Engineered, Built, Implemented…`
+            });
+        }
+
+        // Rule 3: No technology mentioned
+        const hasTech = TECH_KEYWORDS.some(kw => text.includes(kw));
+        if (!hasTech) {
+            issues.push({ type: 'warn', msg: `<b>${label}:</b> Mention the technology or tool used.` });
+        }
+        
+        // Rule 5: No scale or real-world impact
+        const hasScale = SCALE_WORDS.some(w => text.includes(w));
+        if (!hasScale) {
+            issues.push({ type: 'tip', msg: `<b>${label}:</b> Mention scale or impact (e.g. "deployed to 100+ users", "handles 1000 requests/sec", "reducing load time by 30%").` });
+        }
+    });
+
+    return issues;
+}
+
+function renderProjectATSFeedback(card) {
+    const feedbackEl = card.querySelector('.ats-feedback');
+    const bulletInputs = [...card.querySelectorAll('.bullet-input')];
+    const issues = runProjectATSCheck(bulletInputs);
+
+    if (issues.length === 0) {
+        feedbackEl.style.display = 'none';
+        feedbackEl.innerHTML = '';
+        return;
+    }
+
+    feedbackEl.style.display = 'flex';
+    feedbackEl.innerHTML = issues.map(issue => `
+    <div class="ats-issue ${issue.type}">
+      <span class="ats-issue-icon">${issue.type === 'warn' ? '⚠' : '💡'}</span>
+      <span>${issue.msg}</span>
+    </div>
+  `).join('');
 }
 
 
@@ -1385,28 +1487,28 @@ updateZoom();
 
 //MOB Bar functionality
 
-const formPanel    = document.getElementById('formPanel');
+const formPanel = document.getElementById('formPanel');
 const previewPanel = document.getElementById('previewPanel');
-const mobTabs      = document.querySelectorAll('.mob-tab');
-const mobDlBtn     = document.querySelector('.mob-dl');
+const mobTabs = document.querySelectorAll('.mob-tab');
+const mobDlBtn = document.querySelector('.mob-dl');
 
 mobTabs.forEach(tab => {
-  tab.addEventListener('click', function () {
-    const panel = this.dataset.panel;
+    tab.addEventListener('click', function () {
+        const panel = this.dataset.panel;
 
-    // Update active tab
-    mobTabs.forEach(t => t.classList.remove('active'));
-    this.classList.add('active');
+        // Update active tab
+        mobTabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
 
-    // Toggle panels
-    if (panel === 'form') {
-      formPanel.style.display = 'block';
-      previewPanel.style.display = 'none';
-    } else {
-      formPanel.style.display = 'none';
-      previewPanel.style.display = 'block';
-    }
-  });
+        // Toggle panels
+        if (panel === 'form') {
+            formPanel.style.display = 'block';
+            previewPanel.style.display = 'none';
+        } else {
+            formPanel.style.display = 'none';
+            previewPanel.style.display = 'block';
+        }
+    });
 });
 
 // PDF button same as desktop
@@ -1415,10 +1517,10 @@ mobDlBtn?.addEventListener('click', downloadPDF);
 
 //when desktop comes from small width to original width it should not break the layout
 window.addEventListener('resize', () => {
-  if (window.innerWidth > 768) {
-    formPanel.style.display = '';
-    previewPanel.style.display = '';
-  }
+    if (window.innerWidth > 768) {
+        formPanel.style.display = '';
+        previewPanel.style.display = '';
+    }
 });
 
 
