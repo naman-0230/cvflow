@@ -1380,6 +1380,48 @@ document.getElementById('zoomOut').addEventListener('click', () => {
 
 updateZoom();
 
+
+
+
+//MOB Bar functionality
+
+const formPanel    = document.getElementById('formPanel');
+const previewPanel = document.getElementById('previewPanel');
+const mobTabs      = document.querySelectorAll('.mob-tab');
+const mobDlBtn     = document.querySelector('.mob-dl');
+
+mobTabs.forEach(tab => {
+  tab.addEventListener('click', function () {
+    const panel = this.dataset.panel;
+
+    // Update active tab
+    mobTabs.forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+
+    // Toggle panels
+    if (panel === 'form') {
+      formPanel.style.display = 'block';
+      previewPanel.style.display = 'none';
+    } else {
+      formPanel.style.display = 'none';
+      previewPanel.style.display = 'block';
+    }
+  });
+});
+
+// PDF button same as desktop
+mobDlBtn?.addEventListener('click', downloadPDF);
+
+
+//when desktop comes from small width to original width it should not break the layout
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    formPanel.style.display = '';
+    previewPanel.style.display = '';
+  }
+});
+
+
 ////
 
 loadFromLocalStorage();
