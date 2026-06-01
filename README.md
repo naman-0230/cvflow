@@ -12,8 +12,6 @@ CVflow is a modern ATS-friendly resume builder with live preview, PDF export, an
 -  🎨 Clean and responsive UI-
 -  ⚡ Fast and lightweight-
 -  🧩 Modular architecture for future scaling-
--  🤖 Planned AI integrations-
--  💳 Planned payment gateway support-
   
 ---
 
@@ -30,8 +28,8 @@ CVflow is a modern ATS-friendly resume builder with live preview, PDF export, an
 ## 📌 Planned Features
 
 - User authentication-  
-- AI resume improvement- 
-- Payment integration- 
+- Planned AI integrations-
+- Planned payment gateway support-
 - NodeJs for api keys and payment securities 
 - Multiple templates-
 - Premium templates-
