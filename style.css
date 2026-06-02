@@ -1547,5 +1547,7 @@ body.ai-on .ai-badge { opacity: 1; }
   font-size: 9.5pt;
   color: #333;
   line-height: 1.2;
-  text-align: justify;
+  text-align: left;
+  overflow-wrap: break-word;
+white-space: pre-wrap;
 }
