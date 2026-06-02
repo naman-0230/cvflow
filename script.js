@@ -140,6 +140,264 @@ updatePreview();
 
 
 
+
+
+
+// ── SUMMARY ─
+
+const ROLE_KEYWORDS = [
+
+  // General
+  'developer',
+  'engineer',
+  'programmer',
+  'architect',
+  'specialist',
+  'consultant',
+  'analyst',
+  'intern',
+  'trainee',
+  'associate',
+  'student',
+
+  // Frontend
+  'frontend developer',
+  'front-end developer',
+  'frontend engineer',
+  'ui developer',
+  'web developer',
+
+  // Backend
+  'backend developer',
+  'back-end developer',
+  'backend engineer',
+  'server-side developer',
+
+  // Full Stack
+  'full stack developer',
+  'full-stack developer',
+  'full stack engineer',
+
+  // Software
+  'software developer',
+  'software engineer',
+  'application developer',
+
+  // Mobile
+  'android developer',
+  'ios developer',
+  'mobile developer',
+  'flutter developer',
+  'react native developer',
+
+  // Data
+  'data analyst',
+  'data scientist',
+  'data engineer',
+  'business analyst',
+
+  // AI
+  'machine learning engineer',
+  'ml engineer',
+  'ai engineer',
+  'deep learning engineer',
+  'nlp engineer',
+
+  // Cloud
+  'cloud engineer',
+  'devops engineer',
+  'site reliability engineer',
+  'sre',
+
+  // Security
+  'cybersecurity analyst',
+  'security engineer',
+  'penetration tester',
+
+  // Design
+  'ui designer',
+  'ux designer',
+  'product designer',
+
+  // Product
+  'product manager',
+  'project manager',
+
+  // Testing
+  'qa engineer',
+  'test engineer',
+  'automation engineer'
+];
+
+const BUZZWORDS = [
+  // The classic offenders — vague, overused, mean nothing
+  'hardworking',
+  'passionate',
+  'dedicated',
+  'motivated',
+  'enthusiastic',
+  'dynamic',
+  'go-getter',
+  'self-starter',
+  'results-driven',
+  'proactive',
+  'synergy',
+  'leverage',
+  'guru',
+  'ninja',
+  'rockstar',
+  'wizard',
+  'evangelist',
+
+  // Corporate filler
+  'think outside the box',
+  'hit the ground running',
+  'move the needle',
+  'value-added',
+  'best-in-class',
+
+  // Vague personality claims
+  'people person',
+  'team player',        // only if overused alone with nothing else
+  'detail oriented',
+  'detail-oriented',
+  'multitasker',
+  'fast learner',
+  'quick learner',
+];
+
+const FIRST_PERSON = [
+  // Standard
+  'i ', "i'm", "i've", "i'd", "i'll", "i am", "i have", "i was",
+  'my ', 'me ', 'myself',
+  
+  // Contractions that slip through
+  "i'm a", "i'm an", "i'm currently",
+  "i've worked", "i've built", "i've developed",
+  "i have experience", "i have worked",
+  "i am a", "i am an", "i am currently",
+  "i was working", "i was responsible",
+  
+  // Possessive
+  'my experience', 'my skills', 'my background',
+  'my passion', 'my goal', 'my objective',
+  'my ability', 'my work', 'my projects',
+];
+
+function runSummaryATSCheck(text) {
+  const issues  = [];
+  const lower   = text.toLowerCase();
+  const words   = text.trim().split(/\s+/);
+  const count   = words.filter(Boolean).length;
+
+  // Rule 1: Too short
+  if (count < 15) {
+    issues.push({ type: 'warn', msg: `Summary is too short (${count} words). Aim for 20–50 words.` });
+  }
+
+  // Rule 6: Too long
+  if (count > 80) {
+    issues.push({ type: 'warn', msg: `Summary is too long (${count} words). Keep it concise — 30–60 words.` });
+  }
+
+  // Rule 3: No target role
+  const hasRole = ROLE_KEYWORDS.some(k => lower.includes(k));
+  if (!hasRole) {
+    issues.push({ type: 'warn', msg: 'Mention the role you are targeting (e.g. Frontend Developer, Software Engineer).' });
+  }
+
+  // Rule 7: Buzzword spam
+  const buzzCount = BUZZWORDS.filter(b => lower.includes(b)).length;
+  if (buzzCount >= 5) {
+    issues.push({ type: 'warn', msg: `Too many generic buzzwords (${buzzCount} found). Replace with specific skills or achievements.` });
+  }
+
+  // Rule 8: First-person language
+  const hasFirstPerson = FIRST_PERSON.some(p => lower.includes(p));
+  if (hasFirstPerson) {
+    issues.push({ type: 'warn', msg: 'Avoid first-person pronouns (I, my, me). Start with your role or a skill instead.' });
+  }
+
+  return issues;
+}
+
+function renderSummaryATSFeedback(text) {
+  const feedbackEl = document.getElementById('summary-ats-feedback');
+  if (!feedbackEl) return;
+
+  if (!text.trim()) {
+    feedbackEl.style.display = 'none';
+    feedbackEl.innerHTML = '';
+    return;
+  }
+
+  const issues = runSummaryATSCheck(text);
+
+  if (issues.length === 0) {
+    feedbackEl.style.display = 'flex';
+    feedbackEl.innerHTML = `
+      <div class="ats-issue tip">
+        <span class="ats-issue-icon">✓</span>
+        <span>Summary looks strong!</span>
+      </div>`;
+    return;
+  }
+
+  feedbackEl.style.display = 'flex';
+  feedbackEl.innerHTML = issues.map(issue => `
+    <div class="ats-issue ${issue.type}">
+      <span class="ats-issue-icon">${issue.type === 'warn' ? '⚠' : '💡'}</span>
+      <span>${issue.msg}</span>
+    </div>
+  `).join('');
+}
+
+function renderSummaryPreview() {
+  const rvSummary    = document.getElementById('rv-summary');
+  const rvSection    = document.getElementById('rv-summary-section');
+  const summaryInput = document.getElementById('f-summary');
+  const wordCountEl  = document.getElementById('summary-word-count');
+  if (!rvSummary || !summaryInput) return;
+
+  const val   = summaryInput.value.trim();
+  const count = val ? val.split(/\s+/).filter(Boolean).length : 0;
+
+  // Word count display
+  const hint = count === 0
+    ? '0 words'
+    : count < 15
+      ? `${count} words · too short`
+      : count > 80
+        ? `${count} words · too long`
+        : count >= 20 && count <= 60
+          ? `${count} words · good length ✓`
+          : `${count} words`;
+
+  if (wordCountEl) wordCountEl.textContent = hint;
+
+  if (!val) {
+    rvSection.classList.add('rv-section--hidden');
+    rvSummary.innerHTML = '';
+    return;
+  }
+
+  rvSummary.innerHTML = `<p class="rv-summary-text">${val}</p>`;
+  rvSection.classList.remove('rv-section--hidden');
+
+  renderSummaryATSFeedback(val);
+  checkResumeOverflow();
+  saveToLocalStorage();
+}
+
+// Wire input
+document.getElementById('f-summary')?.addEventListener('input', renderSummaryPreview);
+
+
+
+
+
+
+
 //  EDUCATION
 
 
@@ -1293,6 +1551,8 @@ function saveToLocalStorage() {
         education: eduEntries,
         projects: collectProjects(),
         experience: collectExperience(),
+
+        summary: document.getElementById('f-summary')?.value,
     };
 
     localStorage.setItem('resumeData', JSON.stringify(data));
@@ -1308,7 +1568,7 @@ function loadFromLocalStorage() {
 
     // Simple fields
     ['name', 'email', 'phone', 'location', 'linkedin', 'github',
-        'portfolio', 'certs', 'awards', 'coding', 'extra'].forEach(key => {
+        'portfolio', 'certs', 'awards', 'coding', 'extra', 'summary'].forEach(key => {
             const el = document.getElementById(`f-${key}`);
             if (el && data[key] !== undefined) el.value = data[key];
         });
@@ -1667,6 +1927,7 @@ loadFromLocalStorage();
 updatePreview();
 renderExtrasPreview();
 renderSkillsPreview();
+renderSummaryPreview();
 renderEduPreview();
 renderProjectsPreview();
 renderExpPreview();

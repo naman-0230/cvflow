@@ -81,6 +81,9 @@
                 <button class="stab active" data-tab="personal">
                     <span class="stab-icon">👤</span> Personal
                 </button>
+                <button class="stab" data-tab="summary">
+                    <span class="stab-icon">📝</span> Summary
+                </button>
                 <button class="stab" data-tab="education">
                     <span class="stab-icon">🎓</span> Education
                 </button>
@@ -151,6 +154,43 @@
 
                     </div>
                 </div>
+
+                <!--Summary-->
+
+                <div class="tab-pane" id="pane-summary">
+                    <div class="pane-head">
+                        <h2 class="pane-title">Professional Summary</h2>
+                        <p class="pane-desc">2–3 sentences. Who you are, what you do, what you bring.</p>
+                    </div>
+
+                    <div class="fields">
+                        <div class="field field--full">
+                            <label class="flabel">
+                                Summary
+                                <span class="ai-badge">✦ AI will enhance this</span>
+                            </label>
+                            <textarea class="finput ftextarea" id="f-summary" rows="5"
+                                placeholder="Frontend Developer skilled in React and JavaScript, currently pursuing B.Tech in IT. Passionate about building responsive web applications and contributing to impactful software projects."></textarea>
+                            <div class="summary-word-count" id="summary-word-count">0 words</div>
+
+                            <!-- Formula hint -->
+                            <div class="bullet-formula-box" style="margin-top: 10px;">
+                                <div class="bullet-formula-title">Strong summary formula</div>
+                                <div class="bullet-formula-rule">Role + Skills + Experience Level + Value/Goal</div>
+                                <div class="bullet-formula-example">
+                                    <span class="formula-label">e.g.</span>
+                                    Frontend Developer skilled in React and Node.js, pursuing B.Tech in IT.
+                                    Experienced in building scalable web applications and eager to contribute
+                                    to innovative software teams.
+                                </div>
+                            </div>
+
+                            <!-- ATS feedback -->
+                            <div class="ats-feedback" id="summary-ats-feedback" style="display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- ══ EDUCATION ══ -->
                 <div class="tab-pane" id="pane-education">
@@ -759,6 +799,13 @@
                             <a id="rv-portfolio" class="rv-link-item"></a>
                         </div>
                     </header>
+
+                    <!-- Summary -->
+                    <section class="rv-section rv-section--hidden" id="rv-summary-section">
+                        <div class="rv-sec-title">Professional Summary</div>
+                        <div class="rv-rule"></div>
+                        <div id="rv-summary"></div>
+                    </section>
 
                     <!-- Education -->
                     <section class="rv-section">
