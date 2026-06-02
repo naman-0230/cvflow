@@ -1,5 +1,5 @@
 //Selecting Tab panes
-
+console.log("hii");
 const tabContainer = document.querySelector(".section-tabs");
 
 tabContainer.addEventListener("click", (e) => {
@@ -52,11 +52,47 @@ const rvLinks = document.getElementById('rv-links');
 // Separators inside rv-contacts (the | pipes)
 // We'll rebuild contacts row dynamically so separators show only between filled fields
 
+// function updatePreview() {
+//     // Name — fallback to placeholder text if empty
+//     rvName.textContent = fName.value.trim() || 'Your Full Name';
+
+//     // Rebuild contacts row: only show filled fields with | between them
+//     const contactItems = [];
+//     if (fEmail.value.trim()) {
+//         contactItems.push(`<a href="mailto:${fEmail.value.trim()}">${fEmail.value.trim()}</a>`);
+//     }
+//     if (fPhone.value.trim()) {
+//         contactItems.push(`<span>${fPhone.value.trim()}</span>`);
+//     }
+//     if (fLocation.value.trim()) {
+//         contactItems.push(`<span>${fLocation.value.trim()}</span>`);
+//     }
+
+//     rvContacts.innerHTML =
+//         contactItems.map((item, i) => {
+//             const sep = i < contactItems.length - 1 ? '<span class="rv-sep"> | </span>' : '';
+//             return item + sep;
+//         })
+//             .join('') || '<span style="color:#ccc;font-style:italic;">email · phone · location</span>';
+
+//     // Links row — only show filled ones
+//     rvLinkedin.textContent = fLinkedin.value.trim();
+//     rvLinkedin.href = fLinkedin.value.trim();
+//     rvGithub.textContent = "github";
+//     rvGithub.href = fGithub.value.trim();
+//     rvPortfolio.textContent = fPortfolio.value.trim();
+//     rvPortfolio.href = fPortfolio.value.trim();
+
+//     // Hide links row entirely if all three are empty
+//     const anyLink = fLinkedin.value.trim() || fGithub.value.trim() || fPortfolio.value.trim();
+//     rvLinks.style.display = anyLink ? 'flex' : 'none';
+
+//     checkResumeOverflow();
+// }
+
 function updatePreview() {
-    // Name — fallback to placeholder text if empty
     rvName.textContent = fName.value.trim() || 'Your Full Name';
 
-    // Rebuild contacts row: only show filled fields with | between them
     const contactItems = [];
     if (fEmail.value.trim()) {
         contactItems.push(`<a href="mailto:${fEmail.value.trim()}">${fEmail.value.trim()}</a>`);
@@ -67,25 +103,24 @@ function updatePreview() {
     if (fLocation.value.trim()) {
         contactItems.push(`<span>${fLocation.value.trim()}</span>`);
     }
+    if (fLinkedin.value.trim()) {
+        contactItems.push(`<a href="${fLinkedin.value.trim()}" target="_blank">${fLinkedin.value.trim()}</a>`);
+    }
+    if (fGithub.value.trim()) {
+        contactItems.push(`<a href="${fGithub.value.trim()}" target="_blank">github</a>`);
+    }
+    if (fPortfolio.value.trim()) {
+        contactItems.push(`<a href="${fPortfolio.value.trim()}" target="_blank">${fPortfolio.value.trim()}</a>`);
+    }
 
     rvContacts.innerHTML =
         contactItems.map((item, i) => {
             const sep = i < contactItems.length - 1 ? '<span class="rv-sep"> | </span>' : '';
             return item + sep;
-        })
-            .join('') || '<span style="color:#ccc;font-style:italic;">email · phone · location</span>';
+        }).join('') || '<span style="color:#ccc;font-style:italic;">email · phone · location</span>';
 
-    // Links row — only show filled ones
-    rvLinkedin.textContent = fLinkedin.value.trim();
-    rvLinkedin.href = fLinkedin.value.trim();
-    rvGithub.textContent = fGithub.value.trim();
-    rvGithub.href = fGithub.value.trim();
-    rvPortfolio.textContent = fPortfolio.value.trim();
-    rvPortfolio.href = fPortfolio.value.trim();
-
-    // Hide links row entirely if all three are empty
-    const anyLink = fLinkedin.value.trim() || fGithub.value.trim() || fPortfolio.value.trim();
-    rvLinks.style.display = anyLink ? 'flex' : 'none';
+    // Hide rv-links entirely since everything is now in rv-contacts
+    rvLinks.style.display = 'none';
 
     checkResumeOverflow();
 }
@@ -123,26 +158,29 @@ function renderEduPreview() {
     }
 
     rvEdu.innerHTML = eduEntries.map(e => {
-        // Only render fields that are actually filled
-        const scoreText = e.score ? ` | ${e.score}` : '';
-        const coursesText = e.courses ? `Courses: ${e.courses}` : '';
+        const hasMeta = e.score || e.courses;
+        const meta = [
+            e.score ? e.score : '',
+            e.courses ? `Courses: ${e.courses}` : ''
+        ].filter(Boolean).join(' | ');
 
         return `
-      <div class="rv-edu-entry">
-        <div class="rv-edu-row">
-          <span class="rv-edu-inst">${e.inst || 'Institution Name'}</span>
-          <span class="rv-edu-place">${e.loc || ''}</span>
-        </div>
-        <div class="rv-edu-row">
-          <span class="rv-edu-degree">${e.degree || ''}${scoreText}</span>
-          <span class="rv-edu-year">${e.year || ''}</span>
-        </div>
-        ${coursesText ? `<div class="rv-edu-courses">${coursesText}</div>` : ''}
+    <div class="rv-edu-entry">
+      <div class="rv-edu-row">
+        <span class="rv-edu-degree">${e.degree || ''}</span>
+        <span class="rv-edu-place">${e.loc || ''}</span>
       </div>
-    `;
+      <div class="rv-edu-row">
+        <span class="rv-edu-inst">${e.inst || 'Institution Name'}</span>
+        <span class="rv-edu-year">${e.year || ''}</span>
+      </div>
+      ${hasMeta ? `<div class="rv-edu-meta">${meta}</div>` : ''}
+    </div>
+  `;
     }).join('');
     checkResumeOverflow();
 }
+
 
 function addEduEntry() {
     // Clone the template
@@ -196,6 +234,26 @@ function addEduEntry() {
         checkResumeOverflow();
     });
 
+    
+    //Adding INFO 'i' functionality
+    const infoIcons = document.querySelectorAll(".info-icon");
+    
+    infoIcons.forEach(icon => {
+        icon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            console.log("rgdrgdrg");
+            const box = icon.querySelector(".info-box");
+            box.classList.toggle("show");
+        });
+    });
+    
+    document.addEventListener("click", () => {
+        document.querySelectorAll(".info-box").forEach(box => {
+            box.classList.remove("show");
+        });
+        
+    });
+
     eduList.appendChild(card);
 }
 
@@ -203,25 +261,6 @@ addEduBtn.addEventListener('click', addEduEntry);
 
 // Add one entry by default so the form isn't empty on load
 addEduEntry();
-
-
-//Adding INFO 'i' functionality
-const infoIcons = document.querySelectorAll(".info-icon");
-
-infoIcons.forEach(icon => {
-    icon.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const box = icon.querySelector(".info-box");
-        box.classList.toggle("show");
-    });
-});
-
-document.addEventListener("click", () => {
-    document.querySelectorAll(".info-box").forEach(box => {
-        box.classList.remove("show");
-    });
-
-});
 
 
 
@@ -699,37 +738,37 @@ function renderProjectsPreview() {
 // ── Project ATS Config ───
 
 const SCALE_WORDS = [
-  // Users & traffic
-  'users', 'active users', 'daily users', 'monthly users',
-  'visitors', 'traffic', 'requests', 'concurrent', 'sessions',
-  'million', 'thousand', 'hundred', '100+', '1000+', '10k', '50k', '100k',
+    // Users & traffic
+    'users', 'active users', 'daily users', 'monthly users',
+    'visitors', 'traffic', 'requests', 'concurrent', 'sessions',
+    'million', 'thousand', 'hundred', '100+', '1000+', '10k', '50k', '100k',
 
-  // Performance
-  'performance', 'latency', 'throughput', 'uptime', 'availability',
-  'faster', 'speed', 'load time', 'response time', 'efficiency',
-  'reduced', 'improved', 'optimized', 'cut', 'decreased', 'increased',
-  'x faster', '2x', '3x', '10x', '%', 'percent',
+    // Performance
+    'performance', 'latency', 'throughput', 'uptime', 'availability',
+    'faster', 'speed', 'load time', 'response time', 'efficiency',
+    'reduced', 'improved', 'optimized', 'cut', 'decreased', 'increased',
+    'x faster', '2x', '3x', '10x', '%', 'percent',
 
-  // Deployment & production
-  'deployed', 'production', 'live', 'launched', 'released',
-  'hosted', 'cloud', 'server', 'infrastructure', 'pipeline',
+    // Deployment & production
+    'deployed', 'production', 'live', 'launched', 'released',
+    'hosted', 'cloud', 'server', 'infrastructure', 'pipeline',
 
-  // Scale indicators
-  'scalable', 'scaled', 'enterprise', 'real-time', 'high traffic',
-  'large scale', 'distributed', 'microservices', 'load balanced',
+    // Scale indicators
+    'scalable', 'scaled', 'enterprise', 'real-time', 'high traffic',
+    'large scale', 'distributed', 'microservices', 'load balanced',
 
-  // Business impact
-  'revenue', 'cost', 'savings', 'roi', 'growth', 'retention',
-  'engagement', 'conversion', 'onboarded', 'automated', 'eliminated',
-  'streamlined', 'integrated', 'migrated', 'refactored',
+    // Business impact
+    'revenue', 'cost', 'savings', 'roi', 'growth', 'retention',
+    'engagement', 'conversion', 'onboarded', 'automated', 'eliminated',
+    'streamlined', 'integrated', 'migrated', 'refactored',
 
-  // Team & scope
-  'team', 'cross-functional', 'collaborated', 'led', 'managed',
-  'mentored', 'reviewed', 'sprint', 'agile', 'stakeholders',
+    // Team & scope
+    'team', 'cross-functional', 'collaborated', 'led', 'managed',
+    'mentored', 'reviewed', 'sprint', 'agile', 'stakeholders',
 
-  // Data scale
-  'dataset', 'records', 'entries', 'transactions', 'queries',
-  'database', 'tb', 'gb', 'mb', 'rows', 'columns'
+    // Data scale
+    'dataset', 'records', 'entries', 'transactions', 'queries',
+    'database', 'tb', 'gb', 'mb', 'rows', 'columns'
 ];
 
 function runProjectATSCheck(bulletInputs) {
@@ -762,7 +801,7 @@ function runProjectATSCheck(bulletInputs) {
         if (!hasTech) {
             issues.push({ type: 'warn', msg: `<b>${label}:</b> Mention the technology or tool used.` });
         }
-        
+
         // Rule 5: No scale or real-world impact
         const hasScale = SCALE_WORDS.some(w => text.includes(w));
         if (!hasScale) {
@@ -1522,6 +1561,104 @@ window.addEventListener('resize', () => {
         previewPanel.style.display = '';
     }
 });
+
+
+
+///draggable feature
+
+// ── Section Order ────────────────────────────────────────────
+
+function initSectionOrder() {
+  const list    = document.getElementById('section-order-list');
+  const resumeDoc = document.getElementById('resumeDoc');
+  const education = resumeDoc.querySelector('.rv-section:first-of-type'); // education stays fixed
+  let draggedItem = null;
+
+  list.querySelectorAll('.section-order-item').forEach(item => {
+
+    item.setAttribute('draggable', true);
+
+    item.addEventListener('dragstart', () => {
+      draggedItem = item;
+      setTimeout(() => item.classList.add('dragging'), 0);
+    });
+
+    item.addEventListener('dragend', () => {
+      item.classList.remove('dragging');
+      list.querySelectorAll('.section-order-item')
+        .forEach(i => i.classList.remove('drag-over'));
+      applySectionOrder();
+    });
+
+    item.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      if (item === draggedItem) return;
+      list.querySelectorAll('.section-order-item')
+        .forEach(i => i.classList.remove('drag-over'));
+      item.classList.add('drag-over');
+    });
+
+    item.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (item === draggedItem) return;
+      // Reorder in the UI list
+      const items = [...list.querySelectorAll('.section-order-item')];
+      const dragIdx = items.indexOf(draggedItem);
+      const dropIdx = items.indexOf(item);
+      if (dragIdx < dropIdx) {
+        list.insertBefore(draggedItem, item.nextSibling);
+      } else {
+        list.insertBefore(draggedItem, item);
+      }
+    });
+  });
+}
+
+function applySectionOrder() {
+  const resumeDoc = document.getElementById('resumeDoc');
+  const list      = document.getElementById('section-order-list');
+  const order     = [...list.querySelectorAll('.section-order-item')]
+                      .map(i => i.dataset.section);
+
+  // Education always stays first — don't touch it
+  // Append each section in the new order after education
+  order.forEach(sectionId => {
+    const el = document.getElementById(sectionId);
+    if (el) resumeDoc.appendChild(el);
+  });
+
+  // Save order
+  localStorage.setItem('sectionOrder', JSON.stringify(order));
+}
+
+function loadSectionOrder() {
+  const saved = localStorage.getItem('sectionOrder');
+  if (!saved) return;
+
+  const order = JSON.parse(saved);
+  const list  = document.getElementById('section-order-list');
+
+  // Reorder the UI list to match saved order
+  order.forEach(sectionId => {
+    const item = list.querySelector(`[data-section="${sectionId}"]`);
+    if (item) list.appendChild(item);
+  });
+
+  // Apply to resume
+  applySectionOrder();
+}
+
+// Init
+initSectionOrder();
+loadSectionOrder();
+
+
+
+
+
+
+
+
 
 
 ////

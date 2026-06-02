@@ -189,10 +189,10 @@
                                                 <p>B.Tech – Information Technology</p>
 
                                                 <p><strong>Class 12:</strong></p>
-                                                <p>CBSE – Class XII (Science)</p>
+                                                <p>Senior Secondary (Class XII), CBSE</p>
 
                                                 <p><strong>Class 10:</strong></p>
-                                                <p>CBSE – Class X</p>
+                                                <p>Secondary (Class X), CBSE</p>
 
                                             </div>
                                         </span>
@@ -212,7 +212,28 @@
                                 </div>
                                 <div class="field-row">
                                     <div class="field">
-                                        <label class="flabel">Score (CGPA / %)</label>
+                                        <div class="info-row">
+                                            <label class="flabel">Score (CGPA / %)</label>
+                                            <span class="info-icon">
+                                                i
+
+                                                <div class="info-box">
+
+                                                    <h4>Score Entry Guide</h4>
+
+                                                    <p><strong>College:</strong></p>
+                                                    <p>CGPA till current Sem if student is not Graduated yet</p>
+                                                    <p>For example: 8.9 CGPA till 5th Sem</p>
+
+                                                    <p><strong>Class 12:</strong></p>
+                                                    <p>92%</p>
+
+                                                    <p><strong>Class 10:</strong></p>
+                                                    <p>94%</p>
+
+                                                </div>
+                                            </span>
+                                        </div>
                                         <input class="finput" name="escore" type="text" placeholder="8.5 CGPA" />
                                     </div>
                                     <div class="field">
@@ -600,6 +621,42 @@
 
                     </div>
 
+
+                    <!--draggable function -->
+
+                    <div class="template-chooser" style="margin-top: 1rem;">
+                        <div class="skill-block-head" style="margin-bottom: 0.75rem;">Section Order</div>
+                        <p class="skill-block-hint">Drag to reorder sections on your resume.</p>
+                        <div id="section-order-list">
+                            <div class="section-order-item" data-section="rv-exp-section">
+                                <span class="drag-handle">⠿</span>
+                                <span>Experience</span>
+                            </div>
+                            <div class="section-order-item" data-section="rv-proj-section">
+                                <span class="drag-handle">⠿</span>
+                                <span>Projects</span>
+                            </div>
+                            <div class="section-order-item" data-section="rv-skills-section">
+                                <span class="drag-handle">⠿</span>
+                                <span>Technical Skills</span>
+                            </div>
+                            <div class="section-order-item" data-section="rv-extras-section">
+                                <span class="drag-handle">⠿</span>
+                                <span>Certifications & Achievements</span>
+                            </div>
+                            <div class="section-order-item" data-section="rv-activities-section">
+                                <span class="drag-handle">⠿</span>
+                                <span>Extracurricular Activities</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
                     <!-- Template Chooser -->
                     <div class="template-chooser">
                         <div class="skill-block-head" style="margin-bottom:1rem;">Resume Template</div>
@@ -720,7 +777,7 @@
                     </section>
 
                     <!-- Projects -->
-                    <section class="rv-section">
+                    <section class="rv-section" id="rv-proj-section">
                         <div class="rv-sec-title">Projects</div>
                         <div class="rv-rule"></div>
                         <div id="rv-proj">
@@ -729,7 +786,7 @@
                     </section>
 
                     <!-- Technical Skills -->
-                    <section class="rv-section">
+                    <section class="rv-section" id="rv-skills-section">
                         <div class="rv-sec-title">Technical Skills</div>
                         <div class="rv-rule"></div>
                         <div id="rv-skills">
