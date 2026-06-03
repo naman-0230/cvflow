@@ -1551,3 +1551,123 @@ body.ai-on .ai-badge { opacity: 1; }
   overflow-wrap: break-word;
 white-space: pre-wrap;
 }
+
+
+
+/*saving draft css*/
+
+
+.draft-dropdown-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.draft-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    font-size: 0.82rem;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.draft-caret {
+    font-size: 0.65rem;
+    transition: transform 0.2s ease;
+}
+
+.draft-dropdown-wrap.open .draft-caret {
+    transform: rotate(180deg);
+}
+
+.draft-menu {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    min-width: 210px;
+    background: var(--panel-bg, #fff);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    padding: 6px;
+    display: none;
+    z-index: 200;
+    animation: draftMenuIn 0.15s ease;
+}
+
+@keyframes draftMenuIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.draft-dropdown-wrap.open .draft-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.draft-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border: none;
+    background: transparent;
+    border-radius: 7px;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+    width: 100%;
+}
+
+.draft-menu-item:hover {
+    background: var(--chip-bg, #f3f4f6);
+}
+
+.draft-icon {
+    font-size: 1rem;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--chip-bg, #f0f0f0);
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.draft-item-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary, #111);
+}
+
+.draft-item-desc {
+    font-size: 0.72rem;
+    color: var(--text-muted, #888);
+    margin-top: 1px;
+}
+
+/* Toast for draft feedback */
+.draft-toast {
+    position: fixed;
+    bottom: 72px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #111;
+    color: #fff;
+    font-size: 0.8rem;
+    padding: 9px 18px;
+    border-radius: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 9999;
+    white-space: nowrap;
+}
+
+.draft-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}

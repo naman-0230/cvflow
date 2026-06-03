@@ -749,9 +749,31 @@
 
 
             <!-- Download bar fixed at bottom of form panel -->
+            <!-- Download bar fixed at bottom of form panel -->
             <div class="form-footer">
-                <!-- <button class="btn-ghost btn-sm" id="saveDraft">💾 Save Draft</button> -->
+                <div class="draft-dropdown-wrap">
+                    <button class="btn-ghost btn-sm draft-toggle" id="draftToggle">
+                        💾 Draft <span class="draft-caret">▾</span>
+                    </button>
+                    <div class="draft-menu" id="draftMenu">
+                        <button class="draft-menu-item" id="saveDraft">
+                            <span class="draft-icon">⬆</span>
+                            <div>
+                                <div class="draft-item-title">Save Draft</div>
+                                <div class="draft-item-desc">Export current data as JSON</div>
+                            </div>
+                        </button>
+                        <button class="draft-menu-item" id="importDraft">
+                            <span class="draft-icon">⬇</span>
+                            <div>
+                                <div class="draft-item-title">Import Draft</div>
+                                <div class="draft-item-desc">Load a saved JSON draft</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
                 <button class="btn-primary btn-full" id="dlBtn">⬇ Download PDF</button>
+                <input type="file" id="draftFileInput" accept=".json" style="display:none;" />
             </div>
 
         </aside>

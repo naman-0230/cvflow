@@ -1454,12 +1454,12 @@ function renderExtrasPreview() {
         let html = '';
         if (certs) {
             certs.split('\n').filter(Boolean).forEach(line => {
-                html += `<div class="rv-extras-item"><span class="bullet-dot">•</span><span class="bullet-text">${line.trim()}</span></div>`;
+                html += `<div class="rv-extras-item"><span class="bullet-dot">• </span><span class="bullet-text">${line.trim()}</span></div>`;
             });
         }
         if (awards) {
             awards.split('\n').filter(Boolean).forEach(line => {
-                html += `<div class="rv-extras-item"><span class="bullet-dot">•</span><span class="bullet-text">${line.trim()}</span></div>`;
+                html += `<div class="rv-extras-item"><span class="bullet-dot">• </span><span class="bullet-text">${line.trim()}</span></div>`;
             });
         }
         rvExtras.innerHTML = html;
@@ -1478,11 +1478,11 @@ function renderExtrasPreview() {
     else {
         let html = '';
         if (coding) {
-            html += `<div class="rv-extras-item"><span class="bullet-dot">•</span><span class="bullet-text">${coding}</span></div>`;
+            html += `<div class="rv-extras-item"><span class="bullet-dot">• </span><span class="bullet-text">${coding}</span></div>`;
         }
         if (extra) {
             extra.split('\n').filter(Boolean).forEach(line => {
-                html += `<div class="rv-extras-item"><span class="bullet-dot">•</span><span class="bullet-text">${line.trim()}</span></div>`;
+                html += `<div class="rv-extras-item"><span class="bullet-dot">• </span><span class="bullet-text">${line.trim()}</span></div>`;
             });
         }
         rvActivities.innerHTML = html;
@@ -1915,6 +1915,93 @@ loadSectionOrder();
 
 
 
+
+
+/* 
+   DRAFT — Save & Import
+*/
+
+// Toast helper
+function showDraftToast(msg) {
+    let toast = document.getElementById('draftToast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'draftToast';
+        toast.className = 'draft-toast';
+        document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// Toggle dropdown
+const draftToggle = document.getElementById('draftToggle');
+const draftWrap   = draftToggle?.closest('.draft-dropdown-wrap');
+const draftMenu   = document.getElementById('draftMenu');
+
+draftToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    draftWrap.classList.toggle('open');
+});
+
+document.addEventListener('click', () => {
+    draftWrap?.classList.remove('open');
+});
+
+draftMenu?.addEventListener('click', (e) => e.stopPropagation());
+
+// ── SAVE DRAFT ──
+document.getElementById('saveDraft')?.addEventListener('click', () => {
+    // Snapshot all localStorage keys
+    const snapshot = {};
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        snapshot[key] = localStorage.getItem(key);
+    }
+
+    const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: 'application/json' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = `cvflow-draft-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    draftWrap.classList.remove('open');
+    showDraftToast('✓ Draft saved as JSON');
+});
+
+// ── IMPORT DRAFT ──
+document.getElementById('importDraft')?.addEventListener('click', () => {
+    document.getElementById('draftFileInput')?.click();
+    draftWrap.classList.remove('open');
+});
+
+document.getElementById('draftFileInput')?.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+        try {
+            const data = JSON.parse(ev.target.result);
+
+            // Restore into localStorage
+            localStorage.clear();
+            Object.entries(data).forEach(([k, v]) => localStorage.setItem(k, v));
+
+            showDraftToast('✓ Draft imported — reloading…');
+            setTimeout(() => location.reload(), 1000);
+        } catch {
+            showDraftToast('✗ Invalid draft file');
+        }
+    };
+    reader.readAsText(file);
+
+    // Reset input so same file can be re-imported
+    e.target.value = '';
+});
 
 
 
