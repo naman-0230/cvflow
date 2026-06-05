@@ -416,11 +416,10 @@ function renderEduPreview() {
     }
 
     rvEdu.innerHTML = eduEntries.map(e => {
-        const hasMeta = e.score || e.courses;
+        const hasMeta = e.courses;
         const meta = [
-            e.score ? e.score : '',
             e.courses ? `Courses: ${e.courses}` : ''
-        ].filter(Boolean).join(' | ');
+        ]
 
         return `
     <div class="rv-edu-entry">
@@ -429,7 +428,7 @@ function renderEduPreview() {
         <span class="rv-edu-place">${e.loc || ''}</span>
       </div>
       <div class="rv-edu-row">
-        <span class="rv-edu-inst">${e.inst || 'Institution Name'}</span>
+        <span class="rv-edu-inst">${e.inst || 'Institution Name'} - ${e.score || ''}</span>
         <span class="rv-edu-year">${e.year || ''}</span>
       </div>
       ${hasMeta ? `<div class="rv-edu-meta">${meta}</div>` : ''}
