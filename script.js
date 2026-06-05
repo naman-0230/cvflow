@@ -964,7 +964,7 @@ function renderProjectsPreview() {
         // Name + link on same row
         html += `<div class="rv-proj-row">
       <span class="rv-proj-name">${name || 'Untitled Project'}</span>
-      ${link ? `<a class="rv-proj-link" href="${link.startsWith('http') ? link : `https://${link}`}" target="_blank">${link}</a>` : ''}
+      ${link ? `<a class="rv-proj-link" href="${link.startsWith('http') ? link : `https://${link}`}" target="_blank">link</a>` : ''}
     </div>`;
 
         // Stack always on its own line (PDF style), not squeezed next to name
