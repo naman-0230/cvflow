@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CVFlow — ATS-Optimised Resume Builder</title>
+  <title>CVflow — ATS-Optimised Resume Builder</title>
+   <link rel="icon" href="CVFlow_favicon.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Lora:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link rel="stylesheet" href="landing.css" />
 </head>
@@ -15,104 +16,137 @@
   <!-- NAV -->
   <nav class="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">
-        <span class="logo-mark">◈</span>
-        CVflow
+      <a href="#" class="nav-brand">
+        <span class="brand-mark">◈</span>
+        <div class="brand-text">
+          <span class="brand-name">CVflow</span>
+          <span class="brand-sub">ATS-OPTIMISED BUILDER</span>
+        </div>
       </a>
       <div class="nav-links">
         <a href="#how">How it works</a>
         <a href="#features">Features</a>
         <a href="#templates">Templates</a>
       </div>
-      <a href="./editor.html" class="btn btn-sm">Build Resume →</a>
+      <a href="./editor.html" class="btn-primary nav-cta">Build Resume →</a>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
+
       <div class="hero-text">
-        <div class="hero-badge" data-aos="fade-down" data-aos-duration="600">
+        <div class="hero-badge" data-aos="fade-down" data-aos-duration="500">
           <span class="badge-dot"></span>
-          Free · AI-Powered · ATS-Ready
+          <span class="badge-label">ATS-friendly · AI-Powered</span>
         </div>
-        <h1 class="hero-title" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
-          Build resumes that<br />
-          <span class="gradient-text">actually get read.</span>
+
+        <h1 class="hero-title" data-aos="fade-up" data-aos-duration="600" data-aos-delay="80">
+          Resumes that get<br />
+          <span class="hero-title-serif">past the bots.</span>
         </h1>
-        <p class="hero-sub" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
-          CVflow helps you create ATS-optimised resumes in minutes —
-          with AI-assisted descriptions, live preview, and one-click PDF export.
+
+        <p class="hero-sub" data-aos="fade-up" data-aos-duration="600" data-aos-delay="160">
+          CVflow builds ATS-optimised resumes with AI-assisted descriptions,
+          live preview, and one-click PDF export — in minutes.
         </p>
-        <div class="hero-actions" data-aos="fade-up" data-aos-duration="600" data-aos-delay="350">
-          <a href="./editor.html" class="btn btn-primary">Start Building — It's Free</a>
-          <a href="#how" class="btn btn-ghost">See how it works ↓</a>
+
+        <div class="hero-actions" data-aos="fade-up" data-aos-duration="500" data-aos-delay="260">
+          <a href="./editor.html" class="btn-primary btn-lg">Start Building</a>
+          <a href="#how" class="btn-ghost btn-lg">See how it works ↓</a>
         </div>
-        <p class="hero-note" data-aos="fade-up" data-aos-duration="500" data-aos-delay="450">
-          No sign-up required. No credit card.
-        </p>
+
+    
       </div>
 
-      <div class="hero-visual" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+      <!-- Resume card mockup -->
+      <div class="hero-visual" data-aos="fade-left" data-aos-duration="700" data-aos-delay="180">
         <div class="resume-card">
-          <div class="resume-header">
-            <div class="resume-name" id="typedName"></div>
-            <div class="resume-contact">
-              <span class="contact-pill">📧 email@example.com</span>
-              <span class="contact-pill">📍 Jaipur, India</span>
+          <!-- Nav bar strip -->
+          <div class="rc-topbar">
+            <span class="rc-brand">◈ CVflow</span>
+            <div class="rc-ats">
+              <span class="rc-ats-label">ATS Score</span>
+              <div class="rc-ats-track"><div class="rc-ats-fill" id="rcAtsFill"></div></div>
+              <span class="rc-ats-val" id="rcAtsVal">0%</span>
             </div>
           </div>
-          <div class="resume-section">
-            <div class="section-label">Experience</div>
-            <div class="resume-item">
-              <div class="item-title">Frontend Developer Intern</div>
-              <div class="item-sub">Startup · Jun 2025 – Aug 2025</div>
-              <div class="item-line short"></div>
-              <div class="item-line medium"></div>
+          <!-- Document -->
+          <div class="rc-doc">
+            <div class="rc-doc-header">
+              <div class="rc-name" id="typedName"></div>
+              <div class="rc-contacts">
+                <span>developer@gmail.com</span>
+                <span class="rc-sep">·</span>
+                <span>Jaipur, India</span>
+              </div>
+              <div class="rc-rule"></div>
+            </div>
+            <div class="rc-section">
+              <div class="rc-sec-title">EXPERIENCE</div>
+              <div class="rc-entry-row">
+                <div>
+                  <div class="rc-entry-title">Frontend Developer Intern</div>
+                  <div class="rc-entry-sub">NKM Digital · Jun 2025 – Aug 2025</div>
+                </div>
+                <div class="rc-entry-date">Remote</div>
+              </div>
+              <div class="rc-lines">
+                <div class="rc-line l-90"></div>
+                <div class="rc-line l-75"></div>
+              </div>
+            </div>
+            <div class="rc-section">
+              <div class="rc-sec-title">SKILLS</div>
+              <div class="rc-skill-row">
+                <span class="rc-skill-cat">Frontend:</span>
+                <span class="rc-skill-vals">HTML5, CSS3, JavaScript (ES6+)</span>
+              </div>
+              <div class="rc-skill-row">
+                <span class="rc-skill-cat">Languages:</span>
+                <span class="rc-skill-vals">C, C++</span>
+              </div>
+            </div>
+            <div class="rc-section">
+              <div class="rc-sec-title">EDUCATION</div>
+              <div class="rc-entry-row">
+                <div class="rc-entry-title small">B.Tech — Information Technology</div>
+                <div class="rc-entry-date">2027</div>
+              </div>
+              <div class="rc-entry-sub">Jaipur Engineering College and Research Center</div>
             </div>
           </div>
-          <div class="resume-section">
-            <div class="section-label">Skills</div>
-            <div class="skills-row">
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">React</span>
-              <span class="skill-tag">CSS3</span>
-              <span class="skill-tag">Git</span>
-            </div>
-          </div>
-          <div class="resume-section">
-            <div class="section-label">Education</div>
-            <div class="item-title small">B.Tech — Information Technology</div>
-            <div class="item-sub">Graduating 2027</div>
-          </div>
-          <div class="ats-badge">
-            <span class="ats-dot"></span>
-            ATS Score: 94%
+          <!-- AI badge -->
+          <div class="rc-ai-badge">
+            <span class="rc-ai-dot"></span>
+            AI Assist — descriptions enhanced
           </div>
         </div>
-        <div class="card-glow"></div>
+        <div class="card-shadow"></div>
       </div>
     </div>
 
-    <div class="hero-stats" data-aos="fade-up" data-aos-duration="600" data-aos-delay="500">
+    <!-- Stats bar -->
+    <div class="hero-stats" data-aos="fade-up" data-aos-duration="500" data-aos-delay="400">
       <div class="stat">
         <span class="stat-num">3</span>
-        <span class="stat-label">Resume Templates</span>
+        <span class="stat-label">ATS Templates</span>
       </div>
-      <div class="stat-div"></div>
+      <div class="stat-divider"></div>
       <div class="stat">
         <span class="stat-num">AI</span>
         <span class="stat-label">Description Assist</span>
       </div>
-      <div class="stat-div"></div>
-      <div class="stat">
-        <span class="stat-num">100%</span>
-        <span class="stat-label">Free Forever</span>
-      </div>
-      <div class="stat-div"></div>
+      <div class="stat-divider"></div>
       <div class="stat">
         <span class="stat-num">PDF</span>
         <span class="stat-label">One-Click Export</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">Hybrid</span>
+        <span class="stat-label">Pay for premium features</span>
       </div>
     </div>
   </section>
@@ -122,67 +156,70 @@
     <div class="container">
       <div class="section-header" data-aos="fade-up">
         <span class="eyebrow">How it works</span>
-        <h2>From blank to hired,<br />in three steps.</h2>
+        <h2 class="section-title">From blank to hired<br />in three steps.</h2>
       </div>
       <div class="steps">
-        <div class="step" data-aos="fade-up" data-aos-delay="0">
+        <div class="step-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="step-num font-mono">01</div>
           <div class="step-icon">✦</div>
-          <h3>Fill in your details</h3>
-          <p>Enter your education, experience, skills, and projects. CVflow's smart form guides you section by section.</p>
+          <h3 class="step-title">Fill in your details</h3>
+          <p class="step-desc">Enter education, experience, skills, and projects. The smart form guides you section by section — no guessing.</p>
         </div>
         <div class="step-arrow" data-aos="fade-up" data-aos-delay="100">→</div>
-        <div class="step" data-aos="fade-up" data-aos-delay="150">
+        <div class="step-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="step-num font-mono">02</div>
           <div class="step-icon">◈</div>
-          <h3>Let AI enhance it</h3>
-          <p>Hit AI Assist on any description. It rewrites your text with ATS-friendly keywords and professional phrasing — instantly.</p>
+          <h3 class="step-title">Let AI enhance it</h3>
+          <p class="step-desc">Hit AI Assist on any description. It rewrites your text with ATS-friendly keywords and professional phrasing — instantly.</p>
         </div>
         <div class="step-arrow" data-aos="fade-up" data-aos-delay="250">→</div>
-        <div class="step" data-aos="fade-up" data-aos-delay="300">
+        <div class="step-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="step-num font-mono">03</div>
           <div class="step-icon">⬇</div>
-          <h3>Download your PDF</h3>
-          <p>Pick a template, preview live, and export a pixel-perfect PDF ready to send to recruiters.</p>
+          <h3 class="step-title">Download your PDF</h3>
+          <p class="step-desc">Pick a template, preview live, and export a pixel-perfect PDF ready to send to recruiters.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FEATURES -->
-  <section class="section section-dark" id="features">
+  <section class="section section-tinted" id="features">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
         <span class="eyebrow">Features</span>
-        <h2>Everything you need.<br />Nothing you don't.</h2>
+        <h2 class="section-title">Everything you need.<br />Nothing you don't.</h2>
       </div>
       <div class="features-grid">
         <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
           <div class="feature-icon">🤖</div>
-          <h4>AI Assist</h4>
-          <p>Automatically enhances your descriptions with recruiter-friendly language and relevant keywords.</p>
+          <h4 class="feature-title">AI Assist</h4>
+          <p class="feature-desc">Rewrites your descriptions with recruiter-friendly language and ATS keywords automatically.</p>
         </div>
-        <div class="feature-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="60">
           <div class="feature-icon">👁️</div>
-          <h4>Live Preview</h4>
-          <p>See your resume update in real time as you type. No page reloads, no guessing.</p>
+          <h4 class="feature-title">Live Preview</h4>
+          <p class="feature-desc">See your resume update in real time as you type. Exactly what you'll get in the PDF.</p>
         </div>
-        <div class="feature-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="120">
           <div class="feature-icon">🎨</div>
-          <h4>3 ATS Templates</h4>
-          <p>Classic, Minimal, and Sidebar layouts — all optimised to pass applicant tracking systems.</p>
+          <h4 class="feature-title">3 ATS Templates</h4>
+          <p class="feature-desc">Classic, Minimal, and Sidebar — all designed to clear applicant tracking systems.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="180">
+          <div class="feature-icon">⚡</div>
+          <h4 class="feature-title">Section Reordering</h4>
+          <p class="feature-desc">Drag sections to put your strongest content first — customised for every application.</p>
         </div>
         <div class="feature-card" data-aos="fade-up" data-aos-delay="240">
-          <div class="feature-icon">⚡</div>
-          <h4>Section Reordering</h4>
-          <p>Drag and drop sections to put your strongest content first — tailored to each job.</p>
-        </div>
-        <div class="feature-card" data-aos="fade-up" data-aos-delay="320">
           <div class="feature-icon">💾</div>
-          <h4>Save & Import Drafts</h4>
-          <p>Export your resume data as JSON and reload it anytime. Your work is never lost.</p>
+          <h4 class="feature-title">Save & Import Drafts</h4>
+          <p class="feature-desc">Export your data as JSON, reload it anytime. Your work is never lost between sessions.</p>
         </div>
-        <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
           <div class="feature-icon">📄</div>
-          <h4>One-Click PDF Export</h4>
-          <p>Download a clean, print-ready PDF in seconds. No watermarks, no paywalls.</p>
+          <h4 class="feature-title">One-Click PDF</h4>
+          <p class="feature-desc">Download a clean, print-ready PDF in seconds.</p>
         </div>
       </div>
     </div>
@@ -193,81 +230,93 @@
     <div class="container">
       <div class="section-header" data-aos="fade-up">
         <span class="eyebrow">Templates</span>
-        <h2>Pick your look.<br />All ATS-safe.</h2>
+        <h2 class="section-title">Pick your look.<br />All ATS-safe.</h2>
       </div>
       <div class="templates-grid">
-        <div class="template-card" data-aos="fade-up" data-aos-delay="0">
-          <div class="template-preview classic">
-            <div class="tp-name-block">
-              <div class="tp-line name-line"></div>
-              <div class="tp-line short"></div>
-            </div>
-            <div class="tp-divider"></div>
-            <div class="tp-section">
-              <div class="tp-label"></div>
-              <div class="tp-line medium"></div>
-              <div class="tp-line long"></div>
-              <div class="tp-line short"></div>
-            </div>
-            <div class="tp-section">
-              <div class="tp-label"></div>
-              <div class="tp-line long"></div>
-              <div class="tp-line medium"></div>
+
+        <div class="tpl-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="tpl-preview tpl-classic">
+            <div class="tpl-hbar"></div>
+            <div class="tpl-inner">
+              <div class="tpl-name-line"></div>
+              <div class="tpl-sub-line"></div>
+              <div class="tpl-rule"></div>
+              <div class="tpl-sec">
+                <div class="tpl-sec-label"></div>
+                <div class="tpl-l l80"></div>
+                <div class="tpl-l l60"></div>
+                <div class="tpl-l l70"></div>
+              </div>
+              <div class="tpl-sec">
+                <div class="tpl-sec-label"></div>
+                <div class="tpl-l l90"></div>
+                <div class="tpl-l l50"></div>
+              </div>
             </div>
           </div>
-          <div class="template-info">
-            <span class="template-name">Classic ATS</span>
-            <span class="template-tag best">Best for ATS</span>
+          <div class="tpl-info">
+            <span class="tpl-name">Classic ATS</span>
+            <span class="tpl-tag tpl-tag--green">Best for ATS</span>
           </div>
         </div>
 
-        <div class="template-card" data-aos="fade-up" data-aos-delay="120">
-          <div class="template-preview minimal">
-            <div class="tp-name-block centered">
-              <div class="tp-line name-line centered-line"></div>
-              <div class="tp-line short centered-line"></div>
-            </div>
-            <div class="tp-divider thin"></div>
-            <div class="tp-section">
-              <div class="tp-label small-label"></div>
-              <div class="tp-line medium"></div>
-              <div class="tp-line long"></div>
-            </div>
-            <div class="tp-section">
-              <div class="tp-label small-label"></div>
-              <div class="tp-line long"></div>
-              <div class="tp-line short"></div>
+        <div class="tpl-card" data-aos="fade-up" data-aos-delay="120">
+          <div class="tpl-preview tpl-minimal">
+            <div class="tpl-accent-bar"></div>
+            <div class="tpl-inner tpl-inner--padded">
+              <div class="tpl-name-line centered"></div>
+              <div class="tpl-sub-line centered"></div>
+              <div class="tpl-rule thin"></div>
+              <div class="tpl-sec">
+                <div class="tpl-sec-label small"></div>
+                <div class="tpl-l l75"></div>
+                <div class="tpl-l l55"></div>
+                <div class="tpl-l l85"></div>
+              </div>
+              <div class="tpl-sec">
+                <div class="tpl-sec-label small"></div>
+                <div class="tpl-l l65"></div>
+                <div class="tpl-l l80"></div>
+              </div>
             </div>
           </div>
-          <div class="template-info">
-            <span class="template-name">Minimal Clean</span>
-            <span class="template-tag">Modern Look</span>
+          <div class="tpl-info">
+            <span class="tpl-name">Minimal Clean</span>
+            <span class="tpl-tag tpl-tag--blue">Modern Look</span>
           </div>
         </div>
 
-        <div class="template-card" data-aos="fade-up" data-aos-delay="240">
-          <div class="template-preview sidebar">
-            <div class="tp-sidebar-col">
-              <div class="tp-line short white-line"></div>
-              <div class="tp-line shorter white-line"></div>
+        <div class="tpl-card" data-aos="fade-up" data-aos-delay="240">
+          <div class="tpl-preview tpl-sidebar">
+            <div class="tpl-sidebar-col">
+              <div class="tpl-l l70 white-l"></div>
+              <div class="tpl-l l50 white-l"></div>
               <div style="height:10px"></div>
-              <div class="tp-line shorter white-line"></div>
-              <div class="tp-line shorter white-line"></div>
+              <div class="tpl-l l60 white-l"></div>
+              <div class="tpl-l l60 white-l"></div>
+              <div class="tpl-l l40 white-l"></div>
             </div>
-            <div class="tp-main-col">
-              <div class="tp-line name-line dark-line"></div>
-              <div class="tp-divider"></div>
-              <div class="tp-line medium dark-line"></div>
-              <div class="tp-line long dark-line"></div>
-              <div class="tp-line short dark-line" style="margin-top:8px"></div>
-              <div class="tp-line medium dark-line"></div>
+            <div class="tpl-main-col">
+              <div class="tpl-name-line"></div>
+              <div class="tpl-rule"></div>
+              <div class="tpl-sec">
+                <div class="tpl-sec-label"></div>
+                <div class="tpl-l l80"></div>
+                <div class="tpl-l l60"></div>
+              </div>
+              <div class="tpl-sec">
+                <div class="tpl-sec-label"></div>
+                <div class="tpl-l l70"></div>
+                <div class="tpl-l l50"></div>
+              </div>
             </div>
           </div>
-          <div class="template-info">
-            <span class="template-name">Sidebar Modern</span>
-            <span class="template-tag">Stands Out</span>
+          <div class="tpl-info">
+            <span class="tpl-name">Sidebar Modern</span>
+            <span class="tpl-tag tpl-tag--purple">Stands Out</span>
           </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -276,10 +325,10 @@
   <section class="cta-section" data-aos="fade-up">
     <div class="container">
       <div class="cta-box">
-        <div class="cta-glow"></div>
-        <h2>Your next opportunity<br />starts with a great resume.</h2>
-        <p>Build yours in minutes. Free, forever.</p>
-        <a href="./editor.html" class="btn btn-primary btn-lg">Build My Resume →</a>
+        <span class="eyebrow">Ready?</span>
+        <h2 class="cta-title">Your next opportunity<br />starts with a great resume.</h2>
+        <p class="cta-sub">Build yours in minutes.</p>
+        <a href="./editor.html" class="btn-primary btn-lg">Build My Resume →</a>
       </div>
     </div>
   </section>
@@ -287,11 +336,17 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-inner">
-      <a href="#" class="nav-logo">
-        <span class="logo-mark">◈</span>
-        CVflow
+      <a href="#" class="nav-brand">
+        <span class="brand-mark">◈</span>
+        <div class="brand-text">
+          <span class="brand-name">CVflow</span>
+          <span class="brand-sub">ATS-OPTIMISED BUILDER</span>
+        </div>
       </a>
-      <p class="footer-note">Built for students and freshers. Free forever.</p>
+      <p class="footer-note">Built for students and freshers.</p>
+      <div class="footer-note">
+        <p>Contact us: <a href="mailto:calctanned@gmail.com">calctanned@gmail.com</a></p>
+      </div>
     </div>
   </footer>
 
